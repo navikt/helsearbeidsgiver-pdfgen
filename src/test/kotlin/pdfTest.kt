@@ -1,69 +1,34 @@
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.junit.jupiter.api.Test
-import org.testcontainers.containers.GenericContainer
-import org.testcontainers.junit.jupiter.Container
-import org.testcontainers.junit.jupiter.Testcontainers
+import org.junit.jupiter.api.DynamicTest
+import org.junit.jupiter.api.DynamicTest.dynamicTest
+import org.junit.jupiter.api.TestFactory
 import java.io.File
-import java.nio.file.Paths
-import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
-@Testcontainers
 class PdfTest {
-
-    @Container
-    val pdfGenContainer: GenericContainer<*> = GenericContainer("flex-sykepengesoknad-pdfgen:latest")
-        .withExposedPorts(8080)
-        .withFileSystemBind(
-            Paths.get("templates").toAbsolutePath().toString(),
-            "/app/templates"
-        )
-        .withFileSystemBind(
-            Paths.get("fonts").toAbsolutePath().toString(),
-            "/app/fonts"
-        )
-        .withFileSystemBind(
-            Paths.get("resources").toAbsolutePath().toString(),
-            "/app/resources"
-        )
-
-    @Test
-    fun `test PDF generation with sykmelding data`() {
-        // Read the JSON data
+    @TestFactory
+    fun `sykmelding PDF inneholder forventet tekst`(): List<DynamicTest?> {
         val jsonData = File("data/sykmelding/sykmelding.json").readText()
+        val pdfBytes = makePdfRequest("/api/v1/genpdf/sykmelding/sykmelding", jsonData)
+        File("response.pdf").writeBytes(pdfBytes)
+        val pdfText = pdfBytes.toText()
 
-        // Get the mapped port
-        val port = pdfGenContainer.getMappedPort(8080)
-        val baseUrl = "http://localhost:$port"
+        println("PDF text content (first 200 chars): ${pdfText.take(200)}...")
 
-        // Create HTTP client
-        val client = OkHttpClient()
-
-        // Create request body
-        val mediaType = "application/json".toMediaType()
-        val body = jsonData.toRequestBody(mediaType)
-
-        // Build the request
-        val request = Request.Builder()
-            .url("$baseUrl/api/v1/genpdf/sykmelding/sykmelding")
-            .post(body)
-            .build()
-
-        // Execute the request
-        val response = client.newCall(request).execute()
-
-        // Assert 200 OK
-        assertEquals(200, response.code, "Expected HTTP 200 OK")
-
-        // Save the response as PDF
-        val pdfBytes = response.body?.bytes()
-        if (pdfBytes != null) {
-            File("response.pdf").writeBytes(pdfBytes)
-            println("PDF saved to response.pdf")
+        val forvententInnhold =
+            listOf(
+                "Sykmelding",
+                "Ola Nordmann",
+                "12345678901",
+                "c8cdcb93-75d3-4461-b09e-454a1ccd55a2",
+                "Perioder i sykmeldingen",
+            )
+        return forvententInnhold.map { forventent ->
+            dynamicTest(forventent) {
+                assertTrue(
+                    pdfText.contains(forventent),
+                    "Forvent at PDF skal inneholde '$forventent' but det var ikke funnet. PDF content: $pdfText",
+                )
+            }
         }
-
-        response.close()
     }
 }

@@ -19,10 +19,13 @@ dependencies {
     testImplementation("org.testcontainers:testcontainers:1.19.3")
     testImplementation("org.testcontainers:junit-jupiter:1.19.3")
     testImplementation("com.squareup.okhttp3:okhttp:4.12.0")
+    testImplementation("org.slf4j:slf4j-simple:2.0.9")
+    testImplementation("org.apache.pdfbox:pdfbox:3.0.1")
 }
 
 tasks.test {
     useJUnitPlatform()
+    systemProperty("junit.jupiter.testclass.order.default", "org.junit.jupiter.api.ClassOrderer\$OrderAnnotation")
 }
 
 tasks.withType<KotlinCompile> {
@@ -35,4 +38,3 @@ tasks.withType<KotlinCompile> {
 kotlin {
     jvmToolchain(21)
 }
-
