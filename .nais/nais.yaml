@@ -39,3 +39,5 @@ spec:
     logging:
       destinations:
         - id: loki
+  ingresses:
+    - https://helsearbeidsgiver-pdfgen.intern.dev.nav.no
