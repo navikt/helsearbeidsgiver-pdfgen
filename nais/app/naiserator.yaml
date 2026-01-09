@@ -1,0 +1,41 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: helsearbeidsgiver-pdfgen
+  namespace: helsearbeidsgiver
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "20M"
+  labels:
+    team: helsearbeidsgiver
+spec:
+  image: {{ image }}
+  port: 8080
+  replicas:
+    min: {{replicas_min}}
+    max: {{replicas_max}}
+    scalingStrategy:
+      cpu:
+        thresholdPercentage: 80
+  liveness:
+    path: /internal/is_alive
+  readiness:
+    path: /internal/is_ready
+  startup:
+    path: /internal/is_alive
+    initialDelay: 10
+  prometheus:
+    enabled: true
+    path: /internal/prometheus
+  resources:
+    limits:
+      memory: {{memory}}
+    requests:
+      cpu: {{cpu}}
+      memory: {{memory}}
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: java
+    logging:
+      destinations:
+        - id: loki
