@@ -1,19 +1,17 @@
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
-import java.io.File
 import kotlin.test.assertTrue
+
+const val SYKMELDING_PDF_ROUTE = "/api/v1/genpdf/sykmelding/sykmelding"
 
 class PdfTest {
     @TestFactory
     fun `sykmelding PDF inneholder forventet tekst`(): List<DynamicTest?> {
-        val jsonData = File("data/sykmelding/sykmelding.json").readText()
-        val pdfBytes = makePdfRequest("/api/v1/genpdf/sykmelding/sykmelding", jsonData)
-        File("response.pdf").writeBytes(pdfBytes)
+        val jsonData = SYKMELDING_JSON
+        val pdfBytes = hentPdf(SYKMELDING_PDF_ROUTE, jsonData)
+        pdfBytes.lagreTestPdf("sykmelding")
         val pdfText = pdfBytes.toText()
-
-        println("PDF text content (first 200 chars): ${pdfText.take(200)}...")
 
         val forvententInnhold =
             listOf(
@@ -27,14 +25,9 @@ class PdfTest {
             dynamicTest(forventent) {
                 assertTrue(
                     pdfText.contains(forventent),
-                    "Forvent at PDF skal inneholde '$forventent' but det var ikke funnet. PDF content: $pdfText",
+                    "Forvent at PDF skal inneholde '$forventent' men det var ikke funnet. PDF content: $pdfText",
                 )
             }
         }
-    }
-
-    @Test
-    fun `test som skal feile`() {
-        assertTrue(false, "Test som skal feile")
     }
 }

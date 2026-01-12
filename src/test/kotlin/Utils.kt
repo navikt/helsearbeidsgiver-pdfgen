@@ -4,7 +4,17 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.apache.pdfbox.Loader
 import org.apache.pdfbox.text.PDFTextStripper
+import java.io.File
 import java.time.Duration
+
+val SYKMELDING_JSON = File("data/sykmelding/sykmelding.json").readText()
+
+fun ByteArray.lagreTestPdf(navn: String) {
+    val testPdfDir = File("build/test-pdf").apply { mkdirs() }
+    val pdfFile = File(testPdfDir, "$navn.pdf")
+    pdfFile.writeBytes(this)
+    println("PDF lagret til: ${pdfFile.absolutePath}")
+}
 
 fun ByteArray.toText(): String {
     val pdfDocument = Loader.loadPDF(this)
@@ -14,7 +24,7 @@ fun ByteArray.toText(): String {
     return extractedText
 }
 
-fun makePdfRequest(
+fun hentPdf(
     route: String,
     jsonBody: String,
 ): ByteArray {
