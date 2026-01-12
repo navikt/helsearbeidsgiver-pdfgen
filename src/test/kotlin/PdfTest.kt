@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.io.File
 import kotlin.test.assertTrue
@@ -30,5 +31,10 @@ class PdfTest {
                 )
             }
         }
+    }
+
+    @Test
+    fun `test som skal feile`() {
+        assertTrue(false, "Skal feile")
     }
 }
