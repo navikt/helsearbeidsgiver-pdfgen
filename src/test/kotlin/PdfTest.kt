@@ -35,6 +35,6 @@ class PdfTest {
 
     @Test
     fun `test som skal feile`() {
-        assertTrue(false, "Skal feile")
+        assertTrue(false, "Test som skal feile")
     }
 }
