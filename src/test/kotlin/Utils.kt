@@ -1,11 +1,16 @@
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.apache5.Apache5
+import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.client.statement.readBytes
+import io.ktor.http.ContentType
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.contentType
+import kotlinx.coroutines.runBlocking
 import org.apache.pdfbox.Loader
 import org.apache.pdfbox.text.PDFTextStripper
 import java.io.File
-import java.time.Duration
 
 val SYKMELDING_JSON = File("data/sykmelding/sykmelding.json").readText()
 
@@ -27,32 +32,31 @@ fun ByteArray.toText(): String {
 fun hentPdf(
     route: String,
     jsonBody: String,
-): ByteArray {
-    val client =
-        OkHttpClient
-            .Builder()
-            .connectTimeout(Duration.ofSeconds(10))
-            .readTimeout(Duration.ofSeconds(30))
-            .writeTimeout(Duration.ofSeconds(10))
-            .build()
+): ByteArray =
+    runBlocking {
+        val client =
+            HttpClient(Apache5) {
+                install(HttpTimeout) {
+                    requestTimeoutMillis = 60000
+                    connectTimeoutMillis = 30000
+                    socketTimeoutMillis = 60000
+                }
+            }
 
-    // start test container om den ikke allerede er startet
-    SharedTestContainer.container
-    val url = "${SharedTestContainer.endepunkt}$route"
+        SharedTestContainer.container
+        val url = "${SharedTestContainer.endepunkt}$route"
 
-    val request =
-        Request
-            .Builder()
-            .url(url)
-            .post(jsonBody.toRequestBody("application/json".toMediaType()))
-            .build()
+        val response =
+            client.post(url) {
+                contentType(ContentType.Application.Json)
+                setBody(jsonBody)
+            }
 
-    client.newCall(request).execute().use { response ->
-        if (response.code != 200) {
-            throw RuntimeException("Expected HTTP 200 OK but got ${response.code}")
+        client.close()
+
+        if (response.status != HttpStatusCode.OK) {
+            throw RuntimeException("Expected HTTP 200 OK but got ${response.status}")
         }
 
-        return response.body?.bytes()
-            ?: throw RuntimeException("Response body was empty")
+        response.readBytes()
     }
-}
