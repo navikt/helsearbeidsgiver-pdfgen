@@ -39,5 +39,9 @@ spec:
     logging:
       destinations:
         - id: loki
+  accessPolicy:
+    inbound:
+      rules:
+        - application: sykepenger-im-lps-api
   ingresses:
     - https://helsearbeidsgiver-pdfgen.intern.dev.nav.no
