@@ -13,19 +13,9 @@ private val PDF_TEKST: String =
         pdfBytes.toText()
     }
 
-class PdfTest {
-    private fun String.skalInneholde(vararg forventetInnhold: String): List<DynamicTest> =
-        forventetInnhold.asList().map { forventent ->
-            dynamicTest(forventent) {
-                assertTrue(
-                    this.contains(forventent),
-                    "Forvent at PDF skal inneholde '$forventent' men det var ikke funnet. PDF content: $PDF_TEKST",
-                )
-            }
-        }
-
+class SykmeldingPdfTest {
     @TestFactory
-    fun `sykmelding har involverte parter`(): List<DynamicTest> =
+    fun `sykmelding PDF har involverte parter`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Sykmeldingen gjelder",
             "sykmeldt_navn",
@@ -42,7 +32,7 @@ class PdfTest {
         )
 
     @TestFactory
-    fun `sykmelding har metadata`(): List<DynamicTest> =
+    fun `sykmelding PDF har metadata`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Sykmelding",
             "Mottatt av Nav",
@@ -52,7 +42,7 @@ class PdfTest {
         )
 
     @TestFactory
-    fun `sykmelding har perioder`(): List<DynamicTest> =
+    fun `sykmelding PDF har perioder`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Perioder i sykmeldingen",
             "Sykefravær fra:",
@@ -65,7 +55,7 @@ class PdfTest {
         )
 
     @TestFactory
-    fun `sykmelding har egenmeldingsdager`(): List<DynamicTest> =
+    fun `sykmelding PDF har egenmeldingsdager`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Egenmeldingsdager",
             "Oppgitt av ansatt selv ved bekreftelse av sykmelding.",
@@ -74,7 +64,7 @@ class PdfTest {
         )
 
     @TestFactory
-    fun `sykmelding har oppfølging`(): List<DynamicTest> =
+    fun `sykmelding PDF har oppfølging`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Oppfølging",
             "Prognose og hensyn etter sykefravær",
