@@ -1,0 +1,52 @@
+{
+  "loepenr": 777777,
+  "sykmeldingId": "sykmelding_id",
+  "mottattAvNav": "2023-01-01T01:23:45.678Z",
+  "sykmeldt": {
+    "fnr": "sykmeldt_fnr",
+    "navn": "sykmeldt_navn"
+  },
+  "egenmeldingsdager": [
+    {
+      "fom": "2026-01-01",
+      "tom": "2026-01-02"
+    }
+  ],
+  "sykefravaerFom": "2026-01-01",
+  "sykmeldingPerioder": [
+    {
+      "fom": "2026-01-03",
+      "tom": "2026-01-24",
+      "aktivitet": {
+        "avventendeSykmelding": "avventendeSykmelding",
+        "gradertSykmelding": {
+          "sykmeldingsgrad": 50,
+          "harReisetilskudd": true
+        },
+        "aktivitetIkkeMulig": {
+          "manglendeTilretteleggingPaaArbeidsplassen": true,
+          "beskrivelse": "aktivitetIkkeMulig_beskrivelse"
+        },
+        "antallBehandlingsdagerUke": 1,
+        "harReisetilskudd": true
+      }
+    }
+  ],
+  "oppfoelging": {
+    "prognose": {
+      "erArbeidsfoerEtterEndtPeriode": true,
+      "beskrivHensynArbeidsplassen": "oppfoelging_beskrivHensynArbeidsplassen"
+    },
+    "meldingTilArbeidsgiver": "oppfoelging_meldingTilArbeidsgiver",
+    "tiltakArbeidsplassen": "oppfoelging_tiltakArbeidsplassen"
+  },
+  "kontaktMedPasient": "2025-01-01T01:23:45.678Z",
+  "behandler": {
+    "navn": "behandler_navn",
+    "tlf": "behandler_tlf"
+  },
+  "arbeidsgiver": {
+    "navn": "arbeidsgiver_navn",
+    "orgnr": "arbeidsgiver_orgnr"
+  }
+}

@@ -12,7 +12,7 @@ import org.apache.pdfbox.Loader
 import org.apache.pdfbox.text.PDFTextStripper
 import java.io.File
 
-val SYKMELDING_JSON = File("data/sykmelding/sykmelding.json").readText()
+val SYKMELDING_JSON = File("src/test/resources/standard_sykmelding.json").readText()
 
 fun ByteArray.lagreTestPdf(navn: String) {
     val testPdfDir = File("build/test-pdf").apply { mkdirs() }
