@@ -5,29 +5,28 @@ import kotlin.test.assertTrue
 
 const val SYKMELDING_PDF_ROUTE = "/api/v1/genpdf/sykmelding/sykmelding"
 
-class PdfTest {
-    companion object {
-        private val pdfText: String by lazy {
-            val jsonData = SYKMELDING_JSON
-            val pdfBytes = hentPdf(SYKMELDING_PDF_ROUTE, jsonData)
-            pdfBytes.lagreTestPdf("sykmelding")
-            pdfBytes.toText()
-        }
+private val PDF_TEKST: String =
+    run {
+        val jsonData = SYKMELDING_JSON
+        val pdfBytes = hentPdf(SYKMELDING_PDF_ROUTE, jsonData)
+        pdfBytes.lagreTestPdf("sykmelding")
+        pdfBytes.toText()
     }
 
+class PdfTest {
     private fun String.skalInneholde(vararg forventetInnhold: String): List<DynamicTest> =
         forventetInnhold.asList().map { forventent ->
             dynamicTest(forventent) {
                 assertTrue(
                     this.contains(forventent),
-                    "Forvent at PDF skal inneholde '$forventent' men det var ikke funnet. PDF content: $pdfText",
+                    "Forvent at PDF skal inneholde '$forventent' men det var ikke funnet. PDF content: $PDF_TEKST",
                 )
             }
         }
 
     @TestFactory
     fun `sykmelding har involverte parter`(): List<DynamicTest> =
-        pdfText.skalInneholde(
+        PDF_TEKST.skalInneholde(
             "Sykmeldingen gjelder",
             "sykmeldt_navn",
             "Fødselsnummer",
@@ -44,7 +43,7 @@ class PdfTest {
 
     @TestFactory
     fun `sykmelding har metadata`(): List<DynamicTest> =
-        pdfText.skalInneholde(
+        PDF_TEKST.skalInneholde(
             "Sykmelding",
             "Mottatt av Nav",
             "01.01.2023 01:23",
@@ -54,7 +53,7 @@ class PdfTest {
 
     @TestFactory
     fun `sykmelding har perioder`(): List<DynamicTest> =
-        pdfText.skalInneholde(
+        PDF_TEKST.skalInneholde(
             "Perioder i sykmeldingen",
             "Sykefravær fra:",
             "2026-01-01",
@@ -67,7 +66,7 @@ class PdfTest {
 
     @TestFactory
     fun `sykmelding har egenmeldingsdager`(): List<DynamicTest> =
-        pdfText.skalInneholde(
+        PDF_TEKST.skalInneholde(
             "Egenmeldingsdager",
             "Oppgitt av ansatt selv ved bekreftelse av sykmelding.",
             "2026-01-01",
@@ -76,7 +75,7 @@ class PdfTest {
 
     @TestFactory
     fun `sykmelding har oppfølging`(): List<DynamicTest> =
-        pdfText.skalInneholde(
+        PDF_TEKST.skalInneholde(
             "Oppfølging",
             "Prognose og hensyn etter sykefravær",
             "Arbeidsfør etter endt periode",
