@@ -10,9 +10,12 @@ import io.ktor.http.contentType
 import kotlinx.coroutines.runBlocking
 import org.apache.pdfbox.Loader
 import org.apache.pdfbox.text.PDFTextStripper
+import org.junit.jupiter.api.DynamicTest
+import org.junit.jupiter.api.DynamicTest.dynamicTest
 import java.io.File
+import kotlin.test.assertTrue
 
-val SYKMELDING_JSON = File("data/sykmelding/sykmelding.json").readText()
+val SYKMELDING_JSON = File("src/test/resources/standard_sykmelding.json").readText()
 
 fun ByteArray.lagreTestPdf(navn: String) {
     val testPdfDir = File("build/test-pdf").apply { mkdirs() }
@@ -59,4 +62,14 @@ fun hentPdf(
         }
 
         response.readBytes()
+    }
+
+fun String.skalInneholde(vararg forventetInnhold: String): List<DynamicTest> =
+    forventetInnhold.asList().map { forventent ->
+        dynamicTest(forventent) {
+            assertTrue(
+                this.contains(forventent),
+                "Forvent at PDF skal inneholde '$forventent' men det var ikke funnet. PDF content: $this",
+            )
+        }
     }
