@@ -4,6 +4,7 @@ import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.readBytes
+import io.ktor.client.statement.readRawBytes
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
@@ -61,7 +62,7 @@ fun hentPdf(
             throw RuntimeException("Expected HTTP 200 OK but got ${response.status}")
         }
 
-        response.readBytes()
+        response.readRawBytes()
     }
 
 fun String.skalInneholde(vararg forventetInnhold: String): List<DynamicTest> =
