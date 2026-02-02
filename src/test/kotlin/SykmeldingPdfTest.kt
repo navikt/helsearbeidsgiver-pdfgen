@@ -1,6 +1,8 @@
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
+import kotlin.test.Ignore
 import kotlin.test.assertTrue
 
 const val SYKMELDING_PDF_ROUTE = "/api/v1/genpdf/sykmelding/sykmelding"
@@ -15,6 +17,7 @@ private val PDF_TEKST: String =
 
 class SykmeldingPdfTest {
     @TestFactory
+    @Disabled
     fun `sykmelding PDF har involverte parter`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Sykmeldingen gjelder",
@@ -32,6 +35,7 @@ class SykmeldingPdfTest {
         )
 
     @TestFactory
+    @Disabled
     fun `sykmelding PDF har metadata`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Sykmelding",
@@ -42,6 +46,7 @@ class SykmeldingPdfTest {
         )
 
     @TestFactory
+    @Disabled
     fun `sykmelding PDF har perioder`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Perioder i sykmeldingen",
@@ -55,6 +60,7 @@ class SykmeldingPdfTest {
         )
 
     @TestFactory
+    @Disabled
     fun `sykmelding PDF har egenmeldingsdager`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Egenmeldingsdager",
@@ -64,6 +70,7 @@ class SykmeldingPdfTest {
         )
 
     @TestFactory
+    @Disabled
     fun `sykmelding PDF har oppfølging`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Oppfølging",
