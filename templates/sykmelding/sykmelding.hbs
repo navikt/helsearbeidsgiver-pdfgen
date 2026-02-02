@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="no" lang="no">
+<html lang="NO">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    {{!-- TODO: Er det noe vits å inkludere dette? Hva burde stå her? Er krav mtp. accesibility  --}}
     <meta name="description" content="Sykmelding for {{sykmeldt.navn}}{{#if behandler}} utstedt av {{behandler.navn}}{{/if}}. Dokumentet inneholder sykemeldingsperioder, egenmeldingsdager, og oppfølgingsinformasjon." />
     <meta name="subject" content="Sykmelding" />
     {{#if behandler}}
@@ -53,13 +54,31 @@
 
         table { width: 100%; border-collapse: collapse; }
 
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 500;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 12px;
+            margin-top: 30px;
+            margin-bottom: 5px;
+        }
+
         .main-title { font-size: 32px; font-weight: 700; }
 
         .metadata-text { color: #666; }
 
         .info-box-table {
+            display: table;
+            width: 100%;
             margin-top: 10px;
-            margin-bottom: -5px;
+            margin-bottom: 40px;
             border-collapse: separate;
         }
         .box-patient {
@@ -75,14 +94,6 @@
         .box-patient .label-small { color: white; }
         .box-employer .label-small { color: black; }
 
-        .section-header {
-            font-size: 20px;
-            font-weight: 500;
-            border-top: 1px solid #e0e0e0;
-            padding-top: 12px;
-            margin-top: 30px;
-            margin-bottom: 5px;
-        }
 
         .section-subtitle {
             margin-bottom: 10px;
@@ -99,7 +110,7 @@
             border-radius: 14px;
         }
 
-        .period-row .period-type { width: 20%; }
+        .period-row .period-type { width: 26%; }
         .period-row .period-dates { width: 35%; }
 
         .doctor-card {
@@ -128,88 +139,120 @@
 </head>
 <body>
 
+{{!-- TODO: Skal slettes, ikke del av designet --}}
 <img alt="NAV logo" class="navlogo" src="{{ image "logo.png" }}"/>
 
-<table>
-    <tr>
-        <td class="main-title">Sykmelding</td>
-    </tr>
-</table>
+<h1>Sykmelding</h1>
 
-<table style="margin-top: 8px;">
-    <tr>
-        <td style="text-align: left;" class="metadata-text text-sm">
+{{!-- bruker display: table da dette anbefales av openHTMLtoPDF for accesibility --}}
+{{!-- Avoid using table elements for layout. Instead, if desiring a table based layout, use a div with display: table, display: table-row, etc. --}}
+<div style="margin-top: 8px; display: table; width: 100%;">
+    <div style="display: table-row;">
+        <div style="display: table-cell; text-align: left;" class="metadata-text text-sm">
             Mottatt av Nav {{ iso_to_nor_datetime mottattAvNav}}
-        </td>
-        <td style="text-align: right;" class="metadata-text text-sm">
+        </div>
+        <div style="display: table-cell; text-align: right;" class="metadata-text text-sm">
             Sykmeldings-ID: {{sykmeldingId}}
-        </td>
-    </tr>
-</table>
+        </div>
+    </div>
+</div>
 
-<table class="info-box-table" cellspacing="0" cellpadding="0">
-    <tr>
-        <td>
+<div class="info-box-table">
+    <div style="display: table-row;">
+        <div style="display: table-cell;">
             <div class="box-patient rounded-md">
                 <div class="label-small text-xs mb-1 font-semibold">Sykmeldingen gjelder</div>
                 <div class="text-bold identity-name text-xl mb-2">{{sykmeldt.navn}}</div>
                 <div class="label-small text-xs mb-1 font-semibold">Fødselsnummer</div>
                 <div class="text-regular">{{sykmeldt.fnr}}</div>
             </div>
-        </td>
-        <td>
+        </div>
+        <div style="display: table-cell;">
             <div class="box-employer bg-light-blue rounded-md">
                 <div class="label-small text-xs mb-1 font-semibold">Arbeidsgiver</div>
                 <div class="text-bold identity-name text-xl mb-2">{{arbeidsgiver.navn}}</div>
                 <div class="label-small text-xs mb-1 font-semibold">Organisasjonsnummer</div>
                 <div class="text-regular">{{arbeidsgiver.orgnr}}</div>
             </div>
-        </td>
-    </tr>
-</table>
-
-<div class="section-header">Perioder i sykmeldingen</div>
-{{#if sykefravaerFom}}
-<div class="text-thin mb-3 text-sm">Sykefravær fra: {{sykefravaerFom}}</div>
-{{/if}}
-
-{{#each sykmeldingPerioder}}
-<div class="period-row text-sm">
-    <table>
-        <tr>
-            <td class="period-type font-semibold">{{aktivitetBeskrivelse}}</td>
-            <td class="period-dates">{{ fom }} – {{ tom }}</td>
-            <td class="text-thin">
-                {{#if aktivitet.harReisetilskudd}}
-                Med reisetilskudd
-                {{/if}}
-                {{#if aktivitet.aktivitetIkkeMulig}}
-                    {{#if aktivitet.aktivitetIkkeMulig.manglendeTilretteleggingPaaArbeidsplassen}}
-                    Manglende tilrettelegging på arbeidsplassen
-                    {{/if}}
-                    {{#if aktivitet.aktivitetIkkeMulig.beskrivelse}}
-                    {{aktivitet.aktivitetIkkeMulig.beskrivelse}}
-                    {{/if}}
-                {{/if}}
-            </td>
-        </tr>
-    </table>
+        </div>
+    </div>
 </div>
-{{/each}}
+<div>
+    <h2>Perioder i sykmeldingen</h2>
+    {{#if sykefravaerFom}}
+    <div class="text-thin mb-3 text-sm">Sykefravær fra: {{sykefravaerFom}}</div>
+    {{/if}}
 
+    {{#each sykmeldingPerioder}}
+    <div class="period-row text-sm">
+        <table>
+            <tr>
+                <td class="period-type font-semibold">
+                    {{!-- Teoretisk skal bare en av disse true, om ikke aksepterer vi rar formattering --}}
+
+                    {{#if aktivitet.aktivitetIkkeMulig}}
+                        100% sykmeldt
+                    {{/if}}
+                    {{#if aktivitet.gradertSykmelding}}
+                        {{aktivitet.gradertSykmelding.sykmeldingsgrad}}% sykmeldt
+                    {{/if}}
+                    {{#if aktivitet.avventendeSykmelding}}
+                        Avventende sykmelding
+                    {{/if}}
+                    {{#if aktivitet.antallBehandlingsdagerUke}}
+                        Behadlingsdager
+                    {{/if}}
+                    {{#if aktivitet.harReisetilskudd}}
+                        Reisetilskudd
+                    {{/if}}
+
+                    </td>
+                <td class="period-dates">
+                    {{ iso_to_date fom }} – {{ iso_to_date tom }}
+                    {{!-- TODO: antall dager må plusses med 1 --}}
+                    ({{duration fom tom}}{{#eq (duration fom tom) 1}} dag{{else}} dager{{/eq}})
+                </td>
+                <td class="text-thin">
+                    {{#if aktivitet.gradertSykmelding}}
+                        {{#if aktivitet.gradertSykmelding.harReisetilskudd}}
+                            Med reisetilskudd
+                        {{else}}
+                            Uten reisetilskudd
+                        {{/if}}
+                    {{/if}}
+
+                    {{#if aktivitet.aktivitetIkkeMulig}}
+                        {{#if aktivitet.aktivitetIkkeMulig.manglendeTilretteleggingPaaArbeidsplassen}}
+                            Manglende tilrettelegging på arbeidsplassen
+                        {{/if}}
+                    {{/if}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    {{/each}}
+</div>
+
+<h2>Egenmeldingsdager</h2>
 {{#if egenmeldingsdager}}
 {{#if egenmeldingsdager.length}}
-<div class="section-header">Egenmeldingsdager</div>
 <div class="text-thin section-subtitle" style="color: #555555">Oppgitt av ansatt selv ved bekreftelse av sykmelding.</div>
 <table>
     {{#each egenmeldingsdager}}
-    <tr><td class="text-regular">{{fom}} – {{tom}}</td></tr>
+    <tr><td class="text-regular">
+        {{ iso_to_date fom }} – {{ iso_to_date tom }}
+        {{!-- TODO: antall dager må plusses med 1 --}}
+        ({{duration fom tom}}{{#eq (duration fom tom) 1}} dag{{else}} dager{{/eq}})
+    </td></tr>
     {{/each}}
 </table>
 {{/if}}
+{{else}}
+{{!-- TODO: lagt til som placeholder, hva skal stå her? --}}
+<div class="text-thin section-subtitle" style="color: #555555">Ingen dager valgt.</div>
 {{/if}}
 
-<div class="section-header">Oppfølging</div>
+<h2>Oppfølging</h2>
 <table>
     {{#if oppfoelging.prognose}}
     <tr>
@@ -240,27 +283,39 @@
         </td>
     </tr>
     {{/if}}
+    {{!-- forventer at det alltid er bare en aktivitetIkkeMulig.beskrivelse, om ikke aksepterer vi rar formattering  --}}
+    {{#each sykmeldingPerioder}}
+        {{#if aktivitet.aktivitetIkkeMulig.beskrivelse}}
+                <tr>
+                    <td>
+                        <div class="text-bold">Forhold på arbeidsplassen vanskeliggjør arbeidsrelatert aktivitet</div>
+                        <div class="text-thin">{{aktivitet.aktivitetIkkeMulig.beskrivelse}}</div>
+                    </td>
+                </tr>
+            {{/if}}
+    {{/each}}
 </table>
 
 {{#if behandler}}
+{{!-- TODO: er <hr/> bad practice? skal denne byttes --}}
 <hr/>
-<table cellspacing="0" cellpadding="0">
-    <tr>
-        <td style="width: 45%;">
+<div style="display: table; width: 100%; border-spacing: 0;">
+    <div style="display: table-row;">
+        <div style="display: table-cell; width: 45%;">
             <div class="doctor-card bg-light-blue rounded-md">
                 <div class="label-small">Sykmelding skrevet av</div>
                 <div class="text-bold doctor-card-item text-lg">{{behandler.navn}}</div>
                 {{#if behandler.tlf}}
-                <div class="label-small">Telefon</div>
+                <div class="label-small text-xs mb-1 font-semibold">Telefon</div>
                 <div class="doctor-card-item">{{behandler.tlf}}</div>
                 {{/if}}
-                <div class="label-small">Kontakt med pasient</div>
-                <div class="text-regular">{{kontaktMedPasientFormatted}}</div>
+                <div class="label-small text-xs mb-1 font-semibold">Kontakt med pasient</div>
+                <div class="text-regular">{{ iso_to_nor_datetime kontaktMedPasient}}</div>
             </div>
-        </td>
-        <td></td>
-    </tr>
-</table>
+        </div>
+        <div style="display: table-cell;"></div>
+    </div>
+</div>
 {{/if}}
 
 </body>
