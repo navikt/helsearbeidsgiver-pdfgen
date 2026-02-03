@@ -1,0 +1,3 @@
+pdfgen krever resource mappen til å eksistere for å unngå kompileringsfeil.
+Docker inkluderer ikke en mappe om den ikke inneholder filer.
+Derfor ligger denne ubrukelige tekstfilen her :)

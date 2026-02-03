@@ -8,12 +8,14 @@ import org.testcontainers.images.builder.ImageFromDockerfile
 import java.io.File
 import kotlin.test.assertEquals
 
+const val DOCKER_IMAGE_NAME = "helsearbeidsgiver-pdfgen-test"
+
 object SharedTestContainer {
     private val projectDir: File = File(".").absoluteFile
 
     val container: GenericContainer<*> =
         GenericContainer(
-            ImageFromDockerfile("helsearbeidsgiver-pdfgen-test", false)
+            ImageFromDockerfile(DOCKER_IMAGE_NAME, false)
                 .withFileFromPath("Dockerfile", projectDir.resolve("Dockerfile").toPath())
                 .withFileFromPath("templates", projectDir.resolve("templates").toPath())
                 .withFileFromPath("fonts", projectDir.resolve("fonts").toPath())

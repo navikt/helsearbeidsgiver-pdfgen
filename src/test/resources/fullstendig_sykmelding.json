@@ -1,0 +1,124 @@
+{
+  "loepenr": 777777,
+  "sykmeldingId": "sykmelding_id",
+  "mottattAvNav": "2023-01-01T01:23:45.678Z",
+  "sykmeldt": {
+    "fnr": "sykmeldt_fnr",
+    "navn": "sykmeldt_navn"
+  },
+  "egenmeldingsdager": [
+    {
+      "fom": "2026-01-01",
+      "tom": "2026-01-02"
+    }
+  ],
+  "sykefravaerFom": "2026-01-01",
+  "sykmeldingPerioder": [
+    {
+      "fom": "2025-05-23",
+      "tom": "2025-05-24",
+      "aktivitet": {
+        "avventendeSykmelding": null,
+        "gradertSykmelding": null,
+        "aktivitetIkkeMulig": {
+          "manglendeTilretteleggingPaaArbeidsplassen": false,
+          "beskrivelse": null
+        },
+        "antallBehandlingsdagerUke": null,
+        "harReisetilskudd": false
+      }
+    },
+    {
+      "fom": "2025-05-24",
+      "tom": "2025-05-26",
+      "aktivitet": {
+        "avventendeSykmelding": null,
+        "gradertSykmelding": null,
+        "aktivitetIkkeMulig": {
+          "manglendeTilretteleggingPaaArbeidsplassen": true,
+          "beskrivelse": "aktivitet_aktivitetIkkeMulig_beskrivelse"
+        },
+        "antallBehandlingsdagerUke": null,
+        "harReisetilskudd": false
+      }
+    },
+    {
+      "fom": "2025-05-27",
+      "tom": "2025-05-30",
+      "aktivitet": {
+        "avventendeSykmelding": null,
+        "gradertSykmelding": {
+          "sykmeldingsgrad": 50,
+          "harReisetilskudd": true
+        },
+        "aktivitetIkkeMulig": null,
+        "antallBehandlingsdagerUke": null,
+        "harReisetilskudd": false
+      }
+    },
+    {
+      "fom": "2025-05-31",
+      "tom": "2025-06-04",
+      "aktivitet": {
+        "avventendeSykmelding": null,
+        "gradertSykmelding": {
+          "sykmeldingsgrad": 50,
+          "harReisetilskudd": false
+        },
+        "aktivitetIkkeMulig": null,
+        "antallBehandlingsdagerUke": null,
+        "harReisetilskudd": false
+      }
+    },
+    {
+      "fom": "2025-06-05",
+      "tom": "2025-06-10",
+      "aktivitet": {
+        "avventendeSykmelding": "aktivitet_avventendeSykmelding",
+        "gradertSykmelding": null,
+        "aktivitetIkkeMulig": null,
+        "antallBehandlingsdagerUke": null,
+        "harReisetilskudd": false
+      }
+    },
+    {
+      "fom": "2025-06-11",
+      "tom": "2025-06-17",
+      "aktivitet": {
+        "avventendeSykmelding": null,
+        "gradertSykmelding": null,
+        "aktivitetIkkeMulig": null,
+        "antallBehandlingsdagerUke": 1,
+        "harReisetilskudd": false
+      }
+    },
+    {
+      "fom": "2025-06-18",
+      "tom": "2025-06-25",
+      "aktivitet": {
+        "avventendeSykmelding": null,
+        "gradertSykmelding": null,
+        "aktivitetIkkeMulig": null,
+        "antallBehandlingsdagerUke": null,
+        "harReisetilskudd": true
+      }
+    }
+  ],
+  "oppfoelging": {
+    "prognose": {
+      "erArbeidsfoerEtterEndtPeriode": true,
+      "beskrivHensynArbeidsplassen": "oppfoelging_beskrivHensynArbeidsplassen"
+    },
+    "meldingTilArbeidsgiver": "oppfoelging_meldingTilArbeidsgiver",
+    "tiltakArbeidsplassen": "oppfoelging_tiltakArbeidsplassen"
+  },
+  "kontaktMedPasient": "2025-01-01T01:23:45.678Z",
+  "behandler": {
+    "navn": "behandler_navn",
+    "tlf": "behandler_tlf"
+  },
+  "arbeidsgiver": {
+    "navn": "arbeidsgiver_navn",
+    "orgnr": "arbeidsgiver_orgnr"
+  }
+}

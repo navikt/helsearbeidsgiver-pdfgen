@@ -3,14 +3,11 @@
 <html lang="NO">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    {{!-- TODO: Er det noe vits å inkludere dette? Hva burde stå her? Er krav mtp. accesibility  --}}
-    <meta name="description" content="Sykmelding for {{sykmeldt.navn}}{{#if behandler}} utstedt av {{behandler.navn}}{{/if}}. Dokumentet inneholder sykemeldingsperioder, egenmeldingsdager, og oppfølgingsinformasjon." />
+    <meta name="description" content="Sykmelding" />
     <meta name="subject" content="Sykmelding" />
-    {{#if behandler}}
-    <meta name="author" content="{{behandler.navn}}" />
-    {{/if}}
-    <meta name="keywords" content="sykmelding, Nav, helseattest" />
-    <title>Sykmelding - {{sykmeldt.navn}}</title>
+    <meta name="author" content="Nav" />
+    <meta name="keywords" content="sykmelding" />
+    <title>Sykmelding</title>
     <style type="text/css">
 
         /* OpenHTMLtoPDF bruker @Page for margin */
@@ -139,9 +136,6 @@
 </head>
 <body>
 
-{{!-- TODO: Skal slettes, ikke del av designet --}}
-<img alt="NAV logo" class="navlogo" src="{{ image "logo.png" }}"/>
-
 <h1>Sykmelding</h1>
 
 {{!-- bruker display: table da dette anbefales av openHTMLtoPDF for accesibility --}}
@@ -180,7 +174,7 @@
 <div>
     <h2>Perioder i sykmeldingen</h2>
     {{#if sykefravaerFom}}
-    <div class="text-thin mb-3 text-sm">Sykefravær fra: {{sykefravaerFom}}</div>
+    <div class="text-thin mb-3 text-sm">Sykefravær fra: {{ iso_to_date sykefravaerFom }}</div>
     {{/if}}
 
     {{#each sykmeldingPerioder}}
@@ -248,11 +242,21 @@
 </table>
 {{/if}}
 {{else}}
-{{!-- TODO: lagt til som placeholder, hva skal stå her? --}}
-<div class="text-thin section-subtitle" style="color: #555555">Ingen dager valgt.</div>
+<div class="text-thin section-subtitle" >Ingen egenmeldingsdager oppgitt.</div>
 {{/if}}
 
 <h2>Oppfølging</h2>
+
+{{!-- Skal vises bare om ingen av de andre oppfølgings punktene ble vist--}}
+{{#any oppfoelging.prognose oppfoelging.tiltakArbeidsplassen oppfoelging.meldingTilArbeidsgiver}} {{else}}
+    {{#contains_field sykmeldingPerioder "aktivitet.aktivitetIkkeMulig.beskrivelse"}} {{else}}
+        {{#contains_field sykmeldingPerioder "aktivitet.avventendeSykmelding"}} {{else}}
+            <div class="text-thin section-subtitle">Ingen oppfølging oppgitt.</div>
+        {{/contains_field}}
+    {{/contains_field}}
+{{/any}}
+
+
 <table>
     {{#if oppfoelging.prognose}}
     <tr>
@@ -277,7 +281,7 @@
     {{/if}}
     {{#if oppfoelging.meldingTilArbeidsgiver}}
     <tr>
-        <td>
+        <td class="followup-item">
             <div class="text-bold">Melding fra behandler til arbeidsgiver</div>
             <div class="text-thin">{{oppfoelging.meldingTilArbeidsgiver}}</div>
         </td>
@@ -287,13 +291,25 @@
     {{#each sykmeldingPerioder}}
         {{#if aktivitet.aktivitetIkkeMulig.beskrivelse}}
                 <tr>
-                    <td>
+                    <td class="followup-item">
                         <div class="text-bold">Forhold på arbeidsplassen vanskeliggjør arbeidsrelatert aktivitet</div>
                         <div class="text-thin">{{aktivitet.aktivitetIkkeMulig.beskrivelse}}</div>
                     </td>
                 </tr>
             {{/if}}
     {{/each}}
+
+    {{!-- forventer at det alltid er bare en aktivitet.avventendeSykmelding, om ikke aksepterer vi rar formattering  --}}
+        {{#each sykmeldingPerioder}}
+            {{#if aktivitet.avventendeSykmelding}}
+                    <tr>
+                        <td class="followup-item">
+                            <div class="text-bold">Innspill til arbeidsgiver om tilrettelegging</div>
+                            <div class="text-thin">{{aktivitet.avventendeSykmelding}}</div>
+                        </td>
+                    </tr>
+                {{/if}}
+        {{/each}}
 </table>
 
 {{#if behandler}}
@@ -320,4 +336,3 @@
 
 </body>
 </html>
-

@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "2.2.20"
+    id("org.jmailen.kotlinter")
 }
 
 group = "no.nav.helsearbeidsgiver"

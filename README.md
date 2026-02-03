@@ -8,7 +8,7 @@ Tester er implementert med Kotlin og TestContainers.
 
 Dette betyr at Dockerfilen blir kjørt og systemet er testet end-to-end.
 
-Når testene kjøres lagres PDF-ene produsert i `build/test-pdf/`
+Testene henter .json filer fra `src/test/resources/` og lagrer PDF filene i `build/test-pdf/` med samme navn. 
 
 ## pdfgen
 

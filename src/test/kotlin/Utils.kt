@@ -3,7 +3,6 @@ import io.ktor.client.engine.apache5.Apache5
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
-import io.ktor.client.statement.readBytes
 import io.ktor.client.statement.readRawBytes
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
@@ -14,12 +13,28 @@ import org.apache.pdfbox.text.PDFTextStripper
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import java.io.File
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-val SYKMELDING_JSON = File("src/test/resources/standard_sykmelding.json").readText()
+const val SYKMELDING_PDF_ROUTE = "/api/v1/genpdf/sykmelding/sykmelding"
 
-fun ByteArray.lagreTestPdf(navn: String) {
-    val testPdfDir = File("build/test-pdf").apply { mkdirs() }
+fun lagPdfOgHentTekst(
+    jsonNavn: String,
+    pdfgenRoute: String,
+): String {
+    val jsonPath = "src/test/resources/$jsonNavn.json"
+    val jsonData = File(jsonPath).readText()
+    println("Kaller pdfgen på [$pdfgenRoute] med fil fra [$jsonPath]")
+    val pdfBytes = hentPdf(pdfgenRoute, jsonData)
+    pdfBytes.lagreTestPdf(jsonNavn)
+    return pdfBytes.toText()
+}
+
+fun ByteArray.lagreTestPdf(
+    navn: String,
+    destinasjon: File = File("build/test-pdf"),
+) {
+    val testPdfDir = destinasjon.apply { mkdirs() }
     val pdfFile = File(testPdfDir, "$navn.pdf")
     pdfFile.writeBytes(this)
     println("PDF lagret til: ${pdfFile.absolutePath}")
@@ -66,11 +81,28 @@ fun hentPdf(
     }
 
 fun String.skalInneholde(vararg forventetInnhold: String): List<DynamicTest> =
+    skalInneholdeInternal(*forventetInnhold, skalAssertTrue = true)
+
+fun String.skalIkkeInneholde(vararg ikkeForventetInnhold: String): List<DynamicTest> =
+    skalInneholdeInternal(*ikkeForventetInnhold, skalAssertTrue = false)
+
+private fun String.skalInneholdeInternal(
+    vararg forventetInnhold: String,
+    skalAssertTrue: Boolean,
+): List<DynamicTest> =
     forventetInnhold.asList().map { forventent ->
-        dynamicTest(forventent) {
-            assertTrue(
-                this.contains(forventent),
-                "Forvent at PDF skal inneholde '$forventent' men det var ikke funnet. PDF content: $this",
-            )
+        val displayName = if (skalAssertTrue) forventent else "Har ikke: $forventent"
+        dynamicTest(displayName) {
+            if (skalAssertTrue) {
+                assertTrue(
+                    this.contains(forventent),
+                    "Forvent at PDF skal inneholde '$forventent'. PDF content: $this",
+                )
+            } else {
+                assertFalse(
+                    this.contains(forventent),
+                    "Forvent at PDF IKKE skal inneholde '$forventent' men fant det likevel. PDF content: $this",
+                )
+            }
         }
     }
