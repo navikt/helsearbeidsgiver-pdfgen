@@ -8,14 +8,14 @@
   },
   "egenmeldingsdager": [
     {
-      "fom": "2026-01-01",
-      "tom": "2026-01-02"
+      "fom": "2025-05-22",
+      "tom": "2025-05-23"
     }
   ],
-  "sykefravaerFom": "2026-01-01",
+  "sykefravaerFom": "2025-05-22",
   "sykmeldingPerioder": [
     {
-      "fom": "2025-05-23",
+      "fom": "2025-05-24",
       "tom": "2025-05-24",
       "aktivitet": {
         "avventendeSykmelding": null,
@@ -29,7 +29,7 @@
       }
     },
     {
-      "fom": "2025-05-24",
+      "fom": "2025-05-25",
       "tom": "2025-05-26",
       "aktivitet": {
         "avventendeSykmelding": null,
@@ -43,7 +43,7 @@
       }
     },
     {
-      "fom": "2025-05-27",
+      "fom": "2025-05-28",
       "tom": "2025-05-30",
       "aktivitet": {
         "avventendeSykmelding": null,
@@ -57,7 +57,7 @@
       }
     },
     {
-      "fom": "2025-05-31",
+      "fom": "2025-06-01",
       "tom": "2025-06-04",
       "aktivitet": {
         "avventendeSykmelding": null,
@@ -71,7 +71,7 @@
       }
     },
     {
-      "fom": "2025-06-05",
+      "fom": "2025-06-06",
       "tom": "2025-06-10",
       "aktivitet": {
         "avventendeSykmelding": "aktivitet_avventendeSykmelding",
@@ -82,7 +82,7 @@
       }
     },
     {
-      "fom": "2025-06-11",
+      "fom": "2025-06-12",
       "tom": "2025-06-17",
       "aktivitet": {
         "avventendeSykmelding": null,
@@ -93,7 +93,7 @@
       }
     },
     {
-      "fom": "2025-06-18",
+      "fom": "2025-06-19",
       "tom": "2025-06-25",
       "aktivitet": {
         "avventendeSykmelding": null,

@@ -54,14 +54,14 @@ class FullstendigSykmeldingTest {
     fun `sykmelding PDF har perioder`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Perioder i sykmeldingen",
-            "Sykefravær fra: 01.01.2026",
-            "100% sykmeldt 23.05.2025 – 24.05.2025 (1 dag)",
-            "100% sykmeldt 24.05.2025 – 26.05.2025 (2 dager) Manglende tilrettelegging på arbeidsplassen",
-            "50% sykmeldt 27.05.2025 – 30.05.2025 (3 dager) Med reisetilskudd",
-            "50% sykmeldt 31.05.2025 – 04.06.2025 (4 dager) Uten reisetilskudd",
-            "Avventende sykmelding 05.06.2025 – 10.06.2025 (5 dager)",
-            "Behadlingsdager 11.06.2025 – 17.06.2025 (6 dager)",
-            "Reisetilskudd 18.06.2025 – 25.06.2025 (7 dager)",
+            "Sykefravær fra: 22.05.2025",
+            "100% sykmeldt 24.05.2025 – 24.05.2025 (1 dag)",
+            "100% sykmeldt 25.05.2025 – 26.05.2025 (2 dager) Manglende tilrettelegging på arbeidsplassen",
+            "50% sykmeldt 28.05.2025 – 30.05.2025 (3 dager) Med reisetilskudd",
+            "50% sykmeldt 01.06.2025 – 04.06.2025 (4 dager) Uten reisetilskudd",
+            "Avventende sykmelding 06.06.2025 – 10.06.2025 (5 dager)",
+            "Behadlingsdager 12.06.2025 – 17.06.2025 (6 dager)",
+            "Reisetilskudd 19.06.2025 – 25.06.2025 (7 dager)",
         )
 
     @TestFactory
@@ -69,7 +69,7 @@ class FullstendigSykmeldingTest {
         PDF_TEKST.skalInneholde(
             "Egenmeldingsdager",
             "Oppgitt av ansatt selv ved bekreftelse av sykmelding.",
-            "01.01.2026 – 02.01.2026 (1 dag)",
+            "22.05.2025 – 23.05.2025 (2 dager)",
         ) +
             PDF_TEKST.skalIkkeInneholde(
                 "Ingen egenmeldingsdager oppgitt.",

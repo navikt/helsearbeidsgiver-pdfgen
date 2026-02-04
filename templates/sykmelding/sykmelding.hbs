@@ -203,8 +203,7 @@
                     </td>
                 <td class="period-dates">
                     {{ iso_to_date fom }} – {{ iso_to_date tom }}
-                    {{!-- TODO: antall dager må plusses med 1 --}}
-                    ({{duration fom tom}}{{#eq (duration fom tom) 1}} dag{{else}} dager{{/eq}})
+                    ({{inc (duration fom tom)}}{{#eq (duration fom tom) 0}} dag{{else}} dager{{/eq}})
                 </td>
                 <td class="text-thin">
                     {{#if aktivitet.gradertSykmelding}}
@@ -235,8 +234,7 @@
     {{#each egenmeldingsdager}}
     <tr><td class="text-regular">
         {{ iso_to_date fom }} – {{ iso_to_date tom }}
-        {{!-- TODO: antall dager må plusses med 1 --}}
-        ({{duration fom tom}}{{#eq (duration fom tom) 1}} dag{{else}} dager{{/eq}})
+        ({{inc (duration fom tom)}}{{#eq (duration fom tom) 0}} dag{{else}} dager{{/eq}})
     </td></tr>
     {{/each}}
 </table>
