@@ -7,7 +7,7 @@
     "navn": "sykmeldt_navn"
   },
   "egenmeldingsdager": [],
-  "sykefravaerFom": "2026-01-01",
+  "sykefravaerFom": null,
   "sykmeldingPerioder": [
     {
       "fom": "2025-05-23",

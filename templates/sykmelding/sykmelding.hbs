@@ -150,32 +150,21 @@
         </div>
     </div>
 </div>
-
-<div class="info-box-table">
-    <div style="display: table-row;">
-        <div style="display: table-cell;">
-            <div class="box-patient rounded-md">
-                <div class="label-small text-xs mb-1 font-semibold">Sykmeldingen gjelder</div>
-                <div class="text-bold identity-name text-xl mb-2">{{sykmeldt.navn}}</div>
-                <div class="label-small text-xs mb-1 font-semibold">Fødselsnummer</div>
-                <div class="text-regular">{{sykmeldt.fnr}}</div>
-            </div>
-        </div>
-        <div style="display: table-cell;">
-            <div class="box-employer bg-light-blue rounded-md">
-                <div class="label-small text-xs mb-1 font-semibold">Arbeidsgiver</div>
-                <div class="text-bold identity-name text-xl mb-2">{{arbeidsgiver.navn}}</div>
-                <div class="label-small text-xs mb-1 font-semibold">Organisasjonsnummer</div>
-                <div class="text-regular">{{arbeidsgiver.orgnr}}</div>
-            </div>
-        </div>
-    </div>
-</div>
+{{> partials/sykmeldtOgArbeidsgiverInfo
+    sykmeldtNavn=sykmeldt.navn
+    sykmeldtFnr=sykmeldt.fnr
+    arbeidsgiverNavn=arbeidsgiver.navn
+    arbeidsgiverOrgnr=arbeidsgiver.orgnr
+}}
 <div>
     <h2>Perioder i sykmeldingen</h2>
-    {{#if sykefravaerFom}}
-    <div class="text-thin mb-3 text-sm">Sykefravær fra: {{ iso_to_date sykefravaerFom }}</div>
-    {{/if}}
+    <div class="text-thin mb-3 text-sm">Sykefravær fra:
+        {{#if sykefravaerFom}}
+            {{ iso_to_date sykefravaerFom }}
+        {{else}}
+            ———
+        {{/if}}
+    </div>
 
     {{#each sykmeldingPerioder}}
     <div class="period-row text-sm">
@@ -194,7 +183,7 @@
                         Avventende sykmelding
                     {{/if}}
                     {{#if aktivitet.antallBehandlingsdagerUke}}
-                        Behadlingsdager
+                        Behandlingsdager
                     {{/if}}
                     {{#if aktivitet.harReisetilskudd}}
                         Reisetilskudd
@@ -203,7 +192,7 @@
                     </td>
                 <td class="period-dates">
                     {{ iso_to_date fom }} – {{ iso_to_date tom }}
-                    ({{inc (duration fom tom)}}{{#eq (duration fom tom) 0}} dag{{else}} dager{{/eq}})
+                    {{> partials/periodeMedAntallDager fom=fom tom=tom }}
                 </td>
                 <td class="text-thin">
                     {{#if aktivitet.gradertSykmelding}}
@@ -218,6 +207,10 @@
                         {{#if aktivitet.aktivitetIkkeMulig.manglendeTilretteleggingPaaArbeidsplassen}}
                             Manglende tilrettelegging på arbeidsplassen
                         {{/if}}
+                    {{/if}}
+
+                    {{#if aktivitet.antallBehandlingsdagerUke}}
+                        {{aktivitet.antallBehandlingsdagerUke}} behandlingsdag(er)
                     {{/if}}
                 </td>
             </tr>
@@ -234,7 +227,7 @@
     {{#each egenmeldingsdager}}
     <tr><td class="text-regular">
         {{ iso_to_date fom }} – {{ iso_to_date tom }}
-        ({{inc (duration fom tom)}}{{#eq (duration fom tom) 0}} dag{{else}} dager{{/eq}})
+        {{> partials/periodeMedAntallDager fom=fom tom=tom }}
     </td></tr>
     {{/each}}
 </table>
