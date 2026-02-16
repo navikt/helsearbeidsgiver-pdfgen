@@ -21,6 +21,13 @@ class MinimalSykmeldingTest {
     }
 
     @TestFactory
+    fun `sykmelding PDF har ingen sykefravaerFom`(): List<DynamicTest> =
+        PDF_TEKST.skalInneholde(
+            "Perioder i sykmeldingen",
+            "Sykefravær fra: ———",
+        )
+
+    @TestFactory
     fun `sykmelding PDF har ikke oppgitt egenmeldingsdager`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Egenmeldingsdager",
