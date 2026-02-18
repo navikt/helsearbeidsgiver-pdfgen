@@ -1,21 +1,17 @@
-{{!-- Define in a file like partials/info-box.hbs --}}
 <div class="info-box-table">
-    <div style="display: table-row;">
-        <div style="display: table-cell;">
-            <div class="box-patient rounded-md">
-                <div class="label-small text-xs mb-1 font-semibold">Sykmeldingen gjelder</div>
-                <div class="text-bold identity-name text-xl mb-2">{{sykmeldtNavn}}</div>
-                <div class="label-small text-xs mb-1 font-semibold">Fødselsnummer</div>
-                <div class="text-regular">{{sykmeldtFnr}}</div>
-            </div>
+    <div class="info-box-row">
+        <div class="info-box-cell box-patient rounded-md">
+            <div class="liten-label">Sykmeldingen gjelder</div>
+            <div class="text-bold identity-name text-xl mb-2">{{sykmeldtNavn}}</div>
+            <div class="liten-label">Fødselsnummer</div>
+            <div class="text-regular">{{sykmeldtFnr}}</div>
         </div>
-        <div style="display: table-cell;">
-            <div class="box-employer bg-light-blue rounded-md">
-                <div class="label-small text-xs mb-1 font-semibold">Arbeidsgiver</div>
-                <div class="text-bold identity-name text-xl mb-2">{{arbeidsgiverNavn}}</div>
-                <div class="label-small text-xs mb-1 font-semibold">Organisasjonsnummer</div>
-                <div class="text-regular">{{arbeidsgiverOrgnr}}</div>
-            </div>
+
+        <div class="info-box-cell box-employer bg-light-blue rounded-md">
+            <div class="liten-label">Arbeidsgiver</div>
+            <div class="text-bold identity-name text-xl mb-2">{{arbeidsgiverNavn}}</div>
+            <div class="liten-label">Organisasjonsnummer</div>
+            <div class="text-regular">{{arbeidsgiverOrgnr}}</div>
         </div>
     </div>
 </div>

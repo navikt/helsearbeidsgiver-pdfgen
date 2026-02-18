@@ -27,11 +27,11 @@ class FullstendigSykmeldingTest {
     fun `sykmelding PDF har involverte parter`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Sykmeldingen gjelder",
-            "sykmeldt_navn",
+            "sykmeldt_navn \nsom_er_veldig_langt \nfor_å_teste_formattering",
             "Fødselsnummer",
             "sykmeldt_fnr",
             "Arbeidsgiver",
-            "arbeidsgiver_navn",
+            "arbeidsgiver_navn \nsom_også_er_veldig_langt_AS",
             "Organisasjonsnummer",
             "arbeidsgiver_orgnr",
             "Sykmelding skrevet av",
@@ -54,13 +54,13 @@ class FullstendigSykmeldingTest {
     fun `sykmelding PDF har perioder`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Perioder i sykmeldingen",
-            "Sykefravær fra: 22.05.2025",
+            "Syketilfelle fra: 22.05.2025",
             "100% sykmeldt 24.05.2025 – 24.05.2025 (1 dag)",
             "100% sykmeldt 25.05.2025 – 26.05.2025 (2 dager) Manglende tilrettelegging på arbeidsplassen",
             "50% sykmeldt 28.05.2025 – 30.05.2025 (3 dager) Med reisetilskudd",
             "50% sykmeldt 01.06.2025 – 04.06.2025 (4 dager) Uten reisetilskudd",
             "Avventende sykmelding 06.06.2025 – 10.06.2025 (5 dager)",
-            "Behandlingsdager 12.06.2025 – 17.06.2025 (6 dager) 1 behandlingsdag(er)",
+            "Behandlingsdager 12.06.2025 – 17.06.2025 (6 dager) 1 behandlingsdager",
             "Reisetilskudd 19.06.2025 – 25.06.2025 (7 dager)",
         )
 

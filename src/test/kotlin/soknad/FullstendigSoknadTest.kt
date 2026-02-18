@@ -27,7 +27,7 @@ class FullstendigSoknadTest {
     fun `søknad PDF har involverte parter`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Sykmeldingen gjelder",
-            "TODO: NAVN I SØKNAD",
+            "TODO: NAVN",
             "Fødselsnummer",
             "fnr",
             "Arbeidsgiver",
