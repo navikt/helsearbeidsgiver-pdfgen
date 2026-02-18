@@ -1,0 +1,29 @@
+{
+  "loepenr": 170,
+  "soeknadId": "f0bb7352-485d-3974-a0c4-deb695813383",
+  "fnr": "fnr",
+  "sykmeldingId": "e40c0fd8-4d28-4960-bb83-e2f25313ac29",
+  "type": "ARBEIDSTAKERE",
+  "fom": "2025-05-05",
+  "tom": "2025-06-03",
+  "arbeidGjenopptattDato": null,
+  "mottatTid": "2023-01-01T01:23:45.678Z",
+  "arbeidsgiver": {
+    "navn": "arbeidsgiver_navn",
+    "orgnr": "arbeidsgiver_orgnr"
+  },
+  "soektUtenlandsopphold": false,
+  "korrigerer": null,
+  "soeknadsperioder": [
+    {
+      "fom": "2025-05-05",
+      "tom": "2025-06-03",
+      "sykmeldingsgrad": 100,
+      "faktiskGrad": null,
+      "avtaltTimer": null,
+      "faktiskTimer": null,
+      "sykmeldingstype": "AKTIVITET_IKKE_MULIG"
+    }
+  ],
+  "fravaer": []
+}

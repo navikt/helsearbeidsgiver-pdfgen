@@ -17,6 +17,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 const val SYKMELDING_PDF_ROUTE = "/api/v1/genpdf/sykmelding/sykmelding"
+const val SOKNAD_PDF_ROUTE = "/api/v1/genpdf/soknad/soknad"
 
 fun lagPdfOgHentTekst(
     jsonNavn: String,
