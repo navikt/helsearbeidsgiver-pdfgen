@@ -43,5 +43,3 @@ spec:
     inbound:
       rules:
         - application: sykepenger-im-lps-api
-  ingresses:
-    - https://helsearbeidsgiver-pdfgen.intern.dev.nav.no
