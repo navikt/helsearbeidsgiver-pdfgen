@@ -63,32 +63,34 @@
     .info-box-table {
         display: table;
         width: 100%;
+        table-layout: fixed;          /* Forces exactly 50/50 width split */
+        border-collapse: separate;    /* Required for border-spacing to work */
+        border-spacing: 10px 0;       /* This creates the gap (10px) between the boxes */
+        margin-left: -10px;           /* Optional: Pulls the boxes back to align with page margins */
+        margin-bottom: 20px;
         margin-top: 10px;
-        margin-bottom: 40px;
-        border-collapse: separate;
     }
 
-    .info-box-table > div {
+    .info-box-row {
         display: table-row;
     }
 
-    .info-box-table > div > div {
+    .info-box-cell {
         display: table-cell;
-        width: 50%;
         vertical-align: top;
-        height: 100%;
+        width: 50%;                   /* Ensures equal width */
     }
 
+    /* Applying backgrounds directly to the cells ensures equal height */
     .box-patient {
         background-color: #00213d;
         color: #ffffff;
-        padding: 10px 20px;
-        margin-right: 20px;
-        box-sizing: border-box;
+        padding: 15px 20px;
     }
+
     .box-employer {
-        padding: 12px 15px;
-        box-sizing: border-box;
+        background-color: #e6f0f7;
+        padding: 15px 20px;
     }
 
 
