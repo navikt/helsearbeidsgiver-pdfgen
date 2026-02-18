@@ -35,11 +35,11 @@
 }}
 <div>
     <h2>Perioder i sykmeldingen</h2>
-    <div class="text-thin mb-3 text-sm">Sykefravær fra:
+    <div class="text-thin mb-3 text-sm">Syketilfelle fra:
         {{#if sykefravaerFom}}
-            {{ iso_to_date sykefravaerFom }}
+            {{iso_to_date sykefravaerFom}}
         {{else}}
-            ———
+            —
         {{/if}}
     </div>
 
@@ -68,7 +68,6 @@
 
                     </td>
                 <td class="period-dates">
-                    {{ iso_to_date fom }} – {{ iso_to_date tom }}
                     {{> partials/periodeMedAntallDager fom=fom tom=tom }}
                 </td>
                 <td class="text-thin">
@@ -87,7 +86,7 @@
                     {{/if}}
 
                     {{#if aktivitet.antallBehandlingsdagerUke}}
-                        {{aktivitet.antallBehandlingsdagerUke}} behandlingsdag(er)
+                        {{aktivitet.antallBehandlingsdagerUke}} behandlingsdager
                     {{/if}}
                 </td>
             </tr>
@@ -103,7 +102,6 @@
 <table>
     {{#each egenmeldingsdager}}
     <tr><td class="text-regular">
-        {{ iso_to_date fom }} – {{ iso_to_date tom }}
         {{> partials/periodeMedAntallDager fom=fom tom=tom }}
     </td></tr>
     {{/each}}
@@ -180,27 +178,31 @@
         {{/each}}
 </table>
 
-{{#if behandler}}
 {{!-- TODO: er <hr/> bad practice? skal denne byttes --}}
 <hr/>
-<div style="display: table; width: 100%; border-spacing: 0;">
-    <div style="display: table-row;">
-        <div style="display: table-cell; width: 45%;">
-            <div class="doctor-card bg-light-blue rounded-md">
-                <div class="label-small">Sykmelding skrevet av</div>
-                <div class="text-bold doctor-card-item text-lg">{{behandler.navn}}</div>
-                {{#if behandler.tlf}}
-                <div class="label-small text-xs mb-1 font-semibold">Telefon</div>
-                <div class="doctor-card-item">{{behandler.tlf}}</div>
-                {{/if}}
-                <div class="label-small text-xs mb-1 font-semibold">Kontakt med pasient</div>
-                <div class="text-regular">{{ iso_to_nor_datetime kontaktMedPasient}}</div>
+<div class="info-box-table">
+    <div class="info-box-row">
+        <div class="info-box-cell bg-light-blue rounded-md doctor-card" style="width: 45%;">
+            <div class="liten-label">Sykmelding skrevet av</div>
+            <div class="text-bold doctor-card-item text-lg">
+                {{> partials/valueOrDash v=behandler.navn}}
+            </div>
+
+            <div class="liten-label">Telefon</div>
+            <div class="doctor-card-item">
+                {{> partials/valueOrDash v=behandler.tlf}}
+            </div>
+
+            <div class="liten-label">Kontakt med pasient</div>
+            <div class="text-regular">
+                {{iso_to_nor_datetime kontaktMedPasient}}
             </div>
         </div>
-        <div style="display: table-cell;"></div>
+
+        <div class="info-box-cell"></div>
     </div>
 </div>
-{{/if}}
+
 
 </body>
 </html>

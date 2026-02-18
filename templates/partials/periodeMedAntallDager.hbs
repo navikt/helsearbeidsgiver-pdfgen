@@ -1,1 +1,1 @@
-({{inc (duration fom tom)}}{{#eq (duration fom tom) 0}} dag{{else}} dager{{/eq}})
+{{ iso_to_date fom }} – {{ iso_to_date tom }} ({{inc (duration fom tom)}}{{#eq (duration fom tom) 0}} dag{{else}} dager{{/eq}})

@@ -16,7 +16,7 @@ private val PDF_TEKST: String =
 class MinimalSykmeldingTest {
     @Test
     @Order(1)
-    fun `kompiler alternative sykmelding uten feil og lagre lokalt`() {
+    fun `kompiler minimal sykmelding uten feil og lagre lokalt`() {
         assertTrue(PDF_TEKST.isNotEmpty())
     }
 
@@ -24,7 +24,7 @@ class MinimalSykmeldingTest {
     fun `sykmelding PDF har ingen sykefravaerFom`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Perioder i sykmeldingen",
-            "Sykefravær fra: ———",
+            "Syketilfelle fra: —",
         )
 
     @TestFactory
@@ -51,4 +51,12 @@ class MinimalSykmeldingTest {
                 "Forhold på arbeidsplassen vanskeliggjør arbeidsrelatert aktivitet",
                 "Innspill til arbeidsgiver om tilrettelegging",
             )
+
+    @TestFactory
+    fun `sykmelding PDF har ikke behandler detaljer oppgitt`(): List<DynamicTest> =
+        PDF_TEKST.skalInneholde(
+            "Sykmelding skrevet av\n—",
+            "Telefon\n—",
+            "Kontakt med pasient\n01.01.2025 01:23",
+        )
 }
