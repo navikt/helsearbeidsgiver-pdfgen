@@ -3,6 +3,7 @@ import io.ktor.client.engine.apache5.Apache5
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
 import io.ktor.client.statement.readRawBytes
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
@@ -75,7 +76,21 @@ fun hentPdf(
         client.close()
 
         if (response.status != HttpStatusCode.OK) {
-            throw RuntimeException("Expected HTTP 200 OK but got ${response.status}")
+            val responseBody = response.bodyAsText()
+            val containerLogs = SharedTestContainer.container.logs
+            System.err.println(
+                """
+                |========== PDFGEN FEIL ==========
+                |HTTP status: ${response.status}
+                |Response body:
+                |$responseBody
+                |
+                |========== CONTAINER LOGS ==========
+                |$containerLogs
+                |====================================
+                """.trimMargin(),
+            )
+            throw RuntimeException("Expected HTTP 200 OK but got ${response.status}. Response body: $responseBody")
         }
 
         response.readRawBytes()
