@@ -2,6 +2,10 @@
 
 Generering av PDF-dokumenter for helsearbeidsgiver-tjenester (f.eks.sykmelding for arbeidsgiver).
 
+## Utvikling av PDF html
+PDF-dokumentene genereres fra HTML-maler som ligger i `templates`-mappen.  
+Konverteringen gjøres av java biblioteket openPDFtoHTML, denne har noen begrensninger.  
+For tips om hvordan å implementere koden riktig referer til dette [dokumentet om PDF Accesibility i openHTMLtoPDF](https://github.com/danfickle/openhtmltopdf/wiki/PDF-Accessibility-(PDF-UA,-WCAG,-Section-508)-Support)
 
 ## Tester
 Tester er implementert med Kotlin og TestContainers.

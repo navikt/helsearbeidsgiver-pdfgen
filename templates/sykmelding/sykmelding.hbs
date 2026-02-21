@@ -23,43 +23,37 @@
 </head>
 <body>
 
-<h1 id="title">Sykmelding</h1>
+    <h1 id="title">Sykmelding</h1>
 
-{{!-- bruker display: table da dette anbefales av openHTMLtoPDF for accesibility --}}
-{{!-- Avoid using table elements for layout. Instead, if desiring a table based layout, use a div with display: table, display: table-row, etc. --}}
-<div style="margin-top: 8px; display: table; width: 100%;">
-    <div style="display: table-row;">
-        <p style="display: table-cell; text-align: left;" class="metadata-text text-sm">
-            Mottatt av Nav {{ iso_to_nor_datetime mottattAvNav}}
-        </p>
-        <p style="display: table-cell; text-align: right;" class="metadata-text text-sm">
-            Sykmeldings-ID: {{sykmeldingId}}
-        </p>
+    {{!-- bruker display: table da dette anbefales av openHTMLtoPDF for accesibility --}}
+    {{!-- Avoid using table elements for layout. Instead, if desiring a table based layout, use a div with display: table, display: table-row, etc. --}}
+    <div class="table mt-2 width-100">
+        <div class="row">
+            <p style="text-align: left;" class="cell grey-text text-sm">
+                Mottatt av Nav {{ iso_to_nor_datetime mottattAvNav}}
+            </p>
+            <p style="text-align: right;" class="cell grey-text text-sm">
+                Sykmeldings-ID: {{sykmeldingId}}
+            </p>
+        </div>
     </div>
-</div>
-{{> partials/sykmeldtOgArbeidsgiverInfo
-    sykmeldtNavn=sykmeldt.navn
-    sykmeldtFnr=sykmeldt.fnr
-    arbeidsgiverNavn=arbeidsgiver.navn
-    arbeidsgiverOrgnr=arbeidsgiver.orgnr
-}}
-<h2 id="perioder">Perioder i sykmeldingen</h2>
-<div>
-    <p class="text-thin mb-3 text-sm">Syketilfelle fra:
-        {{#if sykefravaerFom}}
-            {{iso_to_date sykefravaerFom}}
-        {{else}}
-            —
-        {{/if}}
+    {{> partials/sykmeldtOgArbeidsgiverInfo
+        sykmeldtNavn=sykmeldt.navn
+        sykmeldtFnr=sykmeldt.fnr
+        arbeidsgiverNavn=arbeidsgiver.navn
+        arbeidsgiverOrgnr=arbeidsgiver.orgnr
+    }}
+
+    <h2 id="perioder">Perioder i sykmeldingen</h2>
+    <p class="text-thin mb-3 text-sm grey-text">
+        Syketilfelle fra: {{> partials/valueOrDash v=(iso_to_date sykefravaerFom) }}
     </p>
-</div>
 
     {{#each sykmeldingPerioder}}
     <div class="table width-100 period-row text-sm">
         <div class="row">
             <p class="cell period-type font-semibold">
-                {{!-- Teoretisk skal bare en av disse true, om ikke aksepterer vi rar formattering --}}
-
+                {{!-- Teoretisk skal bare en av disse true --}}
                 {{#if aktivitet.aktivitetIkkeMulig}}
                     100% sykmeldt
                 {{/if}}
@@ -75,24 +69,21 @@
                 {{#if aktivitet.harReisetilskudd}}
                     Reisetilskudd
                 {{/if}}
-
             </p>
-            <p style="display: table-cell;" class="period-dates">
+            <p class="cell period-dates">
                 {{> partials/periodeMedAntallDager fom=fom tom=tom }}
             </p>
-            <p style="display: table-cell;" class="text-thin">
+            <p class="cell text-thin">
                 {{#if aktivitet.gradertSykmelding}}
                     {{#if aktivitet.gradertSykmelding.harReisetilskudd}}
                         Med reisetilskudd {{else}} Uten reisetilskudd
                     {{/if}}
                 {{/if}}
-
                 {{#if aktivitet.aktivitetIkkeMulig}}
                     {{#if aktivitet.aktivitetIkkeMulig.manglendeTilretteleggingPaaArbeidsplassen}}
                         Manglende tilrettelegging på arbeidsplassen
                     {{/if}}
                 {{/if}}
-
                 {{#if aktivitet.antallBehandlingsdagerUke}}
                     {{aktivitet.antallBehandlingsdagerUke}} behandlingsdager
                 {{/if}}
@@ -101,115 +92,67 @@
     </div>
     {{/each}}
 
-<h2 id="egenmeldingsdager">Egenmeldingsdager</h2>
-{{#if egenmeldingsdager}}
-{{#if egenmeldingsdager.length}}
-<p class="text-thin section-subtitle" style="color: #555555">Oppgitt av ansatt selv ved bekreftelse av sykmelding.</p>
-<div style="display: table; width: 100%;">
-    {{#each egenmeldingsdager}}
-    <div style="display: table-row;">
-        <p style="display: table-cell;" class="text-regular">
-            {{> partials/periodeMedAntallDager fom=fom tom=tom }}
-        </p>
-    </div>
-    {{/each}}
-</div>
-{{/if}}
-{{else}}
-<p class="text-thin section-subtitle">Ingen egenmeldingsdager oppgitt.</p>
-{{/if}}
+    <h2 id="egenmeldingsdager">Egenmeldingsdager</h2>
+    {{#if egenmeldingsdager}}
+        <p class="text-thin mb-3 grey-text">Oppgitt av ansatt selv ved bekreftelse av sykmelding.</p>
+        {{#each egenmeldingsdager}}
+            <p>{{> partials/periodeMedAntallDager fom=fom tom=tom }}</p>
+        {{/each}}
+    {{else}}
+        <p class="text-thin mb-3">Ingen egenmeldingsdager oppgitt.</p>
+    {{/if}}
 
-<h2 id="oppfølging">Oppfølging</h2>
-
-{{!-- Skal vises bare om ingen av de andre oppfølgings punktene ble vist--}}
-{{#any oppfoelging.prognose oppfoelging.tiltakArbeidsplassen oppfoelging.meldingTilArbeidsgiver}} {{else}}
-    {{#contains_field sykmeldingPerioder "aktivitet.aktivitetIkkeMulig.beskrivelse"}} {{else}}
-        {{#contains_field sykmeldingPerioder "aktivitet.avventendeSykmelding"}} {{else}}
-            <p class="text-thin section-subtitle">Ingen oppfølging oppgitt.</p>
+    <h2 id="oppfølging">Oppfølging</h2>
+    {{!-- Skal vises bare om ingen av de andre oppfølgings punktene ble vist--}}
+    {{#any oppfoelging.prognose oppfoelging.tiltakArbeidsplassen oppfoelging.meldingTilArbeidsgiver}} {{else}}
+        {{#contains_field sykmeldingPerioder "aktivitet.aktivitetIkkeMulig.beskrivelse"}} {{else}}
+            {{#contains_field sykmeldingPerioder "aktivitet.avventendeSykmelding"}} {{else}}
+                <p class="text-thin mb-3">Ingen oppfølging oppgitt.</p>
+            {{/contains_field}}
         {{/contains_field}}
-    {{/contains_field}}
-{{/any}}
+    {{/any}}
 
-
-<div style="display: table; width: 100%;">
     {{#if oppfoelging.prognose}}
-    <div style="display: table-row;">
-        <div style="display: table-cell;" class="followup-item">
-            <h3 class="text-bold">Prognose og hensyn etter sykefravær</h3>
-            {{#if oppfoelging.prognose.erArbeidsfoerEtterEndtPeriode}}
-            <p style="margin: 4px 0;">&#8226; Arbeidsfør etter endt periode</p>
-            {{/if}}
-            {{#if oppfoelging.prognose.beskrivHensynArbeidsplassen}}
-            <p class="text-thin">{{oppfoelging.prognose.beskrivHensynArbeidsplassen}}</p>
-            {{/if}}
-        </div>
-    </div>
+        <h3 class="bold">Prognose og hensyn etter sykefravær</h3>
+        {{#if oppfoelging.prognose.erArbeidsfoerEtterEndtPeriode}}
+        <p style="margin: 4px 0;">&#8226; Arbeidsfør etter endt periode</p>
+        {{/if}}
+        {{#if oppfoelging.prognose.beskrivHensynArbeidsplassen}}
+        <p class="text-thin pb-15">{{oppfoelging.prognose.beskrivHensynArbeidsplassen}}</p>
+        {{/if}}
     {{/if}}
     {{#if oppfoelging.tiltakArbeidsplassen}}
-    <div style="display: table-row;">
-        <div style="display: table-cell;" class="followup-item">
-            <h3 class="text-bold">Tiltak som kan bedre ansattes arbeidsevne</h3>
-            <p class="text-thin">{{oppfoelging.tiltakArbeidsplassen}}</p>
-        </div>
-    </div>
+        <h3 class="bold">Tiltak som kan bedre ansattes arbeidsevne</h3>
+        <p class="text-thin pb-15">{{oppfoelging.tiltakArbeidsplassen}}</p>
     {{/if}}
     {{#if oppfoelging.meldingTilArbeidsgiver}}
-    <div style="display: table-row;">
-        <div style="display: table-cell;" class="followup-item">
-            <h3 class="text-bold">Melding fra behandler til arbeidsgiver</h3>
-            <p class="text-thin">{{oppfoelging.meldingTilArbeidsgiver}}</p>
-        </div>
-    </div>
+        <h3 class="bold">Melding fra behandler til arbeidsgiver</h3>
+        <p class="text-thin pb-15">{{oppfoelging.meldingTilArbeidsgiver}}</p>
     {{/if}}
-    {{!-- forventer at det alltid er bare en aktivitetIkkeMulig.beskrivelse, om ikke aksepterer vi rar formattering  --}}
-    {{#each sykmeldingPerioder}}
-        {{#if aktivitet.aktivitetIkkeMulig.beskrivelse}}
-                <div style="display: table-row;">
-                    <div style="display: table-cell;" class="followup-item">
-                        <h3 class="text-bold">Forhold på arbeidsplassen vanskeliggjør arbeidsrelatert aktivitet</h3>
-                        <p class="text-thin">{{aktivitet.aktivitetIkkeMulig.beskrivelse}}</p>
-                    </div>
-                </div>
-            {{/if}}
-    {{/each}}
+    {{#each sykmeldingPerioder}} {{#if aktivitet.aktivitetIkkeMulig.beskrivelse}}
+        <h3 class="bold">Forhold på arbeidsplassen vanskeliggjør arbeidsrelatert aktivitet</h3>
+        <p class="text-thin pb-15">{{aktivitet.aktivitetIkkeMulig.beskrivelse}}</p>
+    {{/if}}{{/each}}
+    {{#each sykmeldingPerioder}} {{#if aktivitet.avventendeSykmelding}}
+        <h3 class="bold">Innspill til arbeidsgiver om tilrettelegging</h3>
+        <p class="text-thin pb-15">{{aktivitet.avventendeSykmelding}}</p>
+    {{/if}} {{/each}}
 
-    {{!-- forventer at det alltid er bare en aktivitet.avventendeSykmelding, om ikke aksepterer vi rar formattering  --}}
-        {{#each sykmeldingPerioder}}
-            {{#if aktivitet.avventendeSykmelding}}
-                    <div style="display: table-row;">
-                        <div style="display: table-cell;" class="followup-item">
-                            <h3 class="text-bold">Innspill til arbeidsgiver om tilrettelegging</h3>
-                            <p class="text-thin">{{aktivitet.avventendeSykmelding}}</p>
-                        </div>
-                    </div>
-                {{/if}}
-        {{/each}}
-</div>
+    <hr/>
 
-{{!-- TODO: er <hr /> bad practice? skal denne byttes --}}
-<hr />
-<div class="info-box-table">
-    <div class="info-box-row">
-        <div class="info-box-cell bg-light-blue rounded-md doctor-card" style="width: 45%;" id="behandler">
-            <h3 class="liten-label">Sykmelding skrevet av</h3>
-            <p class="text-bold doctor-card-item text-lg">
-                {{> partials/valueOrDash v=behandler.navn}}
-            </p>
+    <section class="info-box-table" style="width: 50%;">
+        <div class="row">
+            <div class="info-box-cell box-bright" id="behandler">
+                <p class="liten-label">Sykmelding skrevet av</p>
+                <p class="navn-datafelt">{{> partials/valueOrDash v=behandler.navn}}</p>
 
-            <h3 class="liten-label">Telefon</h3>
-            <p class="doctor-card-item">
-                {{> partials/valueOrDash v=behandler.tlf}}
-            </p>
+                <p class="liten-label">Telefon</p>
+                <p>{{> partials/valueOrDash v=behandler.tlf}}</p>
 
-            <h3 class="liten-label">Kontakt med pasient</h3>
-            <p class="text-regular">
-                {{iso_to_nor_datetime kontaktMedPasient}}
-            </p>
+                <p class="liten-label">Kontakt med pasient</p>
+                <p>{{iso_to_nor_datetime kontaktMedPasient}}</p>
+            </div>
         </div>
-     <div class="info-box-cell"></div>
-    </div>
-</div>
-
-
+    </section>
 </body>
 </html>
