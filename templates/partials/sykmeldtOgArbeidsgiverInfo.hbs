@@ -1,17 +1,17 @@
 <div class="info-box-table">
-    <div class="info-box-row">
-        <div class="info-box-cell box-patient rounded-md">
-            <div class="liten-label">Sykmeldingen gjelder</div>
-            <div class="text-bold identity-name text-xl mb-2">{{sykmeldtNavn}}</div>
-            <div class="liten-label">Fødselsnummer</div>
-            <div class="text-regular">{{sykmeldtFnr}}</div>
+    <div class="row">
+        <div class="info-box-cell box-dark" id="sykmeldt">
+            <p class="liten-label">Sykmeldingen gjelder</p>
+            <p class="navn-datafelt">{{sykmeldtNavn}}</p>
+            <p class="liten-label">Fødselsnummer</p>
+            <p>{{sykmeldtFnr}}</p>
         </div>
 
-        <div class="info-box-cell box-employer bg-light-blue rounded-md">
-            <div class="liten-label">Arbeidsgiver</div>
-            <div class="text-bold identity-name text-xl mb-2">{{arbeidsgiverNavn}}</div>
-            <div class="liten-label">Organisasjonsnummer</div>
-            <div class="text-regular">{{arbeidsgiverOrgnr}}</div>
+        <div class="info-box-cell box-bright" id="arbeidsgiver">
+            <p class="liten-label">Arbeidsgiver</p>
+            <p class="navn-datafelt">{{arbeidsgiverNavn}}</p>
+            <p class="liten-label">Organisasjonsnummer</p>
+            <p>{{arbeidsgiverOrgnr}}</p>
         </div>
     </div>
 </div>
