@@ -2,12 +2,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="NO">
 <head>
-{{!--      TODO: Bytt til Søknad --}}
-{{!--     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> --}}
-{{!--     <meta name="description" content="Sykmelding" /> --}}
-{{!--     <meta name="subject" content="Sykmelding" /> --}}
-{{!--     <meta name="author" content="Nav" /> --}}
-{{!--     <meta name="keywords" content="sykmelding" /> --}}
+    {{!--      TODO: Bytt til Søknad --}}
+    {{!--     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> --}}
+    {{!--     <meta name="description" content="Sykmelding" /> --}}
+    {{!--     <meta name="subject" content="Sykmelding" /> --}}
+    {{!--     <meta name="author" content="Nav" /> --}}
+    {{!--     <meta name="keywords" content="sykmelding" /> --}}
     <title>Sykmelding</title>
     {{#block 'style' }}
     {{/block}}
@@ -30,73 +30,69 @@
     </div>
 </div>
 {{> partials/sykmeldtOgArbeidsgiverInfo
-    sykmeldtNavn="TODO: NAVN"
-    sykmeldtFnr=fnr
-    arbeidsgiverNavn=arbeidsgiver.navn
-    arbeidsgiverOrgnr=arbeidsgiver.orgnr
+        sykmeldtNavn="TODO: NAVN"
+        sykmeldtFnr=fnr
+        arbeidsgiverNavn=arbeidsgiver.navn
+        arbeidsgiverOrgnr=arbeidsgiver.orgnr
 }}
 <div>
     <h2>Søknadsperioder</h2>
-{{!--     <div class="text-thin mb-3 text-sm">Sykefravær fra: --}}
-{{!--         {{#if sykefravaerFom}} --}}
-{{!--             {{ iso_to_date sykefravaerFom }} --}}
-{{!--         {{else}} --}}
-{{!--             ——— --}}
-{{!--         {{/if}} --}}
-{{!--     </div> --}}
+    {{!--     <div class="text-thin mb-3 text-sm">Sykefravær fra: --}}
+    {{!--         {{#if sykefravaerFom}} --}}
+    {{!--             {{ iso_to_date sykefravaerFom }} --}}
+    {{!--         {{else}} --}}
+    {{!--             ——— --}}
+    {{!--         {{/if}} --}}
+    {{!--     </div> --}}
 
-    {{#each soeknadsperioder}}
-    <div class="period-row text-sm">
-        <table>
-            <tr>
-                <td class="period-type font-semibold">
-                    {{!-- Teoretisk skal bare en av disse true, om ikke aksepterer vi rar formattering --}}
+    <!--    <div class="table width-100 header-row text-sm">-->
+    <!--        <div class="row">-->
+    <!--            <p class="cell period-type text-thin text-xs">Kategori</p>-->
+    <!--            <p class="cell period-dates text-thin text-xs">Periode</p>-->
+    <!--            <p class="cell text-thin text-xs">Sykmeldingsgrad</p>-->
+    <!--            <p class="cell text-thin text-xs">Arbeidsuke</p>-->
+    <!--            <p class="cell text-thin text-xs">Arbeidet / arbeidsgrad</p>-->
+    <!--        </div>-->
+    <!--    </div>-->
 
-                        ??% sykmeldt
-{{!--                     {{#if aktivitet.aktivitetIkkeMulig}} --}}
-{{!--                         100% sykmeldt --}}
-{{!--                     {{/if}} --}}
-{{!--                     {{#if aktivitet.gradertSykmelding}} --}}
-{{!--                         {{aktivitet.gradertSykmelding.sykmeldingsgrad}}% sykmeldt --}}
-{{!--                     {{/if}} --}}
-{{!--                     {{#if aktivitet.avventendeSykmelding}} --}}
-{{!--                         Avventende sykmelding --}}
-{{!--                     {{/if}} --}}
-{{!--                     {{#if aktivitet.antallBehandlingsdagerUke}} --}}
-{{!--                         Behandlingsdager --}}
-{{!--                     {{/if}} --}}
-{{!--                     {{#if aktivitet.harReisetilskudd}} --}}
-{{!--                         Reisetilskudd --}}
-{{!--                     {{/if}} --}}
-
-                    </td>
-                <td class="period-dates">
-                    {{ iso_to_date fom }} – {{ iso_to_date tom }}
-                    {{> partials/periodeMedAntallDager fom=fom tom=tom }}
-                </td>
-                <td class="text-thin">
-{{!--                     {{#if aktivitet.gradertSykmelding}} --}}
-{{!--                         {{#if aktivitet.gradertSykmelding.harReisetilskudd}} --}}
-{{!--                             Med reisetilskudd --}}
-{{!--                         {{else}} --}}
-{{!--                             Uten reisetilskudd --}}
-{{!--                         {{/if}} --}}
-{{!--                     {{/if}} --}}
-
-{{!--                     {{#if aktivitet.aktivitetIkkeMulig}} --}}
-{{!--                         {{#if aktivitet.aktivitetIkkeMulig.manglendeTilretteleggingPaaArbeidsplassen}} --}}
-{{!--                             Manglende tilrettelegging på arbeidsplassen --}}
-{{!--                         {{/if}} --}}
-{{!--                     {{/if}} --}}
-
-{{!--                     {{#if aktivitet.antallBehandlingsdagerUke}} --}}
-{{!--                         {{aktivitet.antallBehandlingsdagerUke}} behandlingsdag(er) --}}
-{{!--                     {{/if}} --}}
-                </td>
-            </tr>
-        </table>
+    <div class="table width-100" style="margin-bottom: -7px;">
+        <div class="row grey-text text-thin text-xs">
+            <p class="cell" style="padding: 0px 15px; width: 24%;">Beskrivelse</p>
+            <p class="cell" style="width: 39%;">Periode</p>
+            <p class="cell text-thin" style="width: 13%;">Arbeidsuke</p>
+            <p class="cell text-thin">Faktisk Arbeidet/Arbeidsgrad</p>
+        </div>
     </div>
-    {{/each}}
+    <div class="table width-100" style="border-spacing: 0 13px;">
+        {{#each soeknadsperioder}}
+            <div class="row period-row">
+                <p class="cell font-semibold" style="padding: 6px 18px; border-radius: 12px 0 0 12px; width: 24%;">
+                    {{#eq sykmeldingstype "AKTIVITET_IKKE_MULIG"}}100% Sykmeldt{{/eq}}
+                    {{#eq sykmeldingstype "GRADERT"}}{{sykmeldingsgrad}}% Sykmeldt{{/eq}}
+                    {{#eq sykmeldingstype "BEHANDLINGSDAGER"}}Behandlingsdager{{/eq}}
+                    {{#eq sykmeldingstype "AVVENTENDE_SYKMELDING"}}Avventende sykmelding{{/eq}}
+                    {{#eq sykmeldingstype "REISETILSKUDD"}}Reisetilskudd{{/eq}}
+                </p>
+                <p class="cell text-thin" style="width: 39%;">
+                    {{> partials/periodeMedAntallDager fom=fom tom=tom }}
+                </p>
+                <!--                <p class="cell text-thin" style="width: 13.5%;">-->
+                <!--                    {{> partials/valueOrDash v=sykmeldingsgrad }}{{#if sykmeldingsgrad}}%{{/if}}-->
+                <!--                </p>-->
+                <p class="cell text-thin" style="width: 13%;">
+                    {{> partials/valueOrDash v=avtaltTimer }}{{#if avtaltTimer}} t{{/if}}
+                </p>
+                <p class="cell text-thin" style="border-radius: 0 12px 12px 0;">
+                    {{#if faktiskTimer}}
+                        {{faktiskTimer}} t{{#if faktiskGrad}} / {{faktiskGrad}}%{{/if}}
+                    {{else}}
+                        {{> partials/valueOrDash v=faktiskGrad }}{{#if faktiskGrad}}%{{/if}}
+                    {{/if}}
+                </p>
+            </div>
+        {{/each}}
+    </div>
+
 </div>
 
 <h2>Fraværsperioder</h2>
@@ -130,57 +126,57 @@
 
 <table>
     {{#if oppfoelging.prognose}}
-    <tr>
-        <td class="followup-item">
-            <div class="text-bold">Har det blitt søkt om utenlandsopphold? </div>
-{{!--             {{#if oppfoelging.prognose.erArbeidsfoerEtterEndtPeriode}} --}}
-{{!--             <div style="margin: 4px 0;">&#8226; Arbeidsfør etter endt periode</div> --}}
-{{!--             {{/if}} --}}
-{{!--             {{#if oppfoelging.prognose.beskrivHensynArbeidsplassen}} --}}
-            <div class="text-thin">TODO: Implementer</div>
-{{!--             {{/if}} --}}
-        </td>
-    </tr>
+        <tr>
+            <td class="followup-item">
+                <div class="text-bold">Har det blitt søkt om utenlandsopphold? </div>
+                {{!--             {{#if oppfoelging.prognose.erArbeidsfoerEtterEndtPeriode}} --}}
+                {{!--             <div style="margin: 4px 0;">&#8226; Arbeidsfør etter endt periode</div> --}}
+                {{!--             {{/if}} --}}
+                {{!--             {{#if oppfoelging.prognose.beskrivHensynArbeidsplassen}} --}}
+                <div class="text-thin">TODO: Implementer</div>
+                {{!--             {{/if}} --}}
+            </td>
+        </tr>
     {{/if}}
-{{!--     {{#if oppfoelging.tiltakArbeidsplassen}} --}}
-{{!--     <tr> --}}
-{{!--         <td class="followup-item"> --}}
-{{!--             <div class="text-bold">Tiltak som kan bedre ansattes arbeidsevne</div> --}}
-{{!--             <div class="text-thin">{{oppfoelging.tiltakArbeidsplassen}}</div> --}}
-{{!--         </td> --}}
-{{!--     </tr> --}}
-{{!--     {{/if}} --}}
-{{!--     {{#if oppfoelging.meldingTilArbeidsgiver}} --}}
-{{!--     <tr> --}}
-{{!--         <td class="followup-item"> --}}
-{{!--             <div class="text-bold">Melding fra behandler til arbeidsgiver</div> --}}
-{{!--             <div class="text-thin">{{oppfoelging.meldingTilArbeidsgiver}}</div> --}}
-{{!--         </td> --}}
-{{!--     </tr> --}}
-{{!--     {{/if}} --}}
-{{!--      --}}{{!-- forventer at det alltid er bare en aktivitetIkkeMulig.beskrivelse, om ikke aksepterer vi rar formattering  --}}
-{{!--     {{#each sykmeldingPerioder}} --}}
-{{!--         {{#if aktivitet.aktivitetIkkeMulig.beskrivelse}} --}}
-{{!--                 <tr> --}}
-{{!--                     <td class="followup-item"> --}}
-{{!--                         <div class="text-bold">Forhold på arbeidsplassen vanskeliggjør arbeidsrelatert aktivitet</div> --}}
-{{!--                         <div class="text-thin">{{aktivitet.aktivitetIkkeMulig.beskrivelse}}</div> --}}
-{{!--                     </td> --}}
-{{!--                 </tr> --}}
-{{!--             {{/if}} --}}
-{{!--     {{/each}} --}}
+    {{!--     {{#if oppfoelging.tiltakArbeidsplassen}} --}}
+    {{!--     <tr> --}}
+    {{!--         <td class="followup-item"> --}}
+    {{!--             <div class="text-bold">Tiltak som kan bedre ansattes arbeidsevne</div> --}}
+    {{!--             <div class="text-thin">{{oppfoelging.tiltakArbeidsplassen}}</div> --}}
+    {{!--         </td> --}}
+    {{!--     </tr> --}}
+    {{!--     {{/if}} --}}
+    {{!--     {{#if oppfoelging.meldingTilArbeidsgiver}} --}}
+    {{!--     <tr> --}}
+    {{!--         <td class="followup-item"> --}}
+    {{!--             <div class="text-bold">Melding fra behandler til arbeidsgiver</div> --}}
+    {{!--             <div class="text-thin">{{oppfoelging.meldingTilArbeidsgiver}}</div> --}}
+    {{!--         </td> --}}
+    {{!--     </tr> --}}
+    {{!--     {{/if}} --}}
+    {{!--      --}}{{!-- forventer at det alltid er bare en aktivitetIkkeMulig.beskrivelse, om ikke aksepterer vi rar formattering  --}}
+    {{!--     {{#each sykmeldingPerioder}} --}}
+    {{!--         {{#if aktivitet.aktivitetIkkeMulig.beskrivelse}} --}}
+    {{!--                 <tr> --}}
+    {{!--                     <td class="followup-item"> --}}
+    {{!--                         <div class="text-bold">Forhold på arbeidsplassen vanskeliggjør arbeidsrelatert aktivitet</div> --}}
+    {{!--                         <div class="text-thin">{{aktivitet.aktivitetIkkeMulig.beskrivelse}}</div> --}}
+    {{!--                     </td> --}}
+    {{!--                 </tr> --}}
+    {{!--             {{/if}} --}}
+    {{!--     {{/each}} --}}
 
-{{!--      --}}{{!-- forventer at det alltid er bare en aktivitet.avventendeSykmelding, om ikke aksepterer vi rar formattering  --}}
-{{!--         {{#each sykmeldingPerioder}} --}}
-{{!--             {{#if aktivitet.avventendeSykmelding}} --}}
-{{!--                     <tr> --}}
-{{!--                         <td class="followup-item"> --}}
-{{!--                             <div class="text-bold">Innspill til arbeidsgiver om tilrettelegging</div> --}}
-{{!--                             <div class="text-thin">{{aktivitet.avventendeSykmelding}}</div> --}}
-{{!--                         </td> --}}
-{{!--                     </tr> --}}
-{{!--                 {{/if}} --}}
-{{!--         {{/each}} --}}
+    {{!--      --}}{{!-- forventer at det alltid er bare en aktivitet.avventendeSykmelding, om ikke aksepterer vi rar formattering  --}}
+    {{!--         {{#each sykmeldingPerioder}} --}}
+    {{!--             {{#if aktivitet.avventendeSykmelding}} --}}
+    {{!--                     <tr> --}}
+    {{!--                         <td class="followup-item"> --}}
+    {{!--                             <div class="text-bold">Innspill til arbeidsgiver om tilrettelegging</div> --}}
+    {{!--                             <div class="text-thin">{{aktivitet.avventendeSykmelding}}</div> --}}
+    {{!--                         </td> --}}
+    {{!--                     </tr> --}}
+    {{!--                 {{/if}} --}}
+    {{!--         {{/each}} --}}
 </table>
 
 {{!-- {{#if behandler}} --}}
