@@ -2,6 +2,19 @@
 
 Generering av PDF-dokumenter for helsearbeidsgiver-tjenester (f.eks.sykmelding for arbeidsgiver).
 
+## Getting started
+Kjør følgende (krever docker på maskinen)  
+
+```
+chmod +x run_development.sh
+./run_development.sh
+```  
+Serveren blir startet.  
+Åpne opp den relevante PDF url i nettleseren.  
+F.eks: http://0.0.0.0:8080/api/v1/genpdf/sykmelding/sykmelding
+
+Alle endringer til templates osv. blir nå reflektert i nettleseren ved refresh uten å restarte serveren.
+
 ## Utvikling av PDF html
 PDF-dokumentene genereres fra HTML-maler som ligger i `templates`-mappen.  
 Konverteringen gjøres av java biblioteket openPDFtoHTML, denne har noen begrensninger.  
