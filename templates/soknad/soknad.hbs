@@ -45,75 +45,76 @@
     {{!--         {{/if}} --}}
     {{!--     </div> --}}
 
-    <!--    <div class="table width-100 header-row text-sm">-->
-    <!--        <div class="row">-->
-    <!--            <p class="cell period-type text-thin text-xs">Kategori</p>-->
-    <!--            <p class="cell period-dates text-thin text-xs">Periode</p>-->
-    <!--            <p class="cell text-thin text-xs">Sykmeldingsgrad</p>-->
-    <!--            <p class="cell text-thin text-xs">Arbeidsuke</p>-->
-    <!--            <p class="cell text-thin text-xs">Arbeidet / arbeidsgrad</p>-->
-    <!--        </div>-->
-    <!--    </div>-->
+    {{#each soeknadsperioder}}
+        <div class="period-row text-sm">
+            <table>
+                <tr>
+                    <td class="period-type font-semibold">
+                        {{!-- Teoretisk skal bare en av disse true, om ikke aksepterer vi rar formattering --}}
 
-    <div class="table width-100" style="margin-bottom: -7px;">
-        <div class="row grey-text text-thin text-xs">
-            <p class="cell" style="padding: 0px 15px; width: 24%;">Beskrivelse</p>
-            <p class="cell" style="width: 39%;">Periode</p>
-            <p class="cell text-thin" style="width: 13%;">Arbeidsuke</p>
-            <p class="cell text-thin">Faktisk Arbeidet/Arbeidsgrad</p>
+                        ??% sykmeldt
+                        {{!--                     {{#if aktivitet.aktivitetIkkeMulig}} --}}
+                        {{!--                         100% sykmeldt --}}
+                        {{!--                     {{/if}} --}}
+                        {{!--                     {{#if aktivitet.gradertSykmelding}} --}}
+                        {{!--                         {{aktivitet.gradertSykmelding.sykmeldingsgrad}}% sykmeldt --}}
+                        {{!--                     {{/if}} --}}
+                        {{!--                     {{#if aktivitet.avventendeSykmelding}} --}}
+                        {{!--                         Avventende sykmelding --}}
+                        {{!--                     {{/if}} --}}
+                        {{!--                     {{#if aktivitet.antallBehandlingsdagerUke}} --}}
+                        {{!--                         Behandlingsdager --}}
+                        {{!--                     {{/if}} --}}
+                        {{!--                     {{#if aktivitet.harReisetilskudd}} --}}
+                        {{!--                         Reisetilskudd --}}
+                        {{!--                     {{/if}} --}}
+
+                    </td>
+                    <td class="period-dates">
+                        {{ iso_to_date fom }} – {{ iso_to_date tom }}
+                        {{> partials/periodeMedAntallDager fom=fom tom=tom }}
+                    </td>
+                    <td class="text-thin">
+                        {{!--                     {{#if aktivitet.gradertSykmelding}} --}}
+                        {{!--                         {{#if aktivitet.gradertSykmelding.harReisetilskudd}} --}}
+                        {{!--                             Med reisetilskudd --}}
+                        {{!--                         {{else}} --}}
+                        {{!--                             Uten reisetilskudd --}}
+                        {{!--                         {{/if}} --}}
+                        {{!--                     {{/if}} --}}
+
+                        {{!--                     {{#if aktivitet.aktivitetIkkeMulig}} --}}
+                        {{!--                         {{#if aktivitet.aktivitetIkkeMulig.manglendeTilretteleggingPaaArbeidsplassen}} --}}
+                        {{!--                             Manglende tilrettelegging på arbeidsplassen --}}
+                        {{!--                         {{/if}} --}}
+                        {{!--                     {{/if}} --}}
+
+                        {{!--                     {{#if aktivitet.antallBehandlingsdagerUke}} --}}
+                        {{!--                         {{aktivitet.antallBehandlingsdagerUke}} behandlingsdag(er) --}}
+                        {{!--                     {{/if}} --}}
+                    </td>
+                </tr>
+            </table>
         </div>
-    </div>
-    <div class="table width-100" style="border-spacing: 0 13px;">
-        {{#each soeknadsperioder}}
-            <div class="row period-row">
-                <p class="cell font-semibold" style="padding: 6px 18px; border-radius: 12px 0 0 12px; width: 24%;">
-                    {{#eq sykmeldingstype "AKTIVITET_IKKE_MULIG"}}100% Sykmeldt{{/eq}}
-                    {{#eq sykmeldingstype "GRADERT"}}{{sykmeldingsgrad}}% Sykmeldt{{/eq}}
-                    {{#eq sykmeldingstype "BEHANDLINGSDAGER"}}Behandlingsdager{{/eq}}
-                    {{#eq sykmeldingstype "AVVENTENDE_SYKMELDING"}}Avventende sykmelding{{/eq}}
-                    {{#eq sykmeldingstype "REISETILSKUDD"}}Reisetilskudd{{/eq}}
-                </p>
-                <p class="cell text-thin" style="width: 39%;">
-                    {{> partials/periodeMedAntallDager fom=fom tom=tom }}
-                </p>
-                <!--                <p class="cell text-thin" style="width: 13.5%;">-->
-                <!--                    {{> partials/valueOrDash v=sykmeldingsgrad }}{{#if sykmeldingsgrad}}%{{/if}}-->
-                <!--                </p>-->
-                <p class="cell text-thin" style="width: 13%;">
-                    {{> partials/valueOrDash v=avtaltTimer }}{{#if avtaltTimer}} t{{/if}}
-                </p>
-                <p class="cell text-thin" style="border-radius: 0 12px 12px 0;">
-                    {{#if faktiskTimer}}
-                        {{faktiskTimer}} t{{#if faktiskGrad}} / {{faktiskGrad}}%{{/if}}
-                    {{else}}
-                        {{> partials/valueOrDash v=faktiskGrad }}{{#if faktiskGrad}}%{{/if}}
-                    {{/if}}
-                </p>
-            </div>
-        {{/each}}
-    </div>
-
+    {{/each}}
 </div>
 
-<h2 class="mb-3">Fraværsperioder</h2>
-{{#if fravaer}}
-    {{#each fravaer}}
-    <div class="table width-100 period-row">
-        <div class="row">
-            <p class="cell font-semibold" style="width: 30%;">
-                {{#eq type "FERIE"}}Ferie{{/eq}}
-                {{#eq type "PERMISJON"}}Permisjon{{/eq}}
-                {{#eq type "UTENLANDSOPPHOLD"}}Utenlandsopphold{{/eq}}
-            </p>
-            <p class="cell text-thin" style="text-align: right;">
-                {{> partials/periodeMedAntallDager fom=fom tom=tom }}
-            </p>
-        </div>
-    </div>
-    {{/each}}
-{{else}}
-    <p class="text-thin mb-3">Ingen fraværsperioder oppgitt.</p>
-{{/if}}
+<h2>Fraværsperioder</h2>
+{{!-- {{#if egenmeldingsdager}} --}}
+{{!-- {{#if egenmeldingsdager.length}} --}}
+{{!-- <div class="text-thin section-subtitle" style="color: #555555">Oppgitt av ansatt selv ved bekreftelse av sykmelding.</div> --}}
+{{!-- <table> --}}
+{{!--     {{#each egenmeldingsdager}} --}}
+{{!--     <tr><td class="text-regular"> --}}
+{{!--         {{ iso_to_date fom }} – {{ iso_to_date tom }} --}}
+{{!--         {{> partials/periodeMedAntallDager fom=fom tom=tom }} --}}
+{{!--     </td></tr> --}}
+{{!--     {{/each}} --}}
+{{!-- </table> --}}
+{{!-- {{/if}} --}}
+{{!-- {{else}} --}}
+<div class="text-thin mb-3" >TODO: Implementer dette</div>
+{{!-- {{/if}} --}}
 
 <h2>Oppfølging</h2>
 
