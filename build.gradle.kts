@@ -21,6 +21,7 @@ dependencies {
     testImplementation("io.ktor:ktor-client-apache5:3.3.3")
     testImplementation("org.slf4j:slf4j-simple:2.0.9")
     testImplementation("org.apache.pdfbox:pdfbox:3.0.1")
+    testImplementation("io.kotest:kotest-assertions-core:5.8.1")
 }
 
 tasks.test {
