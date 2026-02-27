@@ -16,6 +16,7 @@ import org.junit.jupiter.api.DynamicTest.dynamicTest
 import java.io.File
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import kotlin.text.trim
 
 const val SYKMELDING_PDF_ROUTE = "/api/v1/genpdf/sykmelding/sykmelding"
 const val SOKNAD_PDF_ROUTE = "/api/v1/genpdf/soknad/soknad"
@@ -47,7 +48,7 @@ fun ByteArray.toText(): String {
     val textStripper = PDFTextStripper()
     val extractedText = textStripper.getText(pdfDocument)
     pdfDocument.close()
-    return extractedText
+    return extractedText.trim()
 }
 
 fun hentPdf(
@@ -94,31 +95,4 @@ fun hentPdf(
         }
 
         response.readRawBytes()
-    }
-
-fun String.skalInneholde(vararg forventetInnhold: String): List<DynamicTest> =
-    skalInneholdeInternal(*forventetInnhold, skalAssertTrue = true)
-
-fun String.skalIkkeInneholde(vararg ikkeForventetInnhold: String): List<DynamicTest> =
-    skalInneholdeInternal(*ikkeForventetInnhold, skalAssertTrue = false)
-
-private fun String.skalInneholdeInternal(
-    vararg forventetInnhold: String,
-    skalAssertTrue: Boolean,
-): List<DynamicTest> =
-    forventetInnhold.asList().map { forventent ->
-        val displayName = if (skalAssertTrue) forventent else "Har ikke: $forventent"
-        dynamicTest(displayName) {
-            if (skalAssertTrue) {
-                assertTrue(
-                    this.contains(forventent),
-                    "Forvent at PDF skal inneholde '$forventent'. PDF content: $this",
-                )
-            } else {
-                assertFalse(
-                    this.contains(forventent),
-                    "Forvent at PDF IKKE skal inneholde '$forventent' men fant det likevel. PDF content: $this",
-                )
-            }
-        }
     }
