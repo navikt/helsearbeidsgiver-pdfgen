@@ -62,14 +62,14 @@
                 <p class="cell" style="width: 27%;">
                     Sykmeldingsgrad: {{sykmeldingsgrad}}%
                 </p>
-                <p class="cell" style="width: 27%;">
-                    Faktisk grad: {{> partials/valueOrDash v=faktiskGrad }}{{#if faktiskGrad}}%{{/if}}
+                <p class="cell" style="width: 23%;">
+                    Arbeidsuke: {{> partials/valueOrDash v=avtaltTimer }}{{#if avtaltTimer}} t{{/if}}
                 </p>
-                <p class="cell" style="width: 30%;">
-                    Avtalt timer: {{> partials/valueOrDash v=avtaltTimer }}{{#if avtaltTimer}} t{{/if}}
+                <p class="cell" style="width: 23%;">
+                    Faktisk arbeidsgrad: {{> partials/valueOrDash v=faktiskGrad }}{{#if faktiskGrad}}%{{/if}}
                 </p>
-                <p class="cell" style="width: 19%;">
-                    Faktisk timer: {{> partials/valueOrDash v=faktiskTimer }}{{#if faktiskTimer}} t{{/if}}
+                <p class="cell" style="width: 21%;">
+                    Arbeidet i perioden: {{> partials/valueOrDash v=faktiskTimer }}{{#if faktiskTimer}} t{{/if}}
                 </p>
             </div>
         </div>
