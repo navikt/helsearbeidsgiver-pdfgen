@@ -14,6 +14,7 @@
 </head>
 <body>
 
+
 <h1>Søknad om sykepenger</h1>
 
 {{!-- bruker display: table da dette anbefales av openHTMLtoPDF for accesibility --}}
@@ -30,7 +31,8 @@
     </div>
 </div>
 {{> partials/sykmeldtOgArbeidsgiverInfo
-        sykmeldtNavn=sykmeldtNavn
+        labelForNavn="Søknaden gjelder"
+        sykmeldtNavn=../sykmeldtNavn
         sykmeldtFnr=fnr
         arbeidsgiverNavn=arbeidsgiver.navn
         arbeidsgiverOrgnr=arbeidsgiver.orgnr
@@ -43,8 +45,8 @@
         <div class="table width-100">
             <div class="row">
                 <p class="cell font-semibold" style="text-align: left; vertical-align: top;">
-                    {{#eq sykmeldingstype "AKTIVITET_IKKE_MULIG"}}Aktivitet ikke mulig{{/eq}}
-                    {{#eq sykmeldingstype "GRADERT"}}Gradert sykmelding{{/eq}}
+                    {{#eq sykmeldingstype "AKTIVITET_IKKE_MULIG"}}100% sykmeldt{{/eq}}
+                    {{#eq sykmeldingstype "GRADERT"}}{{sykmeldingsgrad}}% sykmeldt{{/eq}}
                     {{#eq sykmeldingstype "BEHANDLINGSDAGER"}}Behandlingsdager{{/eq}}
                     {{#eq sykmeldingstype "AVVENTENDE_SYKMELDING"}}Avventende sykmelding{{/eq}}
                     {{#eq sykmeldingstype "REISETILSKUDD"}}Reisetilskudd{{/eq}}
@@ -101,10 +103,6 @@
 {{/if}}
 
 
-
-
-
-
-
 </body>
 </html>
+
