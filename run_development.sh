@@ -17,8 +17,8 @@ docker pull ghcr.io/navikt/pdfgen:$VERSION
             printf "\r\n"
             printf "\r%s\n" "$(echo -e "\033[1;32mPDFGEN server online (DEV mode)\033[0m")"
             printf "\r%s\n" "Endringer i templates, fonts, data eller resources vil automatisk oppdateres i serveren"
-            printf "\r%s\n" "http://127.0.0.1:$LOCAL_PORT/api/v1/genpdf/sykmelding/sykmelding"
-            printf "\r%s\n" "http://127.0.0.1:$LOCAL_PORT/api/v1/genpdf/soknad/soknad"
+            printf "\r%s\n" "PDF endepunkt:"
+            curl -s "http://0.0.0.0:$LOCAL_PORT/" | tail -n +2 | grep -v '/partials' | while IFS= read -r line; do printf "\r%s\n" "http://127.0.0.1:$LOCAL_PORT$line"; done
             printf "\r\n"
             exit 0
         fi

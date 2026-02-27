@@ -12,10 +12,10 @@ import kotlin.test.Test
 import kotlin.test.assertTrue
 
 private val PDF_TEKST: String =
-    lagPdfOgHentTekst(jsonNavn = "fullstendig_soknad", pdfgenRoute = SOKNAD_PDF_ROUTE)
+    lagPdfOgHentTekst(jsonNavn = "minimal_soknad", pdfgenRoute = SOKNAD_PDF_ROUTE)
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-class FullstendigSoknadTest {
+class MinimalSoknadTest {
     @Test
     @Order(1)
     fun `kompiler søknad PDF uten feil og lagre lokalt`() {
@@ -49,29 +49,19 @@ class FullstendigSoknadTest {
             "Søknadsperioder",
             "100% sykmeldt 05.05.2025 – 03.06.2025 (30 dager)",
             "Sykmeldingsgrad: 100% Arbeidsuke: — Faktisk arbeidsgrad: — Arbeidet i perioden: —",
-            "50% sykmeldt 01.04.2025 – 06.04.2025 (6 dager)",
-            "Sykmeldingsgrad: 50% Arbeidsuke: 37.5 t Faktisk arbeidsgrad: 10 % Arbeidet i perioden: —",
-            "Behandlingsdager 01.04.2025 – 06.04.2025 (6 dager)",
-            "Sykmeldingsgrad: 0% Arbeidsuke: 37.5 t Faktisk arbeidsgrad: 10 % Arbeidet i perioden: 3.0 t",
-            "Avventende sykmelding 01.04.2025 – 06.04.2025 (6 dager)",
-            "Sykmeldingsgrad: 0% Arbeidsuke: — Faktisk arbeidsgrad: — Arbeidet i perioden: —",
-            "Reisetilskudd 01.04.2025 – 06.04.2025 (6 dager)",
-            "Sykmeldingsgrad: 0% Arbeidsuke: — Faktisk arbeidsgrad: — Arbeidet i perioden: —",
         )
 
     @TestFactory
     fun `søknad PDF har arbeid gjenopptatt`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Arbeid gjenopptatt",
-            "21.06.2025",
+            "—",
         )
 
     @TestFactory
     fun `søknad PDF har fraværsperioder`(): List<DynamicTest> =
         PDF_TEKST.skalInneholde(
             "Fraværsperioder",
-            "Ferie 01.04.2025 – 06.04.2025 (6 dager)",
-            "Permisjon 01.04.2025 – 06.04.2025 (6 dager)",
-            "Utenlandsopphold 01.04.2025 – 06.04.2025 (6 dager)",
+            "Ingen fraværsperioder oppgitt.",
         )
 }
