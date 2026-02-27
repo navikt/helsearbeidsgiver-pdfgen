@@ -7,14 +7,14 @@
      <meta name="subject" content="Søknad om sykepenger" />
      <meta name="author" content="Nav" />
     <meta name="keywords" content="Søknad om sykepenger" />
-    {{ paritals}}
+
     <title>Søknad om sykepenger</title>
     {{#block 'style' }}
     {{/block}}
 </head>
 <body>
 
-
+{{#with sykepengesoeknad}}
 <h1>Søknad om sykepenger</h1>
 
 {{!-- bruker display: table da dette anbefales av openHTMLtoPDF for accesibility --}}
@@ -30,6 +30,8 @@
         </div>
     </div>
 </div>
+
+
 {{> partials/sykmeldtOgArbeidsgiverInfo
         labelForNavn="Søknaden gjelder"
         sykmeldtNavn=../sykmeldtNavn
@@ -105,4 +107,4 @@
 
 </body>
 </html>
-
+{{/with}}

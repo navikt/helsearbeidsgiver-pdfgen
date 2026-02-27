@@ -1,9 +1,9 @@
 {
-
+  "sykmeldtNavn": "sykmeldtNavn",
+  "sykepengesoeknad": {
     "loepenr": 170,
     "soeknadId": "f0bb7352-485d-3974-a0c4-deb695813383",
     "fnr": "fnr",
-    "sykmeldtNavn": "sykmeldtNavn",
     "sykmeldingId": "e40c0fd8-4d28-4960-bb83-e2f25313ac29",
     "type": "ARBEIDSTAKERE",
     "fom": "2025-05-05",
@@ -29,3 +29,4 @@
     ],
     "fravaer": []
   }
+}

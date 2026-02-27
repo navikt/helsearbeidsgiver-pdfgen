@@ -1,5 +1,6 @@
 {
-
+  "sykmeldtNavn": "sykmeldtNavn",
+  "sykepengesoeknad": {
     "loepenr": 170,
     "soeknadId": "f0bb7352-485d-3974-a0c4-deb695813383",
     "fnr": "fnr",
@@ -81,3 +82,4 @@
       }
     ]
   }
+}
