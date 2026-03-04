@@ -7,7 +7,7 @@
     "sykmeldingId": "e40c0fd8-4d28-4960-bb83-e2f25313ac29",
     "type": "ARBEIDSTAKERE",
     "fom": "2025-05-05",
-    "tom": "2025-06-03",
+    "tom": "2025-06-05",
     "arbeidGjenopptattDato": null,
     "mottatTid": "2025-06-04T14:50:47.401000646",
     "arbeidsgiver": {
@@ -19,7 +19,7 @@
     "soeknadsperioder": [
       {
         "fom": "2025-05-05",
-        "tom": "2025-06-03",
+        "tom": "2025-05-06",
         "sykmeldingsgrad": 100,
         "faktiskGrad": null,
         "avtaltTimer": null,

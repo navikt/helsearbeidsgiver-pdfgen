@@ -36,7 +36,7 @@ class SoknadTest {
         Organisasjonsnummer
         arbeidsgiver_orgnr
         Søknadsperioder
-        100% sykmeldt 05.05.2025 – 03.06.2025 (30 dager)
+        100% sykmeldt 05.05.2025 – 06.05.2025 (2 dager)
         Sykmeldingsgrad: 100% Arbeidsuke: — Faktisk arbeidsgrad: — Arbeidet i perioden: —
         Arbeid gjenopptatt
         —
@@ -62,22 +62,22 @@ class SoknadTest {
         Organisasjonsnummer
         arbeidsgiver_orgnr
         Søknadsperioder
-        100% sykmeldt 05.05.2025 – 03.06.2025 (30 dager)
+        100% sykmeldt 05.05.2025 – 05.05.2025 (1 dag)
         Sykmeldingsgrad: 100% Arbeidsuke: — Faktisk arbeidsgrad: — Arbeidet i perioden: —
-        50% sykmeldt 01.04.2025 – 06.04.2025 (6 dager)
+        50% sykmeldt 06.05.2025 – 07.05.2025 (2 dager)
         Sykmeldingsgrad: 50% Arbeidsuke: 37.5 t Faktisk arbeidsgrad: 10 % Arbeidet i perioden: —
-        Behandlingsdager 01.04.2025 – 06.04.2025 (6 dager)
+        Behandlingsdager 08.05.2025 – 10.05.2025 (3 dager)
         Sykmeldingsgrad: 0% Arbeidsuke: 37.5 t Faktisk arbeidsgrad: 10 % Arbeidet i perioden: 3.0 t
-        Avventende sykmelding 01.04.2025 – 06.04.2025 (6 dager)
+        Avventende sykmelding 11.05.2025 – 14.05.2025 (4 dager)
         Sykmeldingsgrad: 0% Arbeidsuke: — Faktisk arbeidsgrad: — Arbeidet i perioden: —
-        Reisetilskudd 01.04.2025 – 06.04.2025 (6 dager)
+        Reisetilskudd 15.05.2025 – 19.05.2025 (5 dager)
         Sykmeldingsgrad: 0% Arbeidsuke: — Faktisk arbeidsgrad: — Arbeidet i perioden: —
         Arbeid gjenopptatt
         21.06.2025
         Fraværsperioder
-        Ferie 01.04.2025 – 06.04.2025 (6 dager)
-        Permisjon 01.04.2025 – 06.04.2025 (6 dager)
-        Utenlandsopphold 01.04.2025 – 06.04.2025 (6 dager)
+        Ferie 06.05.2025 – 06.05.2025 (1 dag)
+        Permisjon 07.05.2025 – 08.05.2025 (2 dager)
+        Utenlandsopphold 09.05.2025 – 11.05.2025 (3 dager)
         """.trimIndent().trim() shouldBe
             FULLSTENDING_SOKNAD_PDF_TEKST.also { println(it) }
     }
