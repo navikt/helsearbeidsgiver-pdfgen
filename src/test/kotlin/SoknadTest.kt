@@ -40,6 +40,8 @@ class SoknadTest {
         Sykmeldingsgrad: 100% Arbeidsuke: — Faktisk arbeidsgrad: — Arbeidet i perioden: —
         Arbeid gjenopptatt
         —
+        Behandlingsdager
+        Ingen behandlingsdager oppgitt.
         Fraværsperioder
         Ingen fraværsperioder oppgitt.
         """.trimIndent().trim() shouldBe
@@ -74,6 +76,10 @@ class SoknadTest {
         Sykmeldingsgrad: 0% Arbeidsuke: — Faktisk arbeidsgrad: — Arbeidet i perioden: —
         Arbeid gjenopptatt
         21.06.2025
+        Behandlingsdager
+        Dager med behandlingsdager oppgitt i søknaden.
+        02.04.2025
+        04.04.2025
         Fraværsperioder
         Ferie 01.04.2025 – 06.04.2025 (6 dager)
         Permisjon 01.04.2025 – 06.04.2025 (6 dager)
