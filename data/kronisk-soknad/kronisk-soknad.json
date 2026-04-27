@@ -1,0 +1,17 @@
+{
+  "opprettet": "2026-03-31T14:16:00",
+  "referansenummer": 123456,
+  "navn": "Opplyst Balltre",
+  "identitetsnummer": "02127437127",
+  "virksomhetsnavn": "Intrikat Justerbar Tiger AS",
+  "virksomhetsnummer": "815493000",
+  "ikkeHistoriskFravaer": false,
+  "fravaerPerAar": [
+    {"aar": "2024", "antallDager": 18},
+    {"aar": "2025", "antallDager": 24},
+    {"aar": "2026", "antallDager": 8}
+  ],
+  "antallPerioder": 26,
+  "harVedlegg": false,
+  "sendtAvNavn": "Bevisst Bøk"
+}

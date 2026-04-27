@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="NO">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Søknad om fritak fra arbeidsgiverperiode - kronisk syk" />
+    <meta name="subject" content="Søknad om fritak fra arbeidsgiverperiode - kronisk syk" />
+    <meta name="author" content="Nav" />
+    <meta name="keywords" content="Søknad om fritak fra arbeidsgiverperiode - kronisk syk" />
+    <title>Søknad om fritak fra arbeidsgiverperiode - kronisk syk</title>
+    {{#block 'style' }}
+    {{/block}}
+</head>
+<body>
+
+<h1>Søknad om fritak fra arbeidsgiverperiode - kronisk syk</h1>
+
+<div class="table width-100">
+    <div class="row">
+        <p style="text-align: left;" class="cell grey-text text-sm">
+            Sendt {{ iso_to_nor_datetime opprettet}}
+        </p>
+        {{#if referansenummer}}
+        <p style="text-align: right;" class="cell grey-text text-sm">
+            søknadsID: {{referansenummer}}
+        </p>
+        {{/if}}
+    </div>
+</div>
+
+{{> partials/sykmeldtOgArbeidsgiverInfo
+    labelForNavn="Søknaden gjelder"
+    sykmeldtNavn=navn
+    sykmeldtFnr=identitetsnummer
+    arbeidsgiverNavn=virksomhetsnavn
+    arbeidsgiverOrgnr=virksomhetsnummer
+}}
+
+<h2>Vedlegg til søknad</h2>
+{{#if harVedlegg}}
+<p class="text-thin">Dokumenter er vedlagt</p>
+{{else}}
+<p class="text-thin grey-text">Ingen dokumenter vedlagt</p>
+{{/if}}
+
+<h2>Historisk fravær</h2>
+{{#if ikkeHistoriskFravaer}}
+<p class="text-thin">Det finnes ikke historisk fravær på grunn av nyansettelse, lengre permisjon eller annet.</p>
+{{else}}
+{{#each fravaerPerAar}}
+<p><span class="bold">{{aar}}:</span> {{antallDager}} dager</p>
+{{/each}}
+<p class="mb-3">Antall fraværsperioder siste 2 år: {{antallPerioder}}</p>
+{{/if}}
+
+<h2>Innrapporert av</h2>
+<p>{{> partials/valueOrDash v=sendtAvNavn}}</p>
+
+</body>
+</html>
