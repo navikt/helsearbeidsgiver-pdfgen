@@ -73,7 +73,7 @@ class GravidSoknadTest {
             Har dere forsøkt omplassering til annen jobb?
             Omplassering er ikke mulig - Vi får ikke kontakt med den ansatte
             Vedlegg til søknad
-            Ingen dokumenter vedlagt
+            Dokumenter er vedlagt
             Innrapporert av
             Bevisst Bøk
             """.trimIndent().trim()

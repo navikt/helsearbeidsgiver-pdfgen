@@ -11,6 +11,6 @@
   "tiltakBeskrivelse": "Her gir jeg en kort begrunnelse på tiltak vi har forsøkt.",
   "omplassering": "IKKE_MULIG",
   "omplasseringAarsak": "FAAR_IKKE_KONTAKT",
-  "harVedlegg": false,
+  "harVedlegg": true,
   "sendtAvNavn": "Bevisst Bøk"
 }

@@ -45,7 +45,7 @@
 <p class="text-thin mb-3">Ja</p>
 <p class="bold mb-2">Hvilke tiltak har dere forsøkt eller vurdert for at den ansatte kan jobbe:</p>
 {{#each tiltak}}
-<p class="text-thin">&#8226; {{#eq this "TILPASSET_ARBEIDSTID"}}Fleksibel eller tilpasset arbeidstid{{/eq}}{{#eq this "HJEMMEKONTOR"}}Hjemmekontor{{/eq}}{{#eq this "TILPASSEDE_ARBEIDSOPPGAVER"}}Tilpassede arbeidsoppgaver{{/eq}}{{#eq this "ANNET"}}Annet, gi en kort beskrivelse av hva dere har gjort:{{/eq}}</p>
+<p class="text-thin bullet-list">&#8226; {{#eq this "TILPASSET_ARBEIDSTID"}}Fleksibel eller tilpasset arbeidstid{{/eq}}{{#eq this "HJEMMEKONTOR"}}Hjemmekontor{{/eq}}{{#eq this "TILPASSEDE_ARBEIDSOPPGAVER"}}Tilpassede arbeidsoppgaver{{/eq}}{{#eq this "ANNET"}}Annet, gi en kort beskrivelse av hva dere har gjort:{{/eq}}</p>
 {{/each}}
 {{#if tiltakBeskrivelse}}
 <p class="text-thin mb-3">{{tiltakBeskrivelse}}</p>
