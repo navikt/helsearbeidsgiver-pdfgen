@@ -43,3 +43,4 @@ spec:
     inbound:
       rules:
         - application: sykepenger-im-lps-api
+        - application: hag-dokument-proxy
