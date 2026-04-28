@@ -8,7 +8,7 @@ import kotlin.test.assertTrue
 private val MINIMAL_PDF_TEKST: String =
     lagPdfOgHentTekst(jsonNavn = "minimal_gravid_soknad", pdfgenRoute = GRAVID_SOKNAD_PDF_ROUTE)
 
-private val FULLSTENDING_PDF_TEKST: String =
+private val FULLSTENDIG_PDF_TEKST: String =
     lagPdfOgHentTekst(jsonNavn = "fullstendig_gravid_soknad", pdfgenRoute = GRAVID_SOKNAD_PDF_ROUTE)
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
@@ -17,7 +17,7 @@ class GravidSoknadTest {
     @Order(1)
     fun `kompiler PDF uten feil og lagre lokalt`() {
         assertTrue(MINIMAL_PDF_TEKST.isNotEmpty())
-        assertTrue(FULLSTENDING_PDF_TEKST.isNotEmpty())
+        assertTrue(FULLSTENDIG_PDF_TEKST.isNotEmpty())
     }
 
     @Test
@@ -29,11 +29,11 @@ class GravidSoknadTest {
             Søknaden gjelder
             —
             Fødselsnummer
-            02127437127
+            111111111111
             Arbeidsgiver
             —
             Organisasjonsnummer
-            815493000
+            888888888
             Termindato
             —
             Arbeidssituasjon og miljø
@@ -49,19 +49,19 @@ class GravidSoknadTest {
     }
 
     @Test
-    fun `fullstending gravid søknad PDF har forventet innhold`() {
-        FULLSTENDING_PDF_TEKST.also { println(it) } shouldBe
+    fun `fullstendig gravid søknad PDF har forventet innhold`() {
+        FULLSTENDIG_PDF_TEKST.also { println(it) } shouldBe
             """
             Søknad om fritak fra arbeidsgiverperiode - Gravid
             Mottatt 31.03.2026 14:16 søknadsID: 123456
             Søknaden gjelder
-            Opplyst Balltre
+            Ola Nordmann
             Fødselsnummer
-            02127437127
+            111111111111
             Arbeidsgiver
-            Intrikat Justerbar Tiger AS
+            virksomhetsnavn
             Organisasjonsnummer
-            815493000
+            888888888
             Termindato
             24.06.2026
             Arbeidssituasjon og miljø
@@ -70,13 +70,13 @@ class GravidSoknadTest {
             Hvilke tiltak har dere forsøkt eller vurdert for at den ansatte kan jobbe:
             • Hjemmekontor
             • Annet, gi en kort beskrivelse av hva dere har gjort:
-            Her gir jeg en kort begrunnelse på tiltak vi har forsøkt.
+            tiltakBeskrivelse lorem ipsum dolor sit amet lorem ipsum dolor sit amet
             Har dere forsøkt omplassering til annen jobb?
             Omplassering er ikke mulig - Vi får ikke kontakt med den ansatte
             Vedlegg til søknad
             Dokumentasjon vedlagt
             Innrapporert av
-            Bevisst Bøk
+            sendtAvNavn
             """.trimIndent().trim()
     }
 }

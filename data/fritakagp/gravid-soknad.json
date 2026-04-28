@@ -1,16 +1,16 @@
 {
   "opprettet": "2026-03-31T14:16:00",
   "referansenummer": 123456,
-  "navn": "Opplyst Balltre",
-  "identitetsnummer": "02127437127",
-  "virksomhetsnavn": "Intrikat Justerbar Tiger AS",
-  "virksomhetsnummer": "815493000",
+  "navn": "Ola Nordmann",
+  "identitetsnummer": "111111111111",
+  "virksomhetsnavn": "virksomhetsnavn",
+  "virksomhetsnummer": "888888888",
   "termindato": "2026-06-24",
   "tilrettelegge": true,
   "tiltak": ["HJEMMEKONTOR", "ANNET"],
-  "tiltakBeskrivelse": "Her gir jeg en kort begrunnelse på tiltak vi har forsøkt.",
+  "tiltakBeskrivelse": "tiltakBeskrivelse lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
   "omplassering": "IKKE_MULIG",
   "omplasseringAarsak": "FAAR_IKKE_KONTAKT",
   "harVedlegg": false,
-  "sendtAvNavn": "Bevisst Bøk"
+  "sendtAvNavn": "sendtAvNavn"
 }

@@ -6,7 +6,7 @@ import kotlin.test.assertTrue
 private val MINIMAL_SYKMELDING_PDF_TEKST: String =
     lagPdfOgHentTekst(jsonNavn = "minimal_sykmelding", pdfgenRoute = SYKMELDING_PDF_ROUTE)
 
-private val FULLSTENDING_SYKMELDING_PDF_TEKST: String =
+private val FULLSTENDIG_SYKMELDING_PDF_TEKST: String =
     lagPdfOgHentTekst(jsonNavn = "fullstendig_sykmelding", pdfgenRoute = SYKMELDING_PDF_ROUTE)
 
 class SykmeldingTest {
@@ -47,7 +47,7 @@ class SykmeldingTest {
     }
 
     @Test
-    fun `fullstending sykmelding PDF har forventet innhold`() {
+    fun `fullstendig sykmelding PDF har forventet innhold`() {
         """
         Sykmelding
         Mottatt av Nav 01.01.2023 01:23 Sykmeldings-ID: sykmelding_id
@@ -94,6 +94,6 @@ class SykmeldingTest {
         Kontakt med pasient
         01.01.2025 01:23
         """.trimIndent().trim() shouldBe
-            FULLSTENDING_SYKMELDING_PDF_TEKST.also { println(it) }
+            FULLSTENDIG_SYKMELDING_PDF_TEKST.also { println(it) }
     }
 }

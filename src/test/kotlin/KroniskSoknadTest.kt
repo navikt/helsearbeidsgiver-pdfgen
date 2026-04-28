@@ -8,7 +8,7 @@ import kotlin.test.assertTrue
 private val MINIMAL_PDF_TEKST: String =
     lagPdfOgHentTekst(jsonNavn = "minimal_kronisk_soknad", pdfgenRoute = KRONISK_SOKNAD_PDF_ROUTE)
 
-private val FULLSTENDING_PDF_TEKST: String =
+private val FULLSTENDIG_PDF_TEKST: String =
     lagPdfOgHentTekst(jsonNavn = "fullstendig_kronisk_soknad", pdfgenRoute = KRONISK_SOKNAD_PDF_ROUTE)
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
@@ -17,7 +17,7 @@ class KroniskSoknadTest {
     @Order(1)
     fun `kompiler PDF uten feil og lagre lokalt`() {
         assertTrue(MINIMAL_PDF_TEKST.isNotEmpty())
-        assertTrue(FULLSTENDING_PDF_TEKST.isNotEmpty())
+        assertTrue(FULLSTENDIG_PDF_TEKST.isNotEmpty())
     }
 
     @Test
@@ -29,11 +29,11 @@ class KroniskSoknadTest {
             Søknaden gjelder
             —
             Fødselsnummer
-            02127437127
+            111111111111
             Arbeidsgiver
             —
             Organisasjonsnummer
-            815493000
+            888888888
             Vedlegg til søknad
             Dokumentasjon vedlagt
             Historisk fravær
@@ -44,19 +44,19 @@ class KroniskSoknadTest {
     }
 
     @Test
-    fun `fullstending kronisk søknad PDF har forventet innhold`() {
-        FULLSTENDING_PDF_TEKST.also { println(it) } shouldBe
+    fun `fullstendig kronisk søknad PDF har forventet innhold`() {
+        FULLSTENDIG_PDF_TEKST.also { println(it) } shouldBe
             """
             Søknad om fritak fra arbeidsgiverperiode - kronisk syk
             Mottatt 31.03.2026 14:16 søknadsID: 123456
             Søknaden gjelder
-            Opplyst Balltre
+            Ola Nordmann
             Fødselsnummer
-            02127437127
+            111111111111
             Arbeidsgiver
-            Intrikat Justerbar Tiger AS
+            virksomhetsnavn
             Organisasjonsnummer
-            815493000
+            888888888
             Vedlegg til søknad
             Dokumentasjon ikke vedlagt
             Historisk fravær
@@ -65,7 +65,7 @@ class KroniskSoknadTest {
             2026: 8 dager
             Antall fraværsperioder siste 2 år: 26
             Innrapporert av
-            Bevisst Bøk
+            sendtAvNavn
             """.trimIndent().trim()
     }
 }

@@ -1,10 +1,10 @@
 {
   "opprettet": "2026-03-31T14:16:00",
   "referansenummer": 123456,
-  "navn": "Opplyst Balltre",
-  "identitetsnummer": "02127437127",
-  "virksomhetsnavn": "Intrikat Justerbar Tiger AS",
-  "virksomhetsnummer": "815493000",
+  "navn": "Ola Nordmann",
+  "identitetsnummer": "111111111111",
+  "virksomhetsnavn": "virksomhetsnavn",
+  "virksomhetsnummer": "888888888",
   "ikkeHistoriskFravaer": false,
   "fravaerPerAar": [
     {"aar": "2024", "antallDager": 18},
@@ -13,5 +13,5 @@
   ],
   "antallPerioder": 26,
   "harVedlegg": false,
-  "sendtAvNavn": "Bevisst Bøk"
+  "sendtAvNavn": "sendtAvNavn"
 }

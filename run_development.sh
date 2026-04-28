@@ -7,6 +7,7 @@ CURRENT_PATH="$(cd "$(dirname "$0")"; pwd)"
 VERSION=$(head -n 1 "$CURRENT_PATH/Dockerfile" | cut -d':' -f2)
 CONTAINER_NAME="pdfgen-dev-$$"
 
+# Sjekk pga Docker med default settings crasher på Apple Silicon i april 2026 (kan slettes om det er fikset)
 if [[ "$(uname -m)" == "arm64" ]]; then
     # Sjekk om Rosetta er aktivert (Colima med --vm-type vz --rosetta, eller Docker Desktop)
     if colima status 2>/dev/null | grep -q "rosetta" || docker info 2>/dev/null | grep -qi "rosetta"; then
