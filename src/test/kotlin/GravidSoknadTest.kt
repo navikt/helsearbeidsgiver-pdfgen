@@ -42,7 +42,7 @@ class GravidSoknadTest {
             Har dere forsøkt omplassering til annen jobb?
             —
             Vedlegg til søknad
-            Ingen dokumenter vedlagt
+            Dokumentasjon ikke vedlagt
             Innrapporert av
             —
             """.trimIndent().trim()
@@ -74,7 +74,7 @@ class GravidSoknadTest {
             Har dere forsøkt omplassering til annen jobb?
             Omplassering er ikke mulig - Vi får ikke kontakt med den ansatte
             Vedlegg til søknad
-            Dokumenter er vedlagt
+            Dokumentasjon vedlagt
             Innrapporert av
             Bevisst Bøk
             """.trimIndent().trim()

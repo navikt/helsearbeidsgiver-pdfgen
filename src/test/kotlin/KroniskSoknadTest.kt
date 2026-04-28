@@ -35,7 +35,7 @@ class KroniskSoknadTest {
             Organisasjonsnummer
             815493000
             Vedlegg til søknad
-            Dokumenter er vedlagt
+            Dokumentasjon vedlagt
             Historisk fravær
             Det finnes ikke historisk fravær på grunn av nyansettelse, lengre permisjon eller annet.
             Innrapporert av
@@ -58,7 +58,7 @@ class KroniskSoknadTest {
             Organisasjonsnummer
             815493000
             Vedlegg til søknad
-            Ingen dokumenter vedlagt
+            Dokumentasjon ikke vedlagt
             Historisk fravær
             2024: 18 dager
             2025: 24 dager
