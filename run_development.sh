@@ -7,6 +7,11 @@ CURRENT_PATH="$(cd "$(dirname "$0")"; pwd)"
 VERSION=$(head -n 1 "$CURRENT_PATH/Dockerfile" | cut -d':' -f2)
 CONTAINER_NAME="pdfgen-dev-$$"
 
+if [[ "$(uname -m)" == "arm64" ]]; then
+    export JDK_JAVA_OPTIONS="${JDK_JAVA_OPTIONS:+$JDK_JAVA_OPTIONS }-XX:UseAVX=0"
+    echo -e "\033[1;33m[INFO] Apple Silicon oppdaget – setter JDK_JAVA_OPTIONS=\"$JDK_JAVA_OPTIONS\" for QEMU-kompatibilitet\033[0m"
+fi
+
 echo -e "\033[1;33m[INFO] Hentet pdfgen versjon $VERSION automatisk fra Dockerfile\033[0m"
 docker pull ghcr.io/navikt/pdfgen:$VERSION
 
