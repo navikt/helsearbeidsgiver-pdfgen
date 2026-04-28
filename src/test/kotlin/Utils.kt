@@ -20,10 +20,10 @@ import kotlin.text.trim
 
 const val SYKMELDING_PDF_ROUTE = "/api/v1/genpdf/sykmelding/sykmelding"
 const val SOKNAD_PDF_ROUTE = "/api/v1/genpdf/soknad/soknad"
-const val GRAVID_SOKNAD_PDF_ROUTE = "/api/v1/genpdf/gravid-soknad/gravid-soknad"
-const val GRAVID_KRAV_PDF_ROUTE = "/api/v1/genpdf/gravid-krav/gravid-krav"
-const val KRONISK_SOKNAD_PDF_ROUTE = "/api/v1/genpdf/kronisk-soknad/kronisk-soknad"
-const val KRONISK_KRAV_PDF_ROUTE = "/api/v1/genpdf/kronisk-krav/kronisk-krav"
+const val GRAVID_SOKNAD_PDF_ROUTE = "/api/v1/genpdf/fritakagp/gravid-soknad"
+const val GRAVID_KRAV_PDF_ROUTE = "/api/v1/genpdf/fritakagp/gravid-krav"
+const val KRONISK_SOKNAD_PDF_ROUTE = "/api/v1/genpdf/fritakagp/kronisk-soknad"
+const val KRONISK_KRAV_PDF_ROUTE = "/api/v1/genpdf/fritakagp/kronisk-krav"
 
 fun lagPdfOgHentTekst(
     jsonNavn: String,

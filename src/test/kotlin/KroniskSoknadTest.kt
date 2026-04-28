@@ -31,6 +31,7 @@ class KroniskSoknadTest {
             Fødselsnummer
             02127437127
             Arbeidsgiver
+            —
             Organisasjonsnummer
             815493000
             Vedlegg til søknad

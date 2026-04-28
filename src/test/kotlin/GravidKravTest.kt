@@ -31,11 +31,12 @@ class GravidKravTest {
             Fødselsnummer
             02127437127
             Arbeidsgiver
+            —
             Organisasjonsnummer
             815493000
             Fraværsperioder
             03.11.2025 – 09.11.2025 (7 dager) Antall dager fravær i perioden: 4
-            Sykmeldingsgrad: 100 % Beregnet månedsinntekt: 44000 Dagsats: 2030 kr Beløp periode: 8120 kr
+            Sykmeldingsgrad: 100 % Beregnet månedsinntekt: 44${'\u00A0'}000 kr Dagsats: 2${'\u00A0'}030 kr Beløp periode: 8${'\u00A0'}120 kr
             Innrapporert av
             —
             """.trimIndent().trim()
@@ -57,7 +58,7 @@ class GravidKravTest {
             815493000
             Fraværsperioder
             03.11.2025 – 09.11.2025 (7 dager) Antall dager fravær i perioden: 4
-            Sykmeldingsgrad: 100 % Beregnet månedsinntekt: 44000 Dagsats: 2030 kr Beløp periode: 8120 kr
+            Sykmeldingsgrad: 100 % Beregnet månedsinntekt: 44${'\u00A0'}000 kr Dagsats: 2${'\u00A0'}030 kr Beløp periode: 8${'\u00A0'}120 kr
             Innrapporert av
             Bevisst Bøk
             """.trimIndent().trim()

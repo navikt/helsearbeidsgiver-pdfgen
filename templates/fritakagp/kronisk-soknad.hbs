@@ -6,7 +6,7 @@
     <meta name="description" content="Søknad om fritak fra arbeidsgiverperiode - kronisk syk" />
     <meta name="subject" content="Søknad om fritak fra arbeidsgiverperiode - kronisk syk" />
     <meta name="author" content="Nav" />
-    <meta name="keywords" content="Søknad om fritak fra arbeidsgiverperiode - kronisk syk" />
+    <meta name="keywords" content="Nav, søknad" />
     <title>Søknad om fritak fra arbeidsgiverperiode - kronisk syk</title>
     {{#block 'style' }}
     {{/block}}
@@ -15,18 +15,7 @@
 
 <h1>Søknad om fritak fra arbeidsgiverperiode - kronisk syk</h1>
 
-<div class="table width-100">
-    <div class="row">
-        <p style="text-align: left;" class="cell grey-text text-sm">
-            Sendt {{ iso_to_nor_datetime opprettet}}
-        </p>
-        {{#if referansenummer}}
-        <p style="text-align: right;" class="cell grey-text text-sm">
-            søknadsID: {{referansenummer}}
-        </p>
-        {{/if}}
-    </div>
-</div>
+{{> fritakagp/metadata beskrivelse="søknadsID"}}
 
 {{> partials/sykmeldtOgArbeidsgiverInfo
     labelForNavn="Søknaden gjelder"
@@ -50,7 +39,7 @@
 {{#each fravaerPerAar}}
 <p><span class="bold">{{aar}}:</span> {{antallDager}} dager</p>
 {{/each}}
-<p class="mb-3">Antall fraværsperioder siste 2 år: {{antallPerioder}}</p>
+<p class="mb-3 bold">Antall fraværsperioder siste 2 år: {{antallPerioder}}</p>
 {{/if}}
 
 <h2>Innrapporert av</h2>
