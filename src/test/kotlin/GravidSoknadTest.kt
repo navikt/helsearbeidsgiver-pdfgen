@@ -25,7 +25,7 @@ class GravidSoknadTest {
         MINIMAL_PDF_TEKST.also { println(it) } shouldBe
             """
             Søknad om fritak fra arbeidsgiverperiode - Gravid
-            Sendt 31.03.2026 14:16
+            Mottatt 31.03.2026 14:16
             Søknaden gjelder
             —
             Fødselsnummer
@@ -53,7 +53,7 @@ class GravidSoknadTest {
         FULLSTENDING_PDF_TEKST.also { println(it) } shouldBe
             """
             Søknad om fritak fra arbeidsgiverperiode - Gravid
-            Sendt 31.03.2026 14:16 søknadsID: 123456
+            Mottatt 31.03.2026 14:16 søknadsID: 123456
             Søknaden gjelder
             Opplyst Balltre
             Fødselsnummer

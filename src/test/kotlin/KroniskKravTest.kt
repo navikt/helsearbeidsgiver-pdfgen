@@ -25,7 +25,7 @@ class KroniskKravTest {
         MINIMAL_PDF_TEKST.also { println(it) } shouldBe
             """
             Krav om refusjon for arbeidsgiverperiode - Kronisk syk
-            Sendt 31.03.2026 14:16
+            Mottatt 31.03.2026 14:16
             Kravet gjelder
             —
             Fødselsnummer
@@ -47,7 +47,7 @@ class KroniskKravTest {
         FULLSTENDING_PDF_TEKST.also { println(it) } shouldBe
             """
             Krav om refusjon for arbeidsgiverperiode - Kronisk syk
-            Sendt 31.03.2026 14:16 ID: 123456
+            Mottatt 31.03.2026 14:16 ID: 123456
             Kravet gjelder
             Opplyst Balltre
             Fødselsnummer
