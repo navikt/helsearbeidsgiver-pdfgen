@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="NO">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="{{title}}" />
+    <meta name="subject" content="{{title}}" />
+    <meta name="author" content="Nav" />
+    <meta name="keywords" content="Nav, krav" />
+    <title>{{title}}</title>
+    {{#block 'style' }}
+    {{/block}}
+</head>
+<body>
+
+<h1>{{title}}</h1>
+
+{{> fritakagp/metadata beskrivelse="ID"}}
+
+{{> partials/sykmeldtOgArbeidsgiverInfo
+    labelForNavn="Kravet gjelder"
+    sykmeldtNavn=navn
+    sykmeldtFnr=identitetsnummer
+    arbeidsgiverNavn=virksomhetsnavn
+    arbeidsgiverOrgnr=virksomhetsnummer
+}}
+
+<h2>Fraværsperioder</h2>
+
+{{#each perioder}}
+<div class="period-row mb-3">
+    <div class="table width-100">
+        <div class="row">
+            <p class="cell font-semibold" style="text-align: left;">
+                {{> partials/periodeMedAntallDager fom=fom tom=tom }}
+            </p>
+            <p class="cell" style="text-align: right;">
+                Antall dager fravær i perioden: {{antallDagerMedRefusjon}}
+            </p>
+        </div>
+    </div>
+    <div class="table width-100 grey-text text-thin" style="font-size: 13px; margin-top: 8px;">
+        <div class="row">
+            <p class="cell" style="width: 25%; padding-right: 16px;">Sykmeldingsgrad: {{graderingProsent}} %</p>
+            <p class="cell" style="width: 35%; padding-right: 16px;">Beregnet månedsinntekt: {{currency_no maanedsinntekt true}} kr</p>
+            <p class="cell" style="width: 20%; padding-right: 16px;">Dagsats: {{currency_no dagsats true}} kr</p>
+            <p class="cell" style="width: 25%;">Beløp periode: {{currency_no belop true}} kr</p>
+        </div>
+    </div>
+</div>
+{{/each}}
+
+<h2>Innrapporert av</h2>
+<p>{{> partials/valueOrDash v=sendtAvNavn}}</p>
+
+</body>
+</html>

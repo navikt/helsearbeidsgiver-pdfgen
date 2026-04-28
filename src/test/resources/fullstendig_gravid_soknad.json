@@ -1,0 +1,16 @@
+{
+  "opprettet": "2026-03-31T14:16:00",
+  "referansenummer": 123456,
+  "navn": "Ola Nordmann",
+  "identitetsnummer": "111111111111",
+  "virksomhetsnavn": "virksomhetsnavn",
+  "virksomhetsnummer": "888888888",
+  "termindato": "2026-06-24",
+  "tilrettelegge": true,
+  "tiltak": ["HJEMMEKONTOR", "ANNET"],
+  "tiltakBeskrivelse": "tiltakBeskrivelse lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+  "omplassering": "IKKE_MULIG",
+  "omplasseringAarsak": "FAAR_IKKE_KONTAKT",
+  "harVedlegg": true,
+  "sendtAvNavn": "sendtAvNavn"
+}

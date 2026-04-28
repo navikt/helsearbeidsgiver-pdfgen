@@ -1,63 +1,85 @@
 {
-  "loepenr": 170,
-  "soeknadId": "f0bb7352-485d-3974-a0c4-deb695813383",
-  "fnr": "09498931658",
-  "sykmeldingId": "e40c0fd8-4d28-4960-bb83-e2f25313ac29",
-  "type": "ARBEIDSTAKERE",
-  "fom": "2025-05-05",
-  "tom": "2025-06-03",
-  "arbeidGjenopptattDato": "2025-06-21",
-  "mottatTid": "2025-06-04T14:50:47.401000646",
-  "arbeidsgiver": {
-    "navn": "Hello intrikat Justerbar Tiger AS",
-    "orgnr": "315912784"
-  },
-  "soektUtenlandsopphold": false,
-  "korrigerer": null,
-  "soeknadsperioder": [
-    {
-      "fom": "2025-05-05",
-      "tom": "2025-06-03",
-      "sykmeldingsgrad": 100,
-      "faktiskGrad": null,
-      "avtaltTimer": null,
-      "faktiskTimer": null,
-      "sykmeldingstype": "AKTIVITET_IKKE_MULIG"
+  "sykmeldtNavn": "sykmeldtNavn",
+  "sykepengesoeknad": {
+    "loepenr": 170,
+    "soeknadId": "f0bb7352-485d-3974-a0c4-deb695813383",
+    "fnr": "fnr",
+    "sykmeldtNavn": "sykmeldtNavn",
+    "sykmeldingId": "e40c0fd8-4d28-4960-bb83-e2f25313ac29",
+    "type": "ARBEIDSTAKERE",
+    "fom": "2025-05-05",
+    "tom": "2025-06-03",
+    "arbeidGjenopptattDato": "2025-06-21",
+    "mottatTid": "2025-06-04T14:50:47.401000646",
+    "arbeidsgiver": {
+      "navn": "arbeidsgiver_navn",
+      "orgnr": "arbeidsgiver_orgnr"
     },
-    {
-      "fom": "2025-04-01",
-      "tom": "2025-04-06",
-      "sykmeldingsgrad": 100,
-      "faktiskGrad": 10,
-      "avtaltTimer": 37.5,
-      "faktiskTimer": 3.0,
-      "sykmeldingstype": "AKTIVITET_IKKE_MULIG"
-    },
-    {
-      "fom": "2025-04-01",
-      "tom": "2025-04-06",
-      "sykmeldingsgrad": 50,
-      "faktiskGrad": 2,
-      "avtaltTimer": 37.5,
-      "faktiskTimer": 3.0,
-      "sykmeldingstype": "GRADERT"
-    }
-  ],
-  "fravaer": [
-    {
-      "fom": "2025-04-01",
-      "tom": "2025-04-06",
-      "type": "FERIE"
-    },
-    {
-      "fom": "2025-04-01",
-      "tom": "2025-04-06",
-      "type": "PERMISJON"
-    },
-    {
-      "fom": "2025-04-01",
-      "tom": "2025-04-06",
-      "type": "UTENLANDSOPPHOLD"
-    }
-  ]
+    "soektUtenlandsopphold": false,
+    "korrigerer": null,
+    "soeknadsperioder": [
+      {
+        "fom": "2025-05-05",
+        "tom": "2025-06-03",
+        "sykmeldingsgrad": 100,
+        "faktiskGrad": null,
+        "avtaltTimer": null,
+        "faktiskTimer": null,
+        "sykmeldingstype": "AKTIVITET_IKKE_MULIG"
+      },
+      {
+        "fom": "2025-04-01",
+        "tom": "2025-04-06",
+        "sykmeldingsgrad": 50,
+        "faktiskGrad": 10,
+        "avtaltTimer": 37.5,
+        "faktiskTimer": null,
+        "sykmeldingstype": "GRADERT"
+      },
+      {
+        "fom": "2025-04-01",
+        "tom": "2025-04-06",
+        "sykmeldingsgrad": 0,
+        "faktiskGrad": 10,
+        "avtaltTimer": 37.5,
+        "faktiskTimer": 3.0,
+        "sykmeldingstype": "BEHANDLINGSDAGER"
+      },
+      {
+        "fom": "2025-04-01",
+        "tom": "2025-04-06",
+        "sykmeldingsgrad": 0,
+        "faktiskGrad": null,
+        "avtaltTimer": null,
+        "faktiskTimer": null,
+        "sykmeldingstype": "AVVENTENDE_SYKMELDING"
+      },
+      {
+        "fom": "2025-04-01",
+        "tom": "2025-04-06",
+        "sykmeldingsgrad": 0,
+        "faktiskGrad": null,
+        "avtaltTimer": null,
+        "faktiskTimer": null,
+        "sykmeldingstype": "REISETILSKUDD"
+      }
+    ],
+    "fravaer": [
+      {
+        "fom": "2025-04-01",
+        "tom": "2025-04-06",
+        "type": "FERIE"
+      },
+      {
+        "fom": "2025-04-01",
+        "tom": "2025-04-06",
+        "type": "PERMISJON"
+      },
+      {
+        "fom": "2025-04-01",
+        "tom": "2025-04-06",
+        "type": "UTENLANDSOPPHOLD"
+      }
+    ]
+  }
 }

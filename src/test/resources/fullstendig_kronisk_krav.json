@@ -1,0 +1,20 @@
+{
+  "opprettet": "2026-03-31T14:16:00",
+  "referansenummer": 123456,
+  "navn": "Ola Nordmann",
+  "identitetsnummer": "111111111111",
+  "virksomhetsnavn": "virksomhetsnavn",
+  "virksomhetsnummer": "888888888",
+  "perioder": [
+    {
+      "fom": "2025-11-03",
+      "tom": "2025-11-09",
+      "antallDagerMedRefusjon": 4,
+      "graderingProsent": 100,
+      "maanedsinntekt": 44000,
+      "dagsats": 2030,
+      "belop": 8120
+    }
+  ],
+  "sendtAvNavn": "sendtAvNavn"
+}
