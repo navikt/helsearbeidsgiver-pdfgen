@@ -83,6 +83,15 @@
 <p class="bold" style="margin-top: 10px">Arbeid gjenopptatt</p>
 <p class="text-thin">{{> partials/valueOrDash v=(iso_to_date arbeidGjenopptattDato) }}</p>
 
+{{#if behandlingsdager}}
+<h2 class="mb-3">Behandlingsdager</h2>
+    <p class="text-thin mb-3">Dager med behandlingsdager oppgitt i søknaden.</p>
+    <ul class="flat-liste">
+    {{#each behandlingsdager}}
+        <li class="text-thin mb-3">{{ iso_to_date this }}</li>
+    {{/each}}
+    </ul>
+{{/if}}
 
 <h2 class="mb-3">Fraværsperioder</h2>
 {{#if fravaer}}
