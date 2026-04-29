@@ -40,8 +40,6 @@ class SoknadTest {
         Sykmeldingsgrad: 100% Arbeidsuke: — Faktisk arbeidsgrad: — Arbeidet i perioden: —
         Arbeid gjenopptatt
         —
-        Behandlingsdager
-        Ingen behandlingsdager oppgitt.
         Fraværsperioder
         Ingen fraværsperioder oppgitt.
         """.trimIndent().trim() shouldBe
