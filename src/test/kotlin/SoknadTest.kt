@@ -8,7 +8,7 @@ import kotlin.test.assertTrue
 private val MINIMAL_SOKNAD_PDF_TEKST: String =
     lagPdfOgHentTekst(jsonNavn = "minimal_soknad", pdfgenRoute = SOKNAD_PDF_ROUTE)
 
-private val FULLSTENDING_SOKNAD_PDF_TEKST: String =
+private val FULLSTENDIG_SOKNAD_PDF_TEKST: String =
     lagPdfOgHentTekst(jsonNavn = "fullstendig_soknad", pdfgenRoute = SOKNAD_PDF_ROUTE)
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
@@ -17,7 +17,7 @@ class SoknadTest {
     @Order(1)
     fun `kompiler PDF uten feil og lagre lokalt`() {
         assertTrue(MINIMAL_SOKNAD_PDF_TEKST.isNotEmpty())
-        assertTrue(FULLSTENDING_SOKNAD_PDF_TEKST.isNotEmpty())
+        assertTrue(FULLSTENDIG_SOKNAD_PDF_TEKST.isNotEmpty())
     }
 
     @Test
@@ -49,7 +49,7 @@ class SoknadTest {
     }
 
     @Test
-    fun `fullstending søknad PDF har forventet innhold`() {
+    fun `fullstendig søknad PDF har forventet innhold`() {
         """
         Søknad om sykepenger
         Mottatt av Nav 04.06.2025 14:50
@@ -85,6 +85,6 @@ class SoknadTest {
         Permisjon 01.04.2025 – 06.04.2025 (6 dager)
         Utenlandsopphold 01.04.2025 – 06.04.2025 (6 dager)
         """.trimIndent().trim() shouldBe
-            FULLSTENDING_SOKNAD_PDF_TEKST.also { println(it) }
+            FULLSTENDIG_SOKNAD_PDF_TEKST.also { println(it) }
     }
 }

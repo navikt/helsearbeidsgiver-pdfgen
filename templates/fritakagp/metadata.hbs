@@ -1,0 +1,12 @@
+<div class="table width-100">
+    <div class="row">
+        <p style="text-align: left;" class="cell grey-text text-sm">
+            Mottatt {{ iso_to_nor_datetime opprettet}}
+        </p>
+        {{#if referansenummer}}
+            <p style="text-align: right;" class="cell grey-text text-sm">
+                {{beskrivelse}}: {{referansenummer}}
+            </p>
+        {{/if}}
+    </div>
+</div>

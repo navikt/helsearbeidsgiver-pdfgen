@@ -1,0 +1,66 @@
+import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.MethodOrderer
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.TestMethodOrder
+import kotlin.test.Test
+import kotlin.test.assertTrue
+
+private val MINIMAL_PDF_TEKST: String =
+    lagPdfOgHentTekst(jsonNavn = "minimal_gravid_krav", pdfgenRoute = GRAVID_KRAV_PDF_ROUTE)
+
+private val FULLSTENDIG_PDF_TEKST: String =
+    lagPdfOgHentTekst(jsonNavn = "fullstendig_gravid_krav", pdfgenRoute = GRAVID_KRAV_PDF_ROUTE)
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation::class)
+class GravidKravTest {
+    @Test
+    @Order(1)
+    fun `kompiler PDF uten feil og lagre lokalt`() {
+        assertTrue(MINIMAL_PDF_TEKST.isNotEmpty())
+        assertTrue(FULLSTENDIG_PDF_TEKST.isNotEmpty())
+    }
+
+    @Test
+    fun `minimal gravid krav PDF har forventet innhold`() {
+        MINIMAL_PDF_TEKST.also { println(it) } shouldBe
+            """
+            Krav om refusjon for arbeidsgiverperiode - Gravid
+            Mottatt 31.03.2026 14:16
+            Kravet gjelder
+            —
+            Fødselsnummer
+            111111111111
+            Arbeidsgiver
+            —
+            Organisasjonsnummer
+            888888888
+            Fraværsperioder
+            03.11.2025 – 09.11.2025 (7 dager) Antall dager fravær i perioden: 4
+            Sykmeldingsgrad: 100 % Beregnet månedsinntekt: 44${'\u00A0'}000 kr Dagsats: 2${'\u00A0'}030 kr Beløp periode: 8${'\u00A0'}120 kr
+            Innrapporert av
+            —
+            """.trimIndent().trim()
+    }
+
+    @Test
+    fun `fullstendig gravid krav PDF har forventet innhold`() {
+        FULLSTENDIG_PDF_TEKST.also { println(it) } shouldBe
+            """
+            Krav om refusjon for arbeidsgiverperiode - Gravid
+            Mottatt 31.03.2026 14:16 ID: 123456
+            Kravet gjelder
+            Ola Nordmann
+            Fødselsnummer
+            111111111111
+            Arbeidsgiver
+            virksomhetsnavn
+            Organisasjonsnummer
+            888888888
+            Fraværsperioder
+            03.11.2025 – 09.11.2025 (7 dager) Antall dager fravær i perioden: 4
+            Sykmeldingsgrad: 100 % Beregnet månedsinntekt: 44${'\u00A0'}000 kr Dagsats: 2${'\u00A0'}030 kr Beløp periode: 8${'\u00A0'}120 kr
+            Innrapporert av
+            sendtAvNavn
+            """.trimIndent().trim()
+    }
+}

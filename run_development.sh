@@ -7,6 +7,18 @@ CURRENT_PATH="$(cd "$(dirname "$0")"; pwd)"
 VERSION=$(head -n 1 "$CURRENT_PATH/Dockerfile" | cut -d':' -f2)
 CONTAINER_NAME="pdfgen-dev-$$"
 
+# Sjekk pga Docker med default settings crasher på Apple Silicon i april 2026 (kan slettes om det er fikset)
+if [[ "$(uname -m)" == "arm64" ]]; then
+    # Sjekk om Rosetta er aktivert (Colima med --vm-type vz --rosetta, eller Docker Desktop)
+    if colima status 2>/dev/null | grep -q "rosetta" || docker info 2>/dev/null | grep -qi "rosetta"; then
+        echo -e "\033[1;32m[INFO] Apple Silicon med Rosetta-emulering oppdaget – god ytelse forventet\033[0m"
+    else
+        echo -e "\033[1;33m[ADVARSEL] Apple Silicon uten Rosetta-emulering oppdaget – kan være tregt og ustabilt!\033[0m"
+        echo -e "\033[1;33m           For Colima: colima stop && colima start --vm-type vz --vz-rosetta --arch aarch64\033[0m"
+        exit
+    fi
+fi
+
 echo -e "\033[1;33m[INFO] Hentet pdfgen versjon $VERSION automatisk fra Dockerfile\033[0m"
 docker pull ghcr.io/navikt/pdfgen:$VERSION
 
