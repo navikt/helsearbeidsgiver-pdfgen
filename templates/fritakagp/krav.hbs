@@ -23,6 +23,12 @@
         Kravet er annulert
     </div>
 {{/eq}}
+{{#eq status "ENDRET"}}
+    <div class="warning-box-cell">
+        <img src="{{ image "warning.svg" }}" class="warning-icon"  alt="warning"/>
+        Kravet er utdatert og erstattet av et nyere krav
+    </div>
+{{/eq}}
 
 {{> partials/sykmeldtOgArbeidsgiverInfo
     labelForNavn="Kravet gjelder"
