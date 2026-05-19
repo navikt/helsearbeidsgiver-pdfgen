@@ -48,6 +48,7 @@ class KroniskKravTest {
             """
             Krav om refusjon for arbeidsgiverperiode - Kronisk syk
             Mottatt 31.03.2026 14:16 ID: 123456
+             Kravet er annulert
             Kravet gjelder
             Ola Nordmann
             Fødselsnummer
