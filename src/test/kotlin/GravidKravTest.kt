@@ -48,6 +48,7 @@ class GravidKravTest {
             """
             Krav om refusjon for arbeidsgiverperiode - Gravid
             Mottatt 31.03.2026 14:16 ID: 123456
+             Kravet er utdatert og erstattet av et nyere krav
             Kravet gjelder
             Ola Nordmann
             Fødselsnummer
