@@ -10,7 +10,8 @@ CONTAINER_NAME="pdfgen-dev-$$"
 # Sjekk pga Docker med default settings crasher på Apple Silicon i april 2026 (kan slettes om det er fikset)
 if [[ "$(uname -m)" == "arm64" ]]; then
     # Sjekk om Rosetta er aktivert (Colima med --vm-type vz --rosetta, eller Docker Desktop)
-    if colima status 2>/dev/null | grep -q "rosetta" || docker info 2>/dev/null | grep -qi "rosetta"; then
+    COLIMA_CONFIG="$HOME/.colima/default/colima.yaml"
+    if grep -q "^rosetta: true" "$COLIMA_CONFIG" 2>/dev/null || colima status 2>/dev/null | grep -qi "rosetta" || docker info 2>/dev/null | grep -qi "rosetta"; then
         echo -e "\033[1;32m[INFO] Apple Silicon med Rosetta-emulering oppdaget – god ytelse forventet\033[0m"
     else
         echo -e "\033[1;33m[ADVARSEL] Apple Silicon uten Rosetta-emulering oppdaget – kan være tregt og ustabilt!\033[0m"
