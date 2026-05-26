@@ -59,7 +59,7 @@ class GravidKravTest {
             888888888
             Fraværsperioder
             03.11.2025 – 09.11.2025 (7 dager) Antall dager fravær i perioden: 4
-            Sykmeldingsgrad: 100 % Beregnet månedsinntekt: 44${'\u00A0'}000 kr Dagsats: 2${'\u00A0'}030 kr Beløp periode: 8${'\u00A0'}120 kr
+            Sykmeldingsgrad: 100 % Beregnet månedsinntekt: 44${'\u00A0'}000 kr Dagsats: 2${'\u00A0'}030 kr Beløp periode: 800${'\u00A0'}120 kr
             Innrapporert av
             sendtAvNavn
             """.trimIndent().trim()
