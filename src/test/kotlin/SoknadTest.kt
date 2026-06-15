@@ -81,7 +81,7 @@ class SoknadTest {
         Fraværsperioder
         Ferie 01.04.2025 – 06.04.2025 (6 dager)
         Permisjon 01.04.2025 – 06.04.2025 (6 dager)
-        Utenlandsopphold 01.04.2025 – 06.04.2025 (6 dager)
+        Utlandsopphold 01.04.2025 – 06.04.2025 (6 dager)
         """.trimIndent().trim() shouldBe
             FULLSTENDIG_SOKNAD_PDF_TEKST.also { println(it) }
     }
