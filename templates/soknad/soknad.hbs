@@ -98,10 +98,10 @@
     {{#each fravaer}}
         <div class="table width-100 period-row">
             <div class="row">
-                <p class="cell font-semibold" style="width: 30%;">
+                <p class="cell font-semibold" style="width: 40%;">
                     {{#eq type "FERIE"}}Ferie{{/eq}}
                     {{#eq type "PERMISJON"}}Permisjon{{/eq}}
-                    {{#eq type "UTLANDSOPPHOLD"}}Utlandsopphold{{/eq}}
+                    {{#eq type "UTLANDSOPPHOLD"}}Opphold i utlandet utenfor EU/EØS{{/eq}}
                 </p>
                 <p class="cell text-thin" style="text-align: right;">
                     {{> partials/periodeMedAntallDager fom=fom tom=tom }}
