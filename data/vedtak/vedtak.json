@@ -1,0 +1,75 @@
+{
+  "eventName": "vedtak_fattet",
+  "fødselsnummer": "12345678910",
+  "yrkesaktivitetstype": "ARBEIDSTAKER",
+  "organisasjonsnummer": "987654321",
+  "vedtaksperiodeId": "6c078f5c-36ca-4c95-b377-1039f6617451",
+  "fom": "2026-08-01",
+  "tom": "2026-08-31",
+  "skjæringstidspunkt": "2026-08-01",
+  "dokumenter": [
+    {
+      "dokumentId": "345a2215-bb6f-4dba-8ea2-9c284af6345d",
+      "type": "Sykmelding"
+    },
+    {
+      "dokumentId": "852f53d1-02e5-418f-bbef-584ac5a929e5",
+      "type": "Søknad"
+    },
+    {
+      "dokumentId": "7808ca85-f66c-4341-8302-f618791648b9",
+      "type": "Inntektsmelding"
+    }
+  ],
+  "sykepengegrunnlag": 657000.0,
+  "utbetalingsdager": [
+    {
+      "dato": "2026-08-03",
+      "type": "NavDag",
+      "beløpTilArbeidsgiver": 2150
+    },
+    {
+      "dato": "2026-08-04",
+      "type": "NavDag",
+      "beløpTilArbeidsgiver": 2150
+    },
+    {
+      "dato": "2026-08-05",
+      "type": "NavDag",
+      "beløpTilArbeidsgiver": 2150
+    },
+    {
+      "dato": "2026-08-06",
+      "type": "NavDag",
+      "beløpTilArbeidsgiver": 2150
+    },
+    {
+      "dato": "2026-08-07",
+      "type": "NavDag",
+      "beløpTilArbeidsgiver": 2150
+    },
+    {
+      "dato": "2026-08-08",
+      "type": "NavHelgDag",
+      "beløpTilArbeidsgiver": 0
+    },
+    {
+      "dato": "2026-08-09",
+      "type": "NavHelgDag",
+      "beløpTilArbeidsgiver": 0
+    },
+    {
+      "dato": "2026-08-10",
+      "type": "NavDag",
+      "beløpTilArbeidsgiver": 2150
+    }
+  ],
+  "vedtakFattetTidspunkt": "2026-08-31T12:34:00",
+  "vedtaksUtfallTilArbeidsgiver": "INNVILGELSE",
+  "saksbehandlerIdent": "Z123456",
+  "saksbehandlerNavn": "Kari Nordmann",
+  "beslutterIdent": "Z654321",
+  "beslutterNavn": "Ola Nordmann",
+  "automatiskFattet": false,
+  "harArbeidsgiverØnsketRefusjon": true
+}

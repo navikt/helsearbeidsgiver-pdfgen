@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="NO">
+<head>
+    <title>Vedtak om sykepenger</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Vedtak om sykepenger" />
+    <meta name="subject" content="Vedtak om sykepenger" />
+    <meta name="author" content="Nav" />
+    <meta name="keywords" content="sykepenger vedtak refusjon" />
+
+    <bookmarks>
+        <bookmark title="Vedtak" href="#vedtak"></bookmark>
+        <bookmark title="Utbetalingsdager" href="#utbetalingsdager"></bookmark>
+        <bookmark title="Detaljer" href="#detaljer"></bookmark>
+    </bookmarks>
+
+    {{#block 'style'}}
+    {{/block}}
+</head>
+<body>
+<h1 id="vedtak">Vedtak om refusjon av sykepenger</h1>
+
+<div class="table mt-2 width-100">
+    <div class="row">
+        <p class="cell grey-text text-sm" style="text-align: left;">
+            Vedtak fattet {{iso_to_nor_datetime vedtakFattetTidspunkt}}
+        </p>
+        <p class="cell grey-text text-sm" style="text-align: right;">
+            Vedtaksperiode-ID:
+            {{> partials/valueOrDash v=vedtaksperiodeId}}
+        </p>
+    </div>
+</div>
+
+{{> partials/sykmeldtOgArbeidsgiverInfo
+        labelForNavn="Ansatt"
+        sykmeldtFnr=fødselsnummer
+        arbeidsgiverOrgnr=organisasjonsnummer
+}}
+
+<div class="box-bright mt-2">
+    <div class="table width-100">
+        <div class="row">
+            <p class="cell font-semibold">
+                Perioden vedtaket gjelder
+            </p>
+            <p class="cell" style="text-align: right;">
+                {{> partials/periodeMedAntallDager fom=fom tom=tom}}
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3">
+    <h2>Vedtak</h2>
+
+    <h3>Utfall</h3>
+    <p class="navn-datafelt">
+        {{> partials/valueOrDash v=vedtaksUtfallTilArbeidsgiver}}
+    </p>
+
+    <h3>Sykepengegrunnlag</h3>
+    <p class="navn-datafelt">
+        {{> partials/valueOrDash v=sykepengegrunnlag}} kr
+    </p>
+
+    <h3>Har arbeidsgiver ønsket refusjon</h3>
+    {{#if harArbeidsgiverØnsketRefusjon}}
+        <p>Ja</p>
+    {{else}}
+        <p>Nei</p>
+    {{/if}}
+</div>
+
+<hr />
+
+<div id="utbetalingsdager">
+    <h2>Utbetalingsdager</h2>
+
+    {{#if utbetalingsdager}}
+        {{#each utbetalingsdager}}
+            <div class="table width-100 period-row text-sm">
+                <div class="row">
+                    <p class="cell">
+                        {{iso_to_date dato}}
+                    </p>
+                    <p class="cell">
+                        {{> partials/valueOrDash v=type}}
+                    </p>
+                    <p class="cell" style="text-align: right;">
+                        {{> partials/valueOrDash v=beløpTilArbeidsgiver}} kr
+                    </p>
+                </div>
+            </div>
+        {{/each}}
+    {{else}}
+        <p class="text-thin">Ingen utbetalingsdager oppgitt.</p>
+    {{/if}}
+</div>
+
+<hr />
+
+<div id="detaljer">
+    <h2>Detaljer fra saken</h2>
+
+    <h3>Skjæringstidspunkt</h3>
+    <p>
+        {{> partials/valueOrDash v=(iso_to_date skjæringstidspunkt)}}
+    </p>
+
+    <h3>Yrkesaktivitetstype</h3>
+    <p>
+        {{> partials/valueOrDash v=yrkesaktivitetstype}}
+    </p>
+
+    <h3>Automatisk fattet</h3>
+    {{#if automatiskFattet}}
+        <p>Ja</p>
+    {{else}}
+        <p>Nei</p>
+    {{/if}}
+
+    <h3>Saksbehandler</h3>
+    <p>
+        {{> partials/valueOrDash v=saksbehandlerNavn}}
+    </p>
+    <p class="text-thin">
+        {{> partials/valueOrDash v=saksbehandlerIdent}}
+    </p>
+
+    <h3>Beslutter</h3>
+    <p>
+        {{> partials/valueOrDash v=beslutterNavn}}
+    </p>
+    <p class="text-thin">
+        {{> partials/valueOrDash v=beslutterIdent}}
+    </p>
+</div>
+</body>
+</html>
