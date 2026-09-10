@@ -19,7 +19,8 @@ object SharedTestContainer {
                 .withFileFromPath("Dockerfile", projectDir.resolve("Dockerfile").toPath())
                 .withFileFromPath("templates", projectDir.resolve("templates").toPath())
                 .withFileFromPath("fonts", projectDir.resolve("fonts").toPath())
-                .withFileFromPath("resources", projectDir.resolve("resources").toPath()),
+                .withFileFromPath("resources", projectDir.resolve("resources").toPath())
+                .withFileFromPath("data", projectDir.resolve("data").toPath()),
         ).apply {
             withExposedPorts(8080)
             waitingFor(Wait.forHttp("/internal/is_ready").forPort(8080))
