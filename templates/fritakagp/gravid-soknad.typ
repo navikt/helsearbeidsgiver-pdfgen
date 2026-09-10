@@ -1,4 +1,4 @@
-#import "../shared.typ": *
+#import "/resources/shared.typ": *
 #let data = json("/data/fritakagp/gravid-soknad.json")
 #set document(title: "Søknad om fritak fra arbeidsgiverperiode - Gravid", author: "Nav")
 = Søknad om fritak fra arbeidsgiverperiode - Gravid
