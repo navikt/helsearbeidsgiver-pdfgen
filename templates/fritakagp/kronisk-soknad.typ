@@ -1,4 +1,4 @@
-#import "/resources/shared.typ": *
+#import "../shared.typ": *
 #let data = json("/data/fritakagp/kronisk-soknad.json")
 #set document(title: "Søknad om fritak fra arbeidsgiverperiode - kronisk syk", author: "Nav")
 = Søknad om fritak fra arbeidsgiverperiode - kronisk syk

@@ -1,4 +1,4 @@
-#import "/resources/shared.typ": *
+#import "../shared.typ": *
 #let data = json("/data/fritakagp/kronisk-krav.json")
 #let title = "Krav om refusjon for arbeidsgiverperiode - Kronisk syk"
-#include "/resources/krav.typ"
+#include "krav.typ"

@@ -1,4 +1,4 @@
-#import "/resources/shared.typ": *
+#import "../shared.typ": *
 #let data = json("/data/sykmelding/sykmelding.json")
 #set document(title: "Sykmelding", author: "Nav", keywords: ("sykmelding",))
 = Sykmelding
