@@ -36,6 +36,9 @@ spec:
     logging:
       destinations:
         - id: loki
+    autoInstrumentation:
+      enabled: true
+      runtime: sdk
   accessPolicy:
     inbound:
       rules:
