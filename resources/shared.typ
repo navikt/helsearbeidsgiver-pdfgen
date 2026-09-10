@@ -1,15 +1,15 @@
-#set page(
+set page(
   paper: "a4",
   margin: (x: 1cm, y: 1cm),
 )
-#set text(font: "Source Sans Pro", size: 10pt, fill: rgb("#262626"))
-#set par(leading: 0.4em)
-#set heading(numbering: none)
-#show heading.where(level: 1): it => {
+set text(font: "Source Sans Pro", size: 10pt, fill: rgb("#262626"))
+set par(leading: 0.4em)
+set heading(numbering: none)
+show heading.where(level: 1): it => {
   set text(size: 22pt, weight: "medium")
   it
 }
-#show heading.where(level: 2): it => {
+show heading.where(level: 2): it => {
   v(1em)
   line(length: 100%, stroke: rgb("#e0e0e0"))
   v(0.5em)
@@ -17,25 +17,25 @@
   it
 }
 
-#let get(data, key, default: none) = data.at(key, default: default)
-#let dash(value) = if value == none or value == "" { "—" } else { str(value) }
-#let date(value) = {
+let get(data, key, default: none) = data.at(key, default: default)
+let dash(value) = if value == none or value == "" { "—" } else { str(value) }
+let date(value) = {
   let value = str(value)
   if value.len() < 10 { return dash(value) }
   value.slice(8, 10) + "." + value.slice(5, 7) + "." + value.slice(0, 4)
 }
-#let datetime(value) = {
+let datetime(value) = {
   let value = str(value)
   if value.len() < 16 { return dash(value) }
   date(value) + " " + value.slice(11, 16)
 }
-#let period(from, to) = {
+let period(from, to) = {
   let start = date(from)
   let end = date(to)
   if start == end { start } else { start + " – " + end }
 }
-#let yes-no(value) = if value { "Ja" } else { "Nei" }
-#let info(label, person, employer) = {
+let yes-no(value) = if value { "Ja" } else { "Nei" }
+let info(label, person, employer) = {
   grid(
     columns: (1fr, 1fr),
     gutter: 8pt,
@@ -43,16 +43,16 @@
     fill: (rgb("#00213d"), rgb("#e6f0f7")),
     radius: 5pt,
     [
-      #text(fill: white, size: 8pt, weight: "semibold")[#label] \
-      #text(fill: white, size: 16pt, weight: "medium")[#dash(get(person, "navn"))] \
-      #text(fill: white, size: 8pt, weight: "semibold")[Fødselsnummer] \
-      #text(fill: white)[#dash(get(person, "fnr", get(person, "identitetsnummer")))]
+      text(fill: white, size: 8pt, weight: "semibold", label) \
+      text(fill: white, size: 16pt, weight: "medium", dash(get(person, "navn"))) \
+      text(fill: white, size: 8pt, weight: "semibold", [Fødselsnummer]) \
+      text(fill: white, dash(get(person, "fnr", get(person, "identitetsnummer"))))
     ],
     [
-      #text(size: 8pt, weight: "semibold")[Arbeidsgiver] \
-      #text(size: 16pt, weight: "medium")[#dash(get(employer, "navn", get(employer, "virksomhetsnavn")))] \
-      #text(size: 8pt, weight: "semibold")[Organisasjonsnummer] \
-      #dash(get(employer, "orgnr", get(employer, "virksomhetsnummer")))
+      text(size: 8pt, weight: "semibold", [Arbeidsgiver]) \
+      text(size: 16pt, weight: "medium", dash(get(employer, "navn", get(employer, "virksomhetsnavn")))) \
+      text(size: 8pt, weight: "semibold", [Organisasjonsnummer]) \
+      dash(get(employer, "orgnr", get(employer, "virksomhetsnummer")))
     ],
   )
   v(1em)
