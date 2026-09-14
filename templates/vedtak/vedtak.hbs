@@ -17,8 +17,32 @@
 
     {{#block 'style'}}
     {{/block}}
+
+    /*TODO: Slett etter vedtak er i prod*/
+    <style type="text/css">
+        @page {
+            margin-top: 5mm;
+            @top-center {
+                content: element(document-warning);
+            }
+        }
+        .document-warning {
+            position: running(document-warning);
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            font-size: 18px;
+        }
+    </style>
 </head>
+
+
 <body>
+
+<!--TODO: Slett når vedtak er i prod-->
+<p class="document-warning">Intern testversjon - Dokumentet er ikke gyldig</p>
+
+
 <h1 id="vedtak">Vedtak om refusjon av sykepenger</h1>
 
 <div class="table mt-2 width-100">
