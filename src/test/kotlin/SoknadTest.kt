@@ -53,6 +53,7 @@ class SoknadTest {
         Mottatt av Nav 04.06.2025 14:50
         Søknads-ID: f0bb7352-485d-3974-a0c4-deb695813383
         Sykmeldings-ID: e40c0fd8-4d28-4960-bb83-e2f25313ac29
+        Denne søknaden er en endring av tidligere søknad: f0bb7352-485d-3974-a0c4-deb695815383
         Søknaden gjelder
         sykmeldtNavn
         Fødselsnummer
@@ -83,6 +84,6 @@ class SoknadTest {
         Permisjon 01.04.2025 – 06.04.2025 (6 dager)
         Opphold i utlandet utenfor EU/EØS 01.04.2025 – 06.04.2025 (6 dager)
         """.trimIndent().trim() shouldBe
-            FULLSTENDIG_SOKNAD_PDF_TEKST.also { println(it) }
+                FULLSTENDIG_SOKNAD_PDF_TEKST.also { println(it) }
     }
 }

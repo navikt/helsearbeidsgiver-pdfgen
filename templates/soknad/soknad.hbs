@@ -30,7 +30,11 @@
         </div>
     </div>
 </div>
-
+{{#if korrigerer }}
+    <div class="warning-box-cell">
+        <img src="{{ image "warning.svg" }}" class="warning-icon"  alt="warning"/>Denne søknaden er en endring av tidligere søknad: {{korrigerer}}
+    </div>
+{{/if}}
 
 {{> partials/sykmeldtOgArbeidsgiverInfo
         labelForNavn="Søknaden gjelder"
