@@ -16,7 +16,7 @@
       "orgnr": "arbeidsgiver_orgnr"
     },
     "soektUtenlandsopphold": false,
-    "korrigerer": null,
+    "korrigerer": "f0bb7352-485d-3974-a0c4-deb695815383",
     "soeknadsperioder": [
       {
         "fom": "2025-05-05",
