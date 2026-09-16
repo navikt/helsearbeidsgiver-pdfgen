@@ -8,6 +8,12 @@
 ][
   #align(right)[#text(fill: rgb("#4a515e"), size: 9pt)[Søknads-ID: #get(data, "soeknadId") \ Sykmeldings-ID: #get(data, "sykmeldingId")]]
 ]
+#if get(data, "korrigerer") != none [
+  #block(fill: rgb("#fff3cd"), inset: 8pt, radius: 5pt, below: 8pt)[
+    #text(weight: "semibold")[Advarsel] \
+    Denne søknaden er en endring av tidligere søknad: #get(data, "korrigerer")
+  ]
+]
 #info("Søknaden gjelder", (navn: get(root, "sykmeldtNavn"), fnr: get(data, "fnr")), get(data, "arbeidsgiver", default: (:)))
 == Søknadsperioder
 #for item in get(data, "soeknadsperioder", default: ()) {
