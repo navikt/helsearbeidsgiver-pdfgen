@@ -1,4 +1,4 @@
-#import "/templates/shared/shared.typ": *
+#import "/templates/soknad/shared.typ": *
 
 #let data = json("/data/vedtak/vedtak.json")
 #set document(title: "Vedtak om sykepenger", author: "Nav", keywords: ("sykepenger", "vedtak", "refusjon"))
@@ -12,7 +12,11 @@
   #align(right)[#text(fill: rgb("#4a515e"), size: 9pt)[Vedtaksperiode-ID: #dash(get(data, "vedtaksperiodeId"))]]
 ]
 
-#info("Ansatt", data, data)
+#info(
+  "Ansatt",
+  (fnr: get(data, "fødselsnummer")),
+  (orgnr: get(data, "organisasjonsnummer")),
+)
 
 #block(fill: rgb("#eef4f9"), inset: 8pt, radius: 8pt)[
   #grid(columns: (1fr, 1fr))[
@@ -30,7 +34,7 @@
 #dash(get(data, "sykepengegrunnlag")) kr
 
 === Har arbeidsgiver ønsket refusjon
-#yes-no(get(data, "harArbeidsgiverØnsketRefusjon", default: false))
+#if get(data, "harArbeidsgiverØnsketRefusjon") [Ja] else [Nei]
 
 == Utbetalingsdager
 #let payment-days = get(data, "utbetalingsdager", default: ())
@@ -58,7 +62,7 @@
 #dash(get(data, "yrkesaktivitetstype"))
 
 === Automatisk fattet
-#yes-no(get(data, "automatiskFattet", default: false))
+#if get(data, "automatiskFattet") [Ja] else [Nei]
 
 === Saksbehandler
 #dash(get(data, "saksbehandlerNavn")) \
