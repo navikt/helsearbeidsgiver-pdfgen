@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="NO">
+<head>
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <meta name="description" content="Søknad om sykepenger" />
+     <meta name="subject" content="Søknad om sykepenger" />
+     <meta name="author" content="Nav" />
+    <meta name="keywords" content="Søknad om sykepenger" />
+
+    <title>Søknad om sykepenger</title>
+    {{#block 'style' }}
+    {{/block}}
+</head>
+<body>
+
+{{#with sykepengesoeknad}}
+<h1>Søknad om sykepenger</h1>
+
+{{!-- bruker display: table da dette anbefales av openHTMLtoPDF for accesibility --}}
+{{!-- Avoid using table elements for layout. Instead, if desiring a table based layout, use a div with display: table, display: table-row, etc. --}}
+<div style="margin-top: 0px; display: table; width: 100%;">
+    <div style="display: table-row;">
+        <div style="display: table-cell; text-align: left;" class="metadata-text text-sm">
+            <br/>Mottatt av Nav {{ iso_to_nor_datetime mottatTid}}
+        </div>
+        <div style="display: table-cell; text-align: right;" class="metadata-text text-sm">
+            Søknads-ID: {{soeknadId}}<br/>
+            Sykmeldings-ID: {{sykmeldingId}}
+        </div>
+    </div>
+</div>
+{{#if korrigerer }}
+    <div class="warning-box-cell">
+        <img src="{{ image "warning.svg" }}" class="warning-icon"  alt="warning"/>Denne søknaden er en endring av tidligere søknad: {{korrigerer}}
+    </div>
+{{/if}}
+
+{{> partials/sykmeldtOgArbeidsgiverInfo
+        labelForNavn="Søknaden gjelder"
+        sykmeldtNavn=../sykmeldtNavn
+        sykmeldtFnr=fnr
+        arbeidsgiverNavn=arbeidsgiver.navn
+        arbeidsgiverOrgnr=arbeidsgiver.orgnr
+}}
+
+<h2 class="mb-3">Søknadsperioder</h2>
+
+{{#each soeknadsperioder}}
+    <div class="period-row mb-15">
+        <div class="table width-100">
+            <div class="row">
+                <p class="cell font-semibold" style="text-align: left; vertical-align: top;">
+                    {{#eq sykmeldingstype "AKTIVITET_IKKE_MULIG"}}100% sykmeldt{{/eq}}
+                    {{#eq sykmeldingstype "GRADERT"}}{{sykmeldingsgrad}}% sykmeldt{{/eq}}
+                    {{#eq sykmeldingstype "BEHANDLINGSDAGER"}}Behandlingsdager{{/eq}}
+                    {{#eq sykmeldingstype "AVVENTENDE_SYKMELDING"}}Avventende sykmelding{{/eq}}
+                    {{#eq sykmeldingstype "REISETILSKUDD"}}Reisetilskudd{{/eq}}
+                </p>
+                <p class="cell" style="text-align: right; vertical-align: top;">
+                    {{> partials/periodeMedAntallDager fom=fom tom=tom }}
+                </p>
+            </div>
+        </div>
+
+        <div style="height: 12px; line-height: 12px;">&nbsp;</div>
+
+        <div class="table width-100 grey-text text-thin" style="font-size: 13px;">
+            <div class="row">
+                <p class="cell" style="width: 27%;">
+                    Sykmeldingsgrad: {{sykmeldingsgrad}}%
+                </p>
+                <p class="cell" style="width: 23%;">
+                    Arbeidsuke: {{> partials/valueOrDash v=avtaltTimer }}{{#if avtaltTimer}} t{{/if}}
+                </p>
+                <p class="cell" style="width: 23%;">
+                    Faktisk arbeidsgrad: {{> partials/valueOrDash v=faktiskGrad }}{{#if faktiskGrad}}%{{/if}}
+                </p>
+                <p class="cell" style="width: 21%;">
+                    Arbeidet i perioden: {{> partials/valueOrDash v=faktiskTimer }}{{#if faktiskTimer}} t{{/if}}
+                </p>
+            </div>
+        </div>
+    </div>
+{{/each}}
+
+<p class="bold" style="margin-top: 10px">Arbeid gjenopptatt</p>
+<p class="text-thin">{{> partials/valueOrDash v=(iso_to_date arbeidGjenopptattDato) }}</p>
+
+{{#if behandlingsdager}}
+<h2 class="mb-3">Behandlingsdager</h2>
+    <p class="text-thin mb-3">Dager med behandlingsdager oppgitt i søknaden.</p>
+    <ul class="flat-liste">
+    {{#each behandlingsdager}}
+        <li class="text-thin mb-3">{{ iso_to_date this }}</li>
+    {{/each}}
+    </ul>
+{{/if}}
+
+<h2 class="mb-3">Fraværsperioder</h2>
+{{#if fravaer}}
+    {{#each fravaer}}
+        <div class="table width-100 period-row">
+            <div class="row">
+                <p class="cell font-semibold" style="width: 40%;">
+                    {{#eq type "FERIE"}}Ferie{{/eq}}
+                    {{#eq type "PERMISJON"}}Permisjon{{/eq}}
+                    {{#eq type "UTLANDSOPPHOLD"}}Opphold i utlandet utenfor EU/EØS{{/eq}}
+                </p>
+                <p class="cell text-thin" style="text-align: right;">
+                    {{> partials/periodeMedAntallDager fom=fom tom=tom }}
+                </p>
+            </div>
+        </div>
+    {{/each}}
+{{else}}
+    <p class="text-thin mb-3">Ingen fraværsperioder oppgitt.</p>
+{{/if}}
+
+
+</body>
+</html>
+{{/with}}
