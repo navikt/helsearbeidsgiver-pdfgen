@@ -25,7 +25,7 @@ spec:
     initialDelay: 10
   prometheus:
     enabled: true
-    path: /internal/prometheus
+    path: /internal/metrics
   resources:
     limits:
       memory: {{memory}}
@@ -33,9 +33,6 @@ spec:
       cpu: {{cpu}}
       memory: {{memory}}
   observability:
-    autoInstrumentation:
-      enabled: true
-      runtime: java
     logging:
       destinations:
         - id: loki

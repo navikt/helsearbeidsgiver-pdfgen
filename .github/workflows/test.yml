@@ -1,29 +1,80 @@
-name: Test
+name: Test PDF generation
 
 on: pull_request
 
 jobs:
-  Test:
+  test-pdf-generation:
+    name: Test PDF generation
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Read pdfgenrs image from Dockerfile
+        run: |
+          PDFGENRS_IMAGE="$(awk '$1 == "FROM" { print $2; exit }' Dockerfile)"
+          test -n "$PDFGENRS_IMAGE"
+          echo "PDFGENRS_IMAGE=$PDFGENRS_IMAGE" >> "$GITHUB_ENV"
+      - name: Start pdfgenrs container
+        run: |
+          docker pull "$PDFGENRS_IMAGE"
+          docker run \
+            --name pdfgenrs \
+            -v "${{ github.workspace }}/templates:/app/templates" \
+            -v "${{ github.workspace }}/data:/app/data" \
+            -v "${{ github.workspace }}/fonts:/app/fonts" \
+            -v "${{ github.workspace }}/resources:/app/resources" \
+            -p 8080:8080 \
+            -e DEV_MODE=true \
+            --detach \
+            "$PDFGENRS_IMAGE"
+      - name: Wait for service to be ready
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:8080/internal/is_ready; then
+              echo "Service is ready"
+              exit 0
+            fi
+            echo "Waiting for service... ($i/30)"
+            sleep 2
+          done
+          echo "::error::Service did not become ready in time"
+          docker logs pdfgenrs
+          exit 1
+      - name: Test template/data pairs
+        run: |
+          failed=0
+          total=0
+          for data_file in $(find data -name '*.json' -type f | sort); do
+            relative="${data_file#data/}"
+            group="$(dirname "$relative")"
+            name="$(basename "$relative" .json)"
+            total=$((total + 1))
 
-      - uses: actions/setup-java@v4
-        with:
-          java-version: 21
-          distribution: temurin
-          cache: gradle
+            for format in pdf html; do
+              output="response.$format"
+              expected_type="application/$format"
+              [ "$format" = "html" ] && expected_type="text/html"
 
-      - name: Test
-        run: ./gradlew test
-        env:
-          ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
+              status=$(curl -sS -w "%{http_code}" \
+                -X POST \
+                -H "Content-Type: application/json" \
+                -d @"$data_file" \
+                "http://localhost:8080/api/v1/gen$format/$group/$name" \
+                -o "$output")
 
-      - name: Upload test report
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-report
-          path: build/reports/tests/test
+              if [ "$status" != "200" ] || [ "$(file --mime-type -b "$output")" != "$expected_type" ]; then
+                echo "::error::[$group/$name] $format generation failed"
+                cat "$output" 2>/dev/null || true
+                docker logs pdfgenrs
+                failed=$((failed + 1))
+              fi
+            done
+          done
+
+          echo "=== Results: $((total * 2 - failed))/$((total * 2)) checks passed ==="
+          [ "$failed" -eq 0 ]
+      - name: Show container logs
+        if: always()
+        run: docker logs pdfgenrs 2>&1 || true
