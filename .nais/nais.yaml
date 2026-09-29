@@ -44,3 +44,4 @@ spec:
       rules:
         - application: sykepenger-im-lps-api
         - application: hag-dokument-proxy
+        - application: refusjon
