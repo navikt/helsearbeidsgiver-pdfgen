@@ -1,165 +1,181 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="NO">
+<html lang="no">
 <head>
-    <title>Vedtak om sykepenger</title>
+    <title>Vedtak om refusjon av sykepenger</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="description" content="Vedtak om sykepenger" />
-    <meta name="subject" content="Vedtak om sykepenger" />
+    <meta name="description" content="Vedtak om refusjon av sykepenger" />
+    <meta name="subject" content="Vedtak om refusjon av sykepenger" />
     <meta name="author" content="Nav" />
     <meta name="keywords" content="sykepenger vedtak refusjon" />
 
     <bookmarks>
         <bookmark title="Vedtak" href="#vedtak"></bookmark>
-        <bookmark title="Utbetalingsdager" href="#utbetalingsdager"></bookmark>
-        <bookmark title="Detaljer" href="#detaljer"></bookmark>
+        <bookmark title="Utbetaling" href="#utbetaling"></bookmark>
     </bookmarks>
 
     {{#block 'style'}}
     {{/block}}
 
-    /*TODO: Slett etter vedtak er i prod*/
     <style type="text/css">
         @page {
-            margin-top: 5mm;
-            @top-center {
-                content: element(document-warning);
-            }
+            margin: 22mm 18mm;
         }
-        .document-warning {
-            position: running(document-warning);
-            color: red;
-            font-weight: bold;
-            text-align: center;
-            font-size: 18px;
+
+        body {
+            margin: 0;
+            color: #232b3a;
+            font-size: 15px;
+            line-height: 1.35;
+        }
+
+        .title {
+            color: #000000;
+            font-size: 32px;
+            font-weight: 600;
+            margin: 0 0 18px;
+        }
+
+        .metadata {
+            color: #49515e;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .metadata-id {
+            text-align: right;
+        }
+
+        .party-table {
+            border-collapse: separate;
+            border-spacing: 12px 0;
+            margin-left: -12px;
+            width: 100%;
+        }
+
+        .party-card {
+            border-radius: 8px;
+            padding: 14px 16px;
+            vertical-align: top;
+            width: 50%;
+        }
+
+        .employee-card {
+            background-color: #002452;
+            color: #ffffff;
+        }
+
+        .employer-card {
+            background-color: #e6f1f8;
+            color: #000000;
+        }
+
+        .card-label,
+        .section-label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .party-name {
+            font-size: 21px;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .content {
+            margin: 26px 4px 0;
+        }
+
+        .section-label {
+            font-size: 19px;
+        }
+
+        .amount {
+            font-size: 30px;
+            font-weight: 600;
+            margin-bottom: 32px;
+        }
+
+        .reason {
+            margin-top: 24px;
+        }
+
+        .reason-value {
+            color: #49515e;
+            font-size: 17px;
+            margin-top: 8px;
+        }
+
+        .divider {
+            border: 0;
+            border-top: 1px solid #7f8287;
+            margin: 28px 0 18px;
+        }
+
+        .payment-period {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .payment-total {
+            font-size: 30px;
+            font-weight: 600;
         }
     </style>
 </head>
-
-
 <body>
+    <h1 class="title" id="vedtak">
+        Refusjon av sykepenger er
+        {{#eq vedtaksUtfallTilArbeidsgiver "INNVILGELSE"}}innvilget{{/eq}}
+        {{#eq vedtaksUtfallTilArbeidsgiver "DELVIS_INNVILGELSE"}}delvis innvilget{{/eq}}
+        {{#eq vedtaksUtfallTilArbeidsgiver "AVSLAG"}}avslått{{/eq}}
+    </h1>
 
-<!--TODO: Slett når vedtak er i prod-->
-<p class="document-warning">Intern testversjon - Dokumentet er ikke gyldig</p>
-
-
-<h1 id="vedtak">Vedtak om refusjon av sykepenger</h1>
-
-<div class="table mt-2 width-100">
-    <div class="row">
-        <p class="cell grey-text text-sm" style="text-align: left;">
-            Vedtak fattet {{iso_to_nor_datetime vedtakFattetTidspunkt}}
-        </p>
-        <p class="cell grey-text text-sm" style="text-align: right;">
-            Vedtaksperiode-ID:
-            {{> partials/valueOrDash v=vedtaksperiodeId}}
-        </p>
-    </div>
-</div>
-
-{{> partials/sykmeldtOgArbeidsgiverInfo
-        labelForNavn="Ansatt"
-        sykmeldtFnr=fødselsnummer
-        arbeidsgiverOrgnr=organisasjonsnummer
-}}
-
-<div class="box-bright mt-2">
-    <div class="table width-100">
+    <div class="table metadata width-100">
         <div class="row">
-            <p class="cell font-semibold">
-                Perioden vedtaket gjelder
-            </p>
-            <p class="cell" style="text-align: right;">
-                {{> partials/periodeMedAntallDager fom=fom tom=tom}}
-            </p>
+            <p class="cell">{{iso_to_nor_datetime vedtakFattetTidspunkt}}</p>
+            <p class="cell metadata-id">refusjonId: {{vedtaksperiodeId}}</p>
         </div>
     </div>
-</div>
 
-<div class="mt-3">
-    <h2>Vedtak</h2>
-
-    <h3>Utfall</h3>
-    <p class="navn-datafelt">
-        {{> partials/valueOrDash v=vedtaksUtfallTilArbeidsgiver}}
-    </p>
-
-    <h3>Sykepengegrunnlag</h3>
-    <p class="navn-datafelt">
-        {{> partials/valueOrDash v=sykepengegrunnlag}} kr
-    </p>
-
-    <h3>Har arbeidsgiver ønsket refusjon</h3>
-    {{#if harArbeidsgiverØnsketRefusjon}}
-        <p>Ja</p>
-    {{else}}
-        <p>Nei</p>
-    {{/if}}
-</div>
-
-<hr />
-
-<div id="utbetalingsdager">
-    <h2>Utbetalingsdager</h2>
-
-    {{#if utbetalingsdager}}
-        {{#each utbetalingsdager}}
-            <div class="table width-100 period-row text-sm">
-                <div class="row">
-                    <p class="cell">
-                        {{iso_to_date dato}}
-                    </p>
-                    <p class="cell">
-                        {{> partials/valueOrDash v=type}}
-                    </p>
-                    <p class="cell" style="text-align: right;">
-                        {{> partials/valueOrDash v=beløpTilArbeidsgiver}} kr
-                    </p>
-                </div>
+    <div class="table party-table">
+        <div class="row">
+            <div class="cell party-card employee-card">
+                <p class="card-label">Ansatt</p>
+                <p class="party-name">{{> partials/valueOrDash v=sykmeldtNavn}}</p>
+                <p class="card-label">Fødselsnummer</p>
+                <p>{{> partials/valueOrDash v=fødselsnummer}}</p>
             </div>
-        {{/each}}
-    {{else}}
-        <p class="text-thin">Ingen utbetalingsdager oppgitt.</p>
-    {{/if}}
-</div>
 
-<hr />
+            <div class="cell party-card employer-card">
+                <p class="card-label">Arbeidsgiver</p>
+                <p class="party-name">{{> partials/valueOrDash v=arbeidsgiverNavn}}</p>
+                <p class="card-label">Organisasjonsnummer</p>
+                <p>{{> partials/valueOrDash v=organisasjonsnummer}}</p>
+            </div>
+        </div>
+    </div>
 
-<div id="detaljer">
-    <h2>Detaljer fra saken</h2>
+    <div class="content">
+        <p class="section-label">Krav om refusjon fra inntektsmelding</p>
+        <p class="amount">— kr/måned</p>
 
-    <h3>Skjæringstidspunkt</h3>
-    <p>
-        {{> partials/valueOrDash v=(iso_to_date skjæringstidspunkt)}}
-    </p>
+        <p class="section-label">Innvilget refusjon opptil</p>
+        <p class="amount">— kr/måned</p>
 
-    <h3>Yrkesaktivitetstype</h3>
-    <p>
-        {{> partials/valueOrDash v=yrkesaktivitetstype}}
-    </p>
+        <p class="section-label reason">Begrunnelse</p>
+        <p class="reason-value">—</p>
 
-    <h3>Automatisk fattet</h3>
-    {{#if automatiskFattet}}
-        <p>Ja</p>
-    {{else}}
-        <p>Nei</p>
-    {{/if}}
+        <hr class="divider" />
 
-    <h3>Saksbehandler</h3>
-    <p>
-        {{> partials/valueOrDash v=saksbehandlerNavn}}
-    </p>
-    <p class="text-thin">
-        {{> partials/valueOrDash v=saksbehandlerIdent}}
-    </p>
-
-    <h3>Beslutter</h3>
-    <p>
-        {{> partials/valueOrDash v=beslutterNavn}}
-    </p>
-    <p class="text-thin">
-        {{> partials/valueOrDash v=beslutterIdent}}
-    </p>
-</div>
+        <div id="utbetaling">
+            <p class="payment-period">
+                Utbetalt for perioden {{iso_to_date fom}}–{{iso_to_date tom}}
+            </p>
+            <p class="payment-total">{{currency_no utbetaltTilArbeidsgiver}} kr</p>
+        </div>
+    </div>
 </body>
 </html>

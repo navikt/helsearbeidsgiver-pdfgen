@@ -1,9 +1,9 @@
-{{#if fom}}                                                                                                                                                                                                           ┃
-    {{#if tom}}                                                                                                                                                                                                       ┃
-            {{ iso_to_date fom }} – {{ iso_to_date tom }} ({{inc (duration fom tom)}}{{#eq (duration fom tom) 0}} dag{{else}} dager{{/eq}})                                                                               ┃
-        {{else}}                                                                                                                                                                                                          ┃
-            Feil: Fra- eller til-dato mangler.                                                                                                                                                                            ┃
-        {{/if}}                                                                                                                                                                                                           ┃
-{{else}}                                                                                                                                                                                                              ┃
-    Feil: Fra- eller til-dato mangler.                                                                                                                                                                                ┃
+{{#if fom}}
+    {{#if tom}}
+            {{ iso_to_date fom }} – {{ iso_to_date tom }} ({{inc (duration fom tom)}}{{#eq (duration fom tom) 0}} dag{{else}} dager{{/eq}})
+        {{else}}
+            Feil: Fra- eller til-dato mangler.
+        {{/if}}
+{{else}}
+    Feil: Fra- eller til-dato mangler.
 {{/if}}
