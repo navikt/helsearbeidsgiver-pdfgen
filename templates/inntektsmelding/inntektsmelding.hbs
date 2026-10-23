@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="NO">
+<head>
+    <title>Inntektsmelding for sykepenger</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Inntektsmelding for sykepenger" />
+    <meta name="subject" content="Inntektsmelding for sykepenger" />
+    <meta name="author" content="Nav" />
+    <meta name="keywords" content="inntektsmelding, sykepenger" />
+
+    <bookmarks>
+        <bookmark title="Den ansatte" href="#ansatt"></bookmark>
+        <bookmark title="Arbeidsgiver" href="#arbeidsgiver"></bookmark>
+        <bookmark title="Fraværsperiode" href="#fravaersperiode"></bookmark>
+        <bookmark title="Beregnet månedslønn" href="#inntekt"></bookmark>
+        <bookmark title="Refusjon" href="#refusjon"></bookmark>
+        <bookmark title="Naturalytelser" href="#naturalytelser"></bookmark>
+    </bookmarks>
+
+    {{#block 'style'}}
+    {{/block}}
+</head>
+<body>
+
+    <h1 id="title">Inntektsmelding for sykepenger{{#if tittelTillegg}} ({{tittelTillegg}}){{/if}}</h1>
+
+    <div class="table mt-2 width-100">
+        <div class="row">
+            <p style="text-align: left;" class="cell grey-text text-sm">
+                Innsendt: {{ iso_to_nor_datetime innsendtTid}}
+            </p>
+            <p style="text-align: right;" class="cell grey-text text-sm">
+                ID: {{id}}
+            </p>
+        </div>
+    </div>
+
+    {{!-- Den ansatte og arbeidsgiver --}}
+    <div class="info-box-table">
+        <div class="row">
+            <div class="info-box-cell box-dark" id="ansatt">
+                <p class="liten-label">Den ansatte</p>
+                <p class="navn-datafelt">{{#if sykmeldt.navn}}{{sykmeldt.navn}}{{else}}—{{/if}}</p>
+                <p class="liten-label">Fødselsnummer</p>
+                <p>{{sykmeldtFnr}}</p>
+            </div>
+
+            <div class="info-box-cell box-bright" id="arbeidsgiver">
+                <p class="liten-label">Arbeidsgiver</p>
+                <p class="navn-datafelt">{{#if avsender.orgNavn}}{{avsender.orgNavn}}{{else}}—{{/if}}</p>
+                <p class="liten-label">Organisasjonsnummer</p>
+                <p>{{arbeidsgiver.orgnr}}</p>
+                <p class="liten-label" style="margin-top: 8px;">Kontaktperson</p>
+                <p>{{#if avsender.navn}}{{avsender.navn}}{{else}}—{{/if}}</p>
+                <p class="liten-label">Telefon</p>
+                <p>{{#if arbeidsgiver.tlf}}{{arbeidsgiver.tlf}}{{else}}—{{/if}}</p>
+            </div>
+        </div>
+    </div>
+
+    {{!-- Fraværsperiode --}}
+    <h2 id="fravaersperiode">Fraværsperiode</h2>
+
+    <div class="table width-100 mb-4">
+        <div class="row">
+            <div class="cell" style="width: 50%; vertical-align: top;">
+                <p class="font-semibold mb-2">Bestemmende fraværsdag (skjæringstidspunkt)</p>
+                <p class="text-thin mb-3">{{#if inntekt.inntektsdato}}{{ iso_to_date inntekt.inntektsdato }}{{else}}—{{/if}}</p>
+
+                <p class="font-semibold mb-2">Arbeidsgiverperiode</p>
+                {{#if agp.perioder}}
+                    {{#each agp.perioder}}
+                        <div class="period-row mb-2 text-sm">
+                            <div class="table width-100">
+                                <div class="row">
+                                    <p class="cell">{{> partials/periodeMedAntallDager fom=fom tom=tom }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <p class="text-thin">Ingen arbeidsgiverperiode</p>
+                {{/if}}
+            </div>
+            <div class="cell" style="width: 50%; vertical-align: top; padding-left: 20px;">
+                {{#if egenmeldinger}}
+                <p class="font-semibold mb-2">Egenmeldinger</p>
+                    {{#each egenmeldinger}}
+                        <div class="period-row mb-2 text-sm">
+                            <div class="table width-100">
+                                <div class="row">
+                                    <p class="cell">{{> partials/periodeMedAntallDager fom=fom tom=tom }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                {{/if}}
+
+                <p class="font-semibold mb-2">Sykmeldingsperioder</p>
+                {{#if sykmeldingsperioder}}
+                    {{#each sykmeldingsperioder}}
+                        <div class="period-row mb-2 text-sm">
+                            <div class="table width-100">
+                                <div class="row">
+                                    <p class="cell">{{> partials/periodeMedAntallDager fom=fom tom=tom }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <p class="text-thin">Ingen sykmeldingsperioder oppgitt.</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+
+    {{!-- Beregnet månedslønn --}}
+    <h2 id="inntekt">Beregnet månedslønn</h2>
+
+    <p class="font-semibold mb-1">Registrert inntekt{{#if inntekt.inntektsdato}} (per {{ iso_to_date inntekt.inntektsdato }}){{/if}}</p>
+    <p class="text-lg bold mb-3">{{#if inntekt.beloep}}{{inntekt.beloep}} kr/måned{{else}}—{{/if}}</p>
+
+    {{#if inntekt.endringAarsaker}}
+        {{#each inntekt.endringAarsaker}}
+            <div class="period-row mb-2">
+                <p class="font-semibold text-sm">
+                    Endringsårsak{{#if @root.inntekt.endringAarsaker.length}}{{#gt @root.inntekt.endringAarsaker.length 1}} ({{inc @index}} av {{@root.inntekt.endringAarsaker.length}}){{/gt}}{{/if}}
+                </p>
+                <p class="text-sm">{{aarsak}}</p>
+                {{#if gjelderFra}}
+                    <p class="text-sm text-thin">Gjelder fra: {{ iso_to_date gjelderFra }}</p>
+                {{/if}}
+                {{#if bleKjent}}
+                    <p class="text-sm text-thin">Ble kjent: {{ iso_to_date bleKjent }}</p>
+                {{/if}}
+                {{#if perioder}}
+                    {{#each perioder}}
+                        <p class="text-sm text-thin">{{ iso_to_date fom }} – {{ iso_to_date tom }}</p>
+                    {{/each}}
+                {{/if}}
+            </div>
+        {{/each}}
+    {{/if}}
+
+    {{!-- Refusjon --}}
+    <h2 id="refusjon">Refusjon</h2>
+
+    {{#if agp.perioder}}
+        <p class="font-semibold mb-1">Betaler arbeidsgiver full lønn i arbeidsgiverperioden?</p>
+        {{#if agp.redusertLoennIAgp}}
+            <p class="text-thin mb-3">Nei</p>
+            <p class="font-semibold mb-1">Begrunnelse</p>
+            <p class="text-thin mb-3">{{agp.redusertLoennIAgp.begrunnelse}}</p>
+            <p class="font-semibold mb-1">Utbetalt under arbeidsgiverperiode</p>
+            <p class="text-thin mb-3">{{agp.redusertLoennIAgp.beloep }} kr</p>
+        {{else}}
+            <p class="text-thin mb-3">Ja</p>
+        {{/if}}
+    {{else}}
+        <p class="text-thin mb-3">Ingen arbeidsgiverperiode</p>
+    {{/if}}
+
+    <p class="font-semibold mb-1">Betaler arbeidsgiver lønn under hele eller deler av sykefraværet?</p>
+    {{#if refusjon}}
+        <p class="text-thin mb-3">Ja</p>
+
+        <p class="font-semibold mb-1">Refusjonsbeløp per måned</p>
+        <p class="text-thin mb-3">{{refusjon.beloepPerMaaned }} kr/måned</p>
+
+        {{#if refusjon.endringer}}
+            <p class="font-semibold mb-2">Endringer i refusjon</p>
+            {{#each refusjon.endringer}}
+                <div class="period-row mb-2 text-sm">
+                    <div class="table width-100">
+                        <div class="row">
+                            <p class="cell font-semibold">{{beloep }} kr/måned</p>
+                            <p class="cell" style="text-align: right;">Fra {{ iso_to_date startdato }}</p>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        {{/if}}
+
+        {{#if refusjon.sluttdato}}
+            <p class="font-semibold mb-1">Siste dag med refusjon</p>
+            <p class="text-thin mb-3">{{ iso_to_date refusjon.sluttdato }}</p>
+        {{/if}}
+    {{else}}
+        <p class="text-thin mb-3">Nei</p>
+    {{/if}}
+
+    {{!-- Naturalytelser --}}
+    <h2 id="naturalytelser">Bortfall av naturalytelser</h2>
+
+    {{#if naturalytelser}}
+        <div class="table width-100 mb-3 text-sm">
+            <div class="row font-semibold">
+                <p class="cell" style="width: 40%;">Naturalytelse</p>
+                <p class="cell" style="width: 30%;">Bortfaller fra</p>
+                <p class="cell" style="width: 30%;">Verdi (kr/måned)</p>
+            </div>
+        </div>
+        {{#each naturalytelser}}
+            <div class="period-row mb-2 text-sm">
+                <div class="table width-100">
+                    <div class="row">
+                        <p class="cell" style="width: 40%;">{{naturalytelse}}</p>
+                        <p class="cell" style="width: 30%;">{{ iso_to_date sluttdato }}</p>
+                        <p class="cell" style="width: 30%;">{{verdiBeloep }}</p>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    {{else}}
+        <p class="text-thin mb-3">Ingen bortfall av naturalytelser.</p>
+    {{/if}}
+
+    <hr/>
+
+    <p class="grey-text text-sm" style="margin-top: 15px;">
+        Årsak innsending: {{aarsakInnsending}} |
+        Type: {{typeInnsending}}
+        {{#if avsender.systemNavn}} | Sendt via: {{avsender.systemNavn}} v{{avsender.systemVersjon}}{{/if}}
+    </p>
+
+</body>
+</html>
