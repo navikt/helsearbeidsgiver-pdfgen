@@ -5,16 +5,20 @@ import org.junit.jupiter.api.TestMethodOrder
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-private val FULL_REFUSJON_PDF_TEKST: String =
+private val FULL_PDF_TEKST: String =
     lagPdfOgHentTekst(jsonNavn = "refusjon_full", pdfgenRoute = REFUSJON_PDF_ROUTE)
         .utenMellomromPaaLinjeslutt()
 
-private val KOMPLEKS_REFUSJON_PDF_TEKST: String =
+private val KOMPLEKS_PDF_TEKST: String =
     lagPdfOgHentTekst(jsonNavn = "refusjon_kompleks", pdfgenRoute = REFUSJON_PDF_ROUTE)
         .utenMellomromPaaLinjeslutt()
 
-private val IKKE_RETT_REFUSJON_PDF_TEKST: String =
+private val IKKE_RETT_PDF_TEKST: String =
     lagPdfOgHentTekst(jsonNavn = "refusjon_ikke_rett", pdfgenRoute = REFUSJON_PDF_ROUTE)
+        .utenMellomromPaaLinjeslutt()
+
+private val UTEN_INNTEKTSMELDING_PDF_TEKST: String =
+    lagPdfOgHentTekst(jsonNavn = "refusjon_uten_inntektsmelding", pdfgenRoute = REFUSJON_PDF_ROUTE)
         .utenMellomromPaaLinjeslutt()
 
 // PDF-tekst får mellomrom på slutten av linjer som brytes. Fjernes så forventet tekst kan skrives uten dem.
@@ -25,9 +29,10 @@ class RefusjonTest {
     @Test
     @Order(1)
     fun `kompiler PDF uten feil og lagre lokalt`() {
-        assertTrue(FULL_REFUSJON_PDF_TEKST.isNotEmpty())
-        assertTrue(KOMPLEKS_REFUSJON_PDF_TEKST.isNotEmpty())
-        assertTrue(IKKE_RETT_REFUSJON_PDF_TEKST.isNotEmpty())
+        assertTrue(FULL_PDF_TEKST.isNotEmpty())
+        assertTrue(KOMPLEKS_PDF_TEKST.isNotEmpty())
+        assertTrue(IKKE_RETT_PDF_TEKST.isNotEmpty())
+        assertTrue(UTEN_INNTEKTSMELDING_PDF_TEKST.isNotEmpty())
     }
 
     @Test
@@ -35,180 +40,107 @@ class RefusjonTest {
         """
         Informasjon om refusjon av sykepenger
         20.07.2026 12:34 Refusjons-ID: a1b2c3d4-0000-4000-8000-000000000001
-        Ansatt
+        Refusjonen gjelder
         Johannes Hanssen
         Fødselsnummer
-        02127437127
+        02027410092
         Arbeidsgiver
         Nord-Aurdal kommune
         Organisasjonsnummer
-        815493000
-        Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger. Dine rettigheter som
-        arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
-        Periode
-        12.06.2026 – 14.07.2026 (33 dager)
-        Utbetalt refusjon
-        30 004 kr
-        Slik har Nav beregnet refusjonen
-        Arbeidsgiverperioden og helger er ikke med i summen.
-        Periode Type Krevd refusjon Utbetalt av Nav
-        27.05.2026 –
-        11.06.2026
-        Arbeidsgiverperiode
-        16 dager
-        12.06.2026 Sykepenger
-        1 dag
-        50 000 kr/mnd
-        2 308 kr/dag
-        2 308 kr
-        13.06.2026 –
-        14.06.2026
-        Helg
-        2 dager
-        15.06.2026 –
-        19.06.2026
-        Sykepenger
-        5 dager
-        50 000 kr/mnd
-        2 308 kr/dag
-        11 540 kr
-        20.06.2026 –
-        21.06.2026
-        Helg
-        2 dager
-        22.06.2026 –
-        26.06.2026
-        Sykepenger
-        5 dager
-        50 000 kr/mnd
-        2 308 kr/dag
-        11 540 kr
-        27.06.2026 –
-        28.06.2026
-        Helg
-        2 dager
-        29.06.2026 –
-        30.06.2026
-        Sykepenger
-        2 dager
-        50 000 kr/mnd
-        2 308 kr/dag
-        4 616 kr
-        01.07.2026 –
-        14.07.2026
-        Ingen refusjon
-        Dere har ikke krevd refusjon
-        Sum: 30 004 kr 30 004 kr
-        Når kan refusjonen bli redusert?
-        Refusjonen følger den ansattes rett til sykepenger. Blir refusjonen redusert, kan ikke Nav oppgi grunnen til
-        arbeidsgiveren, fordi Nav har taushetsplikt. Den ansatte får begrunnelsen i vedtaket sitt.
-        Vanlige grunner er blant annet:
-        Den ansatte er delvis sykmeldt. Refusjonen blir da redusert i samme forhold som sykmeldingsgraden.
-        Sykepengene beregnes av inntekt opptil 6 ganger grunnbeløpet (6G).
-        Den ansatte har ikke rett til sykepenger for dagen.
-        Slik regner Nav ut beløpet per virkedag
-        Sykepenger utbetales for virkedager, ikke lørdag og søndag (folketrygdloven § 8-11). Et år regnes som 260
-        virkedager (§ 8-10 tredje ledd). Beløpet per virkedag er derfor beløpet per måned × 12 / 260.
+        815493001
+        Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger.
+        Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
+        Oversikt over utbetalt refusjon
+        Periode: 27.05.2026 – 26.06.2026
+        Dagtype Oppgitt refusjon Forventet Utbetalt
+        Sykepenger (100 %)
+        11 dager
+        40 000 kr/mnd
+        1 846 kr/dag
+        20 306 kr 20 306 kr
+        Sum 20 306 kr 20 306 kr
+        Dager igjen med rett til sykepenger: 101
         """.trimIndent().trim() shouldBe
-            FULL_REFUSJON_PDF_TEKST.also { println(it) }
+            FULL_PDF_TEKST.also { println(it) }
     }
 
     @Test
-    fun `kompleks refusjon PDF har forventet innhold`() {
+    fun `kompleks refusjon med redusert utbetaling PDF har forventet innhold`() {
         """
         Informasjon om refusjon av sykepenger
         20.07.2026 12:34 Refusjons-ID: 6c078f5c-36ca-4c95-b377-1039f6617451
-        Ansatt
+        Refusjonen gjelder
         Johannes Hanssen
         Fødselsnummer
-        02127437127
+        02027410092
         Arbeidsgiver
         Nord-Aurdal kommune
         Organisasjonsnummer
-        815493000
-        Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger. Dine rettigheter som
-        arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
-        Periode
-        12.06.2026 – 14.07.2026 (33 dager)
-        Utbetalt refusjon
-        19 849 kr
-        Slik har Nav beregnet refusjonen
-        Arbeidsgiverperioden og helger er ikke med i summen.
-        Periode Type Krevd refusjon Utbetalt av Nav
-        27.05.2026 –
-        11.06.2026
-        Arbeidsgiverperiode
-        16 dager
-        12.06.2026 Sykepenger
-        1 dag
-        50 000 kr/mnd
-        2 308 kr/dag
-        2 308 kr
-        13.06.2026 –
-        14.06.2026
-        Helg
-        2 dager
-        15.06.2026 –
-        18.06.2026
-        Sykepenger
-        4 dager
-        50 000 kr/mnd
-        2 308 kr/dag
-        9 232 kr
-        19.06.2026 Sykepenger
-        1 dag
-        30 000 kr/mnd
-        1 385 kr/dag
-        1 385 kr
-        20.06.2026 –
-        21.06.2026
-        Helg
-        2 dager
-        22.06.2026 –
-        24.06.2026
-        Sykepenger
+        815493001
+        Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger.
+        Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
+        Oversikt over utbetalt refusjon
+        Periode: 27.05.2026 – 02.07.2026
+        Dagtype Oppgitt refusjon Forventet Utbetalt
+        Sykepenger (100 %)
         3 dager
-        30 000 kr/mnd
-        1 385 kr/dag
-        4 155 kr
-        25.06.2026 Ikke rett til sykepenger
+        40 000 kr/mnd
+        1 846 kr/dag
+        5 538 kr 5 538 kr
+        Sykepenger (100 %)
+        3 dager
+        80 000 kr/mnd
+        3 692 kr/dag
+        9 453 kr
+        Begrenset til 6G
+        9 453 kr
+        Sykepenger (50 %)
+        2 dager
+        40 000 kr/mnd
+        1 846 kr/dag
+        1 846 kr 1 846 kr
+        Sykepenger (50 %)
+        2 dager
+        80 000 kr/mnd
+        3 692 kr/dag
+        3 152 kr
+        Begrenset til 6G
+        3 152 kr
+        Sykepenger (50 %)
         1 dag
-        30 000 kr/mnd
-        1 385 kr/dag
+        80 000 kr/mnd
+        3 692 kr/dag
+        1 576 kr
+        Begrenset til 6G
+        1 000 kr
+        Ikke rett til sykepenger
+        1 dag
+        80 000 kr/mnd
+        3 692 kr/dag
+        1 576 kr
+        Begrenset til 6G
         0 kr
-        26.06.2026 Sykepenger
+        Sykepenger (50 %)
         1 dag
-        30 000 kr/mnd
-        1 385 kr/dag
-        1 385 kr
-        27.06.2026 –
-        28.06.2026
-        Helg
+        0 kr/mnd
+        0 kr/dag
+        0 kr 0 kr
+        Sykepenger (100 %)
         2 dager
-        29.06.2026 –
-        30.06.2026
-        Sykepenger
-        2 dager
-        30 000 kr/mnd
-        1 385 kr/dag
-        1 384 kr
-        01.07.2026 –
-        14.07.2026
-        Ingen refusjon
-        Dere har ikke krevd refusjon
-        Sum: 22 620 kr 19 849 kr
-        Når kan refusjonen bli redusert?
+        40 000 kr/mnd
+        1 846 kr/dag
+        3 692 kr 2 400 kr
+        Sum 26 833 kr 23 389 kr
+        Dager igjen med rett til sykepenger: 101
+        Det er differanse i oppgitt refusjon og utbetalt refusjon
         Refusjonen følger den ansattes rett til sykepenger. Blir refusjonen redusert, kan ikke Nav oppgi grunnen til
         arbeidsgiveren, fordi Nav har taushetsplikt. Den ansatte får begrunnelsen i vedtaket sitt.
         Vanlige grunner er blant annet:
-        Den ansatte er delvis sykmeldt. Refusjonen blir da redusert i samme forhold som sykmeldingsgraden.
-        Sykepengene beregnes av inntekt opptil 6 ganger grunnbeløpet (6G).
-        Den ansatte har ikke rett til sykepenger for dagen.
-        Slik regner Nav ut beløpet per virkedag
-        Sykepenger utbetales for virkedager, ikke lørdag og søndag (folketrygdloven § 8-11). Et år regnes som 260
-        virkedager (§ 8-10 tredje ledd). Beløpet per virkedag er derfor beløpet per måned × 12 / 260.
+        Inntekten er fastsatt på en annen måte, for eksempel skjønnsfastsatt fordi den avviker mer enn 25 % fra a-
+        ordningen.
+        Den ansatte får en annen ytelse fra Nav for de samme dagene.
         """.trimIndent().trim() shouldBe
-            KOMPLEKS_REFUSJON_PDF_TEKST.also { println(it) }
+            KOMPLEKS_PDF_TEKST.also { println(it) }
     }
 
     @Test
@@ -216,81 +148,57 @@ class RefusjonTest {
         """
         Informasjon om refusjon av sykepenger
         20.07.2026 12:34 Refusjons-ID: a1b2c3d4-0000-4000-8000-000000000003
-        Ansatt
+        Refusjonen gjelder
         Johannes Hanssen
         Fødselsnummer
-        02127437127
+        02027410092
         Arbeidsgiver
         Nord-Aurdal kommune
         Organisasjonsnummer
-        815493000
-        Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger. Dine rettigheter som
-        arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
-        Periode
-        12.06.2026 – 14.07.2026 (33 dager)
-        Utbetalt refusjon
-        0 kr
-        Slik har Nav beregnet refusjonen
-        Arbeidsgiverperioden og helger er ikke med i summen.
-        Periode Type Krevd refusjon Utbetalt av Nav
-        27.05.2026 –
-        11.06.2026
-        Arbeidsgiverperiode
-        16 dager
-        12.06.2026 Ikke rett til sykepenger
-        1 dag
-        50 000 kr/mnd
-        2 308 kr/dag
-        0 kr
-        13.06.2026 –
-        14.06.2026
-        Helg
-        2 dager
-        15.06.2026 –
-        19.06.2026
+        815493001
+        Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger.
+        Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
+        Oversikt over utbetalt refusjon
+        Periode: 27.05.2026 – 19.06.2026
+        Dagtype Oppgitt refusjon Forventet Utbetalt
         Ikke rett til sykepenger
-        5 dager
-        50 000 kr/mnd
-        2 308 kr/dag
-        0 kr
-        20.06.2026 –
-        21.06.2026
-        Helg
-        2 dager
-        22.06.2026 –
-        26.06.2026
-        Ikke rett til sykepenger
-        5 dager
-        50 000 kr/mnd
-        2 308 kr/dag
-        0 kr
-        27.06.2026 –
-        28.06.2026
-        Helg
-        2 dager
-        29.06.2026 –
-        30.06.2026
-        Ikke rett til sykepenger
-        2 dager
-        50 000 kr/mnd
-        2 308 kr/dag
-        0 kr
-        01.07.2026 –
-        14.07.2026
-        Ingen refusjon
-        Dere har ikke krevd refusjon
-        Sum: 30 004 kr 0 kr
-        Når kan refusjonen bli redusert?
-        Refusjonen følger den ansattes rett til sykepenger. Blir refusjonen redusert, kan ikke Nav oppgi grunnen til
-        arbeidsgiveren, fordi Nav har taushetsplikt. Den ansatte får begrunnelsen i vedtaket sitt.
-        Vanlige grunner er blant annet:
-        Den ansatte er delvis sykmeldt. Refusjonen blir da redusert i samme forhold som sykmeldingsgraden.
-        Sykepengene beregnes av inntekt opptil 6 ganger grunnbeløpet (6G).
-        Den ansatte har ikke rett til sykepenger for dagen.
-        Slik regner Nav ut beløpet per virkedag
-        Sykepenger utbetales for virkedager, ikke lørdag og søndag (folketrygdloven § 8-11). Et år regnes som 260
-        virkedager (§ 8-10 tredje ledd). Beløpet per virkedag er derfor beløpet per måned × 12 / 260.
+        6 dager
+        40 000 kr/mnd
+        1 846 kr/dag
+        11 076 kr 0 kr
+        Sum 11 076 kr 0 kr
+        Dager igjen med rett til sykepenger: 101
         """.trimIndent().trim() shouldBe
-            IKKE_RETT_REFUSJON_PDF_TEKST.also { println(it) }
+            IKKE_RETT_PDF_TEKST.also { println(it) }
+    }
+
+    @Test
+    fun `refusjon uten inntektsmelding PDF har forventet innhold`() {
+        """
+        Informasjon om refusjon av sykepenger
+        20.07.2026 12:34 Refusjons-ID: a1b2c3d4-0000-4000-8000-000000000004
+        Refusjonen gjelder
+        Johannes Hanssen
+        Fødselsnummer
+        02027410092
+        Arbeidsgiver
+        Nord-Aurdal kommune
+        Organisasjonsnummer
+        815493001
+        Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger.
+        Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
+        Oversikt over utbetalt refusjon
+        Periode: 12.06.2026 – 26.06.2026
+        Dagtype Oppgitt refusjon Forventet Utbetalt
+        Sykepenger (100 %)
+        6 dager
+        1 500 kr/dag 9 000 kr 9 000 kr
+        Sykepenger (60 %)
+        5 dager
+        1 500 kr/dag 4 500 kr 4 500 kr
+        Sum 13 500 kr 13 500 kr
+        Dager igjen med rett til sykepenger: 101
+        """.trimIndent().trim() shouldBe
+            UTEN_INNTEKTSMELDING_PDF_TEKST.also { println(it) }
     }
 }

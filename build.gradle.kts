@@ -26,6 +26,7 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    inputs.files(fileTree("templates"), fileTree("fonts"), fileTree("resources"), file("Dockerfile"))
     systemProperty("junit.jupiter.testclass.order.default", "org.junit.jupiter.api.ClassOrderer\$OrderAnnotation")
 }
 

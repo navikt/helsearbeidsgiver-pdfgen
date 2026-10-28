@@ -1,0 +1,37 @@
+{{!-- Én rad i tabellen. hag-refusjon har allerede gruppert dagene og summert beløpene. --}}
+<div class="daggruppe{{#eq sykepengeStatus "IKKE_RETT_TIL_SYKEPENGER"}} ikke-rett{{/eq}}">
+    <div class="table width-100 refusjon-tabell">
+        <div class="row">
+            <div class="cell kol-dagtype">
+                {{#eq sykepengeStatus "IKKE_RETT_TIL_SYKEPENGER"}}
+                    <p>Ikke rett til sykepenger</p>
+                {{else}}
+                    <p>Sykepenger ({{sykdomsgrad}} %)</p>
+                {{/eq}}
+                <p class="undertekst">{{> partials/refusjon/antallDager antall=antallDager entall="dag" flertall="dager" }}</p>
+            </div>
+            <div class="cell kol-forespurt">
+                {{#is_defined beloepKrevdRefusjonPerMaaned}}
+                    <p>{{currency_no beloepKrevdRefusjonPerMaaned true}} kr/mnd</p>
+                    <p class="undertekst">{{currency_no beloepKrevdRefusjonPerDag true}} kr/dag</p>
+                {{else}}
+                    <p>{{currency_no beloepKrevdRefusjonPerDag true}} kr/dag</p>
+                {{/is_defined}}
+            </div>
+            <div class="cell kol-forventet">
+                <p>{{currency_no beloepForventetRefusjon true}} kr</p>
+                {{#if begrensetTil6G}}
+                    <p class="undertekst">Begrenset til 6G</p>
+                {{/if}}
+            </div>
+            <div class="cell kol-utbetalt">
+                <p class="utbetalt">{{currency_no beloepUtbetaltTilArbeidsgiver true}} kr</p>
+            </div>
+            <div class="cell kol-varsel">
+                {{#eq sykepengeStatus "RETT_TIL_SYKEPENGER_DIFFERANSE"}}
+                    <img src="{{ image "varsel.svg" }}" class="varsel-ikon" alt="Utbetalt refusjon er lavere enn oppgitt refusjon"/>
+                {{/eq}}
+            </div>
+        </div>
+    </div>
+</div>

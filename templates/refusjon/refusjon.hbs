@@ -10,15 +10,18 @@
     <meta name="keywords" content="sykepenger refusjon" />
 
     <bookmarks>
-        <bookmark title="Utbetalt refusjon" href="#utbetalt"></bookmark>
-        <bookmark title="Slik har Nav beregnet refusjonen" href="#beregning"></bookmark>
-        <bookmark title="Når kan refusjonen bli redusert?" href="#redusert"></bookmark>
+        <bookmark title="Oversikt over utbetalt refusjon" href="#utbetaling"></bookmark>
     </bookmarks>
 
     {{#block 'style'}}
     {{/block}}
 
     <style type="text/css">
+        /* Unngår en tom ekstra side når innholdet akkurat fyller siden */
+        body {
+            margin-bottom: 0;
+        }
+
         .metadata {
             color: #4a515e;
             font-size: 13px;
@@ -30,33 +33,11 @@
         }
 
         .intro {
-            font-style: italic;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
-        .felt-label {
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .periode-verdi {
-            font-size: 17px;
-            margin-bottom: 14px;
-        }
-
-        .periode-verdi .antall {
+        .periode {
             color: #4a515e;
-        }
-
-        .utbetalt-verdi {
-            font-size: 30px;
-            font-weight: 600;
-            line-height: 1.2;
-        }
-
-        .hjelpetekst {
-            color: #4a515e;
-            margin-bottom: 10px;
         }
 
         /* Tabellen er bygd av div-er med display: table, som anbefalt av openHTMLtoPDF for tilgjengelighet */
@@ -64,31 +45,28 @@
             table-layout: fixed;
         }
 
-        .kol-periode { width: 22%; vertical-align: top; }
-        .kol-type { width: 30%; vertical-align: top; }
-        .kol-krevd { width: 28%; vertical-align: top; }
-        .kol-utbetalt { width: 20%; vertical-align: top; text-align: right; }
+        .kol-dagtype { width: 38%; vertical-align: top; }
+        .kol-forespurt { width: 20%; vertical-align: top; text-align: right; }
+        .kol-forventet { width: 16%; vertical-align: top; text-align: right; }
+        .kol-utbetalt { width: 22%; vertical-align: top; text-align: right; }
+        .kol-varsel { width: 4%; vertical-align: top; text-align: right; }
 
         .refusjon-header {
             font-size: 13px;
             font-weight: 600;
             padding: 0 14px 4px;
+            margin-top: 6px;
         }
 
-        .refusjon-rad {
+        .daggruppe {
             background-color: #e6f0f7;
             border-radius: 8px;
-            padding: 7px 14px;
-            margin-bottom: 5px;
+            padding: 5px 14px;
+            margin-bottom: 4px;
             page-break-inside: avoid;
         }
 
-        .refusjon-rad.inaktiv {
-            background-color: #f2f3f5;
-            color: #5d6470;
-        }
-
-        .refusjon-rad.ikke-rett {
+        .daggruppe.ikke-rett {
             background-color: #ffeccc;
         }
 
@@ -97,18 +75,51 @@
             font-size: 12px;
         }
 
-        .inaktiv .undertekst {
-            color: #5d6470;
+        .utbetalt {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .varsel-ikon {
+            width: 16px;
+            height: 16px;
+            vertical-align: -3px;
         }
 
         .refusjon-sum {
             border-top: 1px solid #7f8287;
-            margin-top: 8px;
+            margin-top: 6px;
             padding: 8px 14px 0;
-            font-weight: 600;
+            font-size: 18px;
         }
 
-        .redusert-liste {
+        .refusjon-sum .sum-forventet {
+            font-weight: 600;
+            color: #4a515e;
+        }
+
+        .refusjon-sum .sum-utbetalt {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .dager-igjen {
+            margin-top: 12px;
+        }
+
+        /* filter-helperen skriver seksjonen én gang per rad med differanse. Vi viser bare den første. */
+        .differanse + .differanse {
+            display: none;
+        }
+
+        .differanse .varsel-ikon {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+        }
+
+        .grunner-liste {
             padding-left: 18px;
             margin: 4px 0 0;
         }
@@ -119,77 +130,70 @@
 
     <div class="table width-100 metadata">
         <div class="row">
-            <p class="cell">{{iso_to_nor_datetime vedtakFattetTidspunkt}}</p>
-            <p class="cell metadata-id">Refusjons-ID: {{vedtaksperiodeId}}</p>
+            <p class="cell">{{iso_to_nor_datetime arbeidstakervedtakFattetTidspunkt}}</p>
+            <p class="cell metadata-id">Refusjons-ID: {{refusjonUtfallId}}</p>
         </div>
     </div>
 
     {{> partials/sykmeldtOgArbeidsgiverInfo
-            labelForNavn="Ansatt"
+            labelForNavn="Refusjonen gjelder"
             sykmeldtNavn=sykmeldtNavn
-            sykmeldtFnr=fødselsnummer
+            sykmeldtFnr=fnr
             arbeidsgiverNavn=arbeidsgiverNavn
-            arbeidsgiverOrgnr=organisasjonsnummer
+            arbeidsgiverOrgnr=orgnr
     }}
 
     <p class="intro">
-        Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger.
+        Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger.<br/>
         Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
     </p>
 
-    <div id="utbetalt">
-        <p class="felt-label">Periode</p>
-        <p class="periode-verdi">{{> partials/periodeMedAntallDager fom=fom tom=tom }}</p>
-        <p class="felt-label">Utbetalt refusjon</p>
-        <p class="utbetalt-verdi">{{currency_no utbetaltTilArbeidsgiver true}} kr</p>
-    </div>
-
-    <h2 id="beregning">Slik har Nav beregnet refusjonen</h2>
-    <p class="hjelpetekst">Arbeidsgiverperioden og helger er ikke med i summen.</p>
+    <h2 id="utbetaling">Oversikt over utbetalt refusjon</h2>
+    <p class="periode">Periode: {{iso_to_date fom}} – {{iso_to_date tom}}</p>
 
     <div class="refusjon-header">
         <div class="table width-100 refusjon-tabell">
             <div class="row">
-                <p class="cell kol-periode">Periode</p>
-                <p class="cell kol-type">Type</p>
-                <p class="cell kol-krevd">Krevd refusjon</p>
-                <p class="cell kol-utbetalt">Utbetalt av Nav</p>
+                <p class="cell kol-dagtype">Dagtype</p>
+                <p class="cell kol-forespurt">Oppgitt refusjon</p>
+                <p class="cell kol-forventet">Forventet</p>
+                <p class="cell kol-utbetalt">Utbetalt</p>
+                <p class="cell kol-varsel"></p>
             </div>
         </div>
     </div>
 
-    {{#each refusjonsperioder}}
-        {{> partials/refusjon/refusjonsperiode }}
+    {{#each daggrupper}}
+        {{> partials/refusjon/daggruppe }}
     {{/each}}
 
     <div class="refusjon-sum">
         <div class="table width-100 refusjon-tabell">
             <div class="row">
-                <p class="cell kol-periode">Sum:</p>
-                <p class="cell kol-type"></p>
-                <p class="cell kol-krevd">{{currency_no krevdRefusjon true}} kr</p>
-                <p class="cell kol-utbetalt">{{currency_no utbetaltTilArbeidsgiver true}} kr</p>
+                <p class="cell kol-dagtype">Sum</p>
+                <p class="cell kol-forespurt"></p>
+                <p class="cell kol-forventet sum-forventet">{{currency_no beloepForventetRefusjon true}} kr</p>
+                <p class="cell kol-utbetalt sum-utbetalt">{{currency_no beloepUtbetaltTilArbeidsgiver true}} kr</p>
+                <p class="cell kol-varsel"></p>
             </div>
         </div>
     </div>
 
-    <h2 id="redusert">Når kan refusjonen bli redusert?</h2>
-    <p>
-        Refusjonen følger den ansattes rett til sykepenger. Blir refusjonen redusert, kan ikke Nav oppgi
-        grunnen til arbeidsgiveren, fordi Nav har taushetsplikt. Den ansatte får begrunnelsen i vedtaket sitt.
-    </p>
-    <p style="margin-top: 8px;">Vanlige grunner er blant annet:</p>
-    <ul class="redusert-liste">
-        <li>Den ansatte er delvis sykmeldt. Refusjonen blir da redusert i samme forhold som sykmeldingsgraden.</li>
-        <li>Sykepengene beregnes av inntekt opptil 6 ganger grunnbeløpet (6G).</li>
-        <li>Den ansatte har ikke rett til sykepenger for dagen.</li>
-    </ul>
+    <p class="dager-igjen">Dager igjen med rett til sykepenger: {{dagerIgjenMedRettTilSykepenger}}</p>
 
-    <h2>Slik regner Nav ut beløpet per virkedag</h2>
-    <p>
-        Sykepenger utbetales for virkedager, ikke lørdag og søndag (folketrygdloven § 8-11).
-        Et år regnes som 260 virkedager (§ 8-10 tredje ledd).
-        Beløpet per virkedag er derfor beløpet per måned × 12 / 260.
-    </p>
+    {{#filter daggrupper "sykepengeStatus" "RETT_TIL_SYKEPENGER_DIFFERANSE"}}
+        <div class="differanse">
+            <h2><img src="{{ image "varsel.svg" }}" class="varsel-ikon" alt=""/>Det er differanse i oppgitt refusjon og utbetalt refusjon</h2>
+            <p>
+                Refusjonen følger den ansattes rett til sykepenger. Blir refusjonen redusert, kan ikke Nav oppgi
+                grunnen til arbeidsgiveren, fordi Nav har taushetsplikt. Den ansatte får begrunnelsen i vedtaket sitt.
+            </p>
+            <p style="margin-top: 8px;">Vanlige grunner er blant annet:</p>
+            <ul class="grunner-liste">
+                <li>Inntekten er fastsatt på en annen måte, for eksempel skjønnsfastsatt fordi den avviker mer enn 25 % fra a-ordningen.</li>
+                <li>Den ansatte får en annen ytelse fra Nav for de samme dagene.</li>
+            </ul>
+        </div>
+    {{/filter}}
 </body>
 </html>
