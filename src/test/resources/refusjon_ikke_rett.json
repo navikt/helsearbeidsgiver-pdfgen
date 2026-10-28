@@ -1,0 +1,80 @@
+{
+  "fødselsnummer": "02127437127",
+  "sykmeldtNavn": "Johannes Hanssen",
+  "organisasjonsnummer": "815493000",
+  "arbeidsgiverNavn": "Nord-Aurdal kommune",
+  "vedtaksperiodeId": "a1b2c3d4-0000-4000-8000-000000000003",
+  "vedtakFattetTidspunkt": "2026-07-20T12:34:00",
+  "fom": "2026-06-12",
+  "tom": "2026-07-14",
+  "krevdRefusjon": 30004,
+  "utbetaltTilArbeidsgiver": 0,
+  "refusjonsperioder": [
+    {
+      "fom": "2026-05-27",
+      "tom": "2026-06-11",
+      "type": "ARBEIDSGIVERPERIODE",
+      "antallDager": 16
+    },
+    {
+      "fom": "2026-06-12",
+      "tom": "2026-06-12",
+      "type": "IKKE_RETT_TIL_SYKEPENGER",
+      "antallDager": 1,
+      "refusjonPerMaaned": 50000,
+      "refusjonPerDag": 2308,
+      "utbetalt": 0
+    },
+    {
+      "fom": "2026-06-13",
+      "tom": "2026-06-14",
+      "type": "HELG",
+      "antallDager": 2
+    },
+    {
+      "fom": "2026-06-15",
+      "tom": "2026-06-19",
+      "type": "IKKE_RETT_TIL_SYKEPENGER",
+      "antallDager": 5,
+      "refusjonPerMaaned": 50000,
+      "refusjonPerDag": 2308,
+      "utbetalt": 0
+    },
+    {
+      "fom": "2026-06-20",
+      "tom": "2026-06-21",
+      "type": "HELG",
+      "antallDager": 2
+    },
+    {
+      "fom": "2026-06-22",
+      "tom": "2026-06-26",
+      "type": "IKKE_RETT_TIL_SYKEPENGER",
+      "antallDager": 5,
+      "refusjonPerMaaned": 50000,
+      "refusjonPerDag": 2308,
+      "utbetalt": 0
+    },
+    {
+      "fom": "2026-06-27",
+      "tom": "2026-06-28",
+      "type": "HELG",
+      "antallDager": 2
+    },
+    {
+      "fom": "2026-06-29",
+      "tom": "2026-06-30",
+      "type": "IKKE_RETT_TIL_SYKEPENGER",
+      "antallDager": 2,
+      "refusjonPerMaaned": 50000,
+      "refusjonPerDag": 2308,
+      "utbetalt": 0
+    },
+    {
+      "fom": "2026-07-01",
+      "tom": "2026-07-14",
+      "type": "INGEN_REFUSJON",
+      "antallDager": 14
+    }
+  ]
+}

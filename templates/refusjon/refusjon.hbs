@@ -2,180 +2,194 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="no">
 <head>
-    <title>Vedtak om refusjon av sykepenger</title>
+    <title>Informasjon om refusjon av sykepenger</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="description" content="Vedtak om refusjon av sykepenger" />
-    <meta name="subject" content="Vedtak om refusjon av sykepenger" />
+    <meta name="description" content="Informasjon om refusjon av sykepenger" />
+    <meta name="subject" content="Informasjon om refusjon av sykepenger" />
     <meta name="author" content="Nav" />
-    <meta name="keywords" content="sykepenger vedtak refusjon" />
+    <meta name="keywords" content="sykepenger refusjon" />
 
     <bookmarks>
-        <bookmark title="Vedtak" href="#vedtak"></bookmark>
-        <bookmark title="Utbetaling" href="#utbetaling"></bookmark>
+        <bookmark title="Utbetalt refusjon" href="#utbetalt"></bookmark>
+        <bookmark title="Slik har Nav beregnet refusjonen" href="#beregning"></bookmark>
+        <bookmark title="Når kan refusjonen bli redusert?" href="#redusert"></bookmark>
     </bookmarks>
 
     {{#block 'style'}}
     {{/block}}
 
     <style type="text/css">
-        @page {
-            margin: 22mm 18mm;
-        }
-
-        body {
-            margin: 0;
-            color: #232b3a;
-            font-size: 15px;
-            line-height: 1.35;
-        }
-
-        .title {
-            color: #000000;
-            font-size: 32px;
-            font-weight: 600;
-            margin: 0 0 18px;
-        }
-
         .metadata {
-            color: #49515e;
+            color: #4a515e;
             font-size: 13px;
-            margin-bottom: 8px;
+            margin-top: 10px;
         }
 
         .metadata-id {
             text-align: right;
         }
 
-        .party-table {
-            border-collapse: separate;
-            border-spacing: 12px 0;
-            margin-left: -12px;
-            width: 100%;
+        .intro {
+            font-style: italic;
+            margin-bottom: 20px;
         }
 
-        .party-card {
-            border-radius: 8px;
-            padding: 14px 16px;
-            vertical-align: top;
-            width: 50%;
+        .felt-label {
+            font-size: 14px;
+            font-weight: 600;
         }
 
-        .employee-card {
-            background-color: #002452;
-            color: #ffffff;
+        .periode-verdi {
+            font-size: 17px;
+            margin-bottom: 14px;
         }
 
-        .employer-card {
-            background-color: #e6f1f8;
-            color: #000000;
+        .periode-verdi .antall {
+            color: #4a515e;
         }
 
-        .card-label,
-        .section-label {
+        .utbetalt-verdi {
+            font-size: 30px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .hjelpetekst {
+            color: #4a515e;
+            margin-bottom: 10px;
+        }
+
+        /* Tabellen er bygd av div-er med display: table, som anbefalt av openHTMLtoPDF for tilgjengelighet */
+        .refusjon-tabell {
+            table-layout: fixed;
+        }
+
+        .kol-periode { width: 22%; vertical-align: top; }
+        .kol-type { width: 30%; vertical-align: top; }
+        .kol-krevd { width: 28%; vertical-align: top; }
+        .kol-utbetalt { width: 20%; vertical-align: top; text-align: right; }
+
+        .refusjon-header {
             font-size: 13px;
             font-weight: 600;
-            margin-bottom: 2px;
+            padding: 0 14px 4px;
         }
 
-        .party-name {
-            font-size: 21px;
-            font-weight: 500;
-            margin-bottom: 16px;
+        .refusjon-rad {
+            background-color: #e6f0f7;
+            border-radius: 8px;
+            padding: 7px 14px;
+            margin-bottom: 5px;
+            page-break-inside: avoid;
         }
 
-        .content {
-            margin: 26px 4px 0;
+        .refusjon-rad.inaktiv {
+            background-color: #f2f3f5;
+            color: #5d6470;
         }
 
-        .section-label {
-            font-size: 19px;
+        .refusjon-rad.ikke-rett {
+            background-color: #ffeccc;
         }
 
-        .amount {
-            font-size: 30px;
-            font-weight: 600;
-            margin-bottom: 32px;
+        .undertekst {
+            color: #4a515e;
+            font-size: 12px;
         }
 
-        .reason {
-            margin-top: 24px;
+        .inaktiv .undertekst {
+            color: #5d6470;
         }
 
-        .reason-value {
-            color: #49515e;
-            font-size: 17px;
-            margin-top: 8px;
-        }
-
-        .divider {
-            border: 0;
+        .refusjon-sum {
             border-top: 1px solid #7f8287;
-            margin: 28px 0 18px;
+            margin-top: 8px;
+            padding: 8px 14px 0;
+            font-weight: 600;
         }
 
-        .payment-period {
-            font-size: 19px;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .payment-total {
-            font-size: 30px;
-            font-weight: 600;
+        .redusert-liste {
+            padding-left: 18px;
+            margin: 4px 0 0;
         }
     </style>
 </head>
 <body>
-    <h1 class="title" id="vedtak">
-        Refusjon av sykepenger er
-        {{#eq vedtaksUtfallTilArbeidsgiver "INNVILGELSE"}}innvilget{{/eq}}
-        {{#eq vedtaksUtfallTilArbeidsgiver "DELVIS_INNVILGELSE"}}delvis innvilget{{/eq}}
-        {{#eq vedtaksUtfallTilArbeidsgiver "AVSLAG"}}avslått{{/eq}}
-    </h1>
+    <h1>Informasjon om refusjon av sykepenger</h1>
 
-    <div class="table metadata width-100">
+    <div class="table width-100 metadata">
         <div class="row">
             <p class="cell">{{iso_to_nor_datetime vedtakFattetTidspunkt}}</p>
-            <p class="cell metadata-id">refusjonId: {{vedtaksperiodeId}}</p>
+            <p class="cell metadata-id">Refusjons-ID: {{vedtaksperiodeId}}</p>
         </div>
     </div>
 
-    <div class="table party-table">
-        <div class="row">
-            <div class="cell party-card employee-card">
-                <p class="card-label">Ansatt</p>
-                <p class="party-name">{{> partials/valueOrDash v=sykmeldtNavn}}</p>
-                <p class="card-label">Fødselsnummer</p>
-                <p>{{> partials/valueOrDash v=fødselsnummer}}</p>
+    {{> partials/sykmeldtOgArbeidsgiverInfo
+            labelForNavn="Ansatt"
+            sykmeldtNavn=sykmeldtNavn
+            sykmeldtFnr=fødselsnummer
+            arbeidsgiverNavn=arbeidsgiverNavn
+            arbeidsgiverOrgnr=organisasjonsnummer
+    }}
+
+    <p class="intro">
+        Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger.
+        Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
+    </p>
+
+    <div id="utbetalt">
+        <p class="felt-label">Periode</p>
+        <p class="periode-verdi">{{> partials/periodeMedAntallDager fom=fom tom=tom }}</p>
+        <p class="felt-label">Utbetalt refusjon</p>
+        <p class="utbetalt-verdi">{{currency_no utbetaltTilArbeidsgiver true}} kr</p>
+    </div>
+
+    <h2 id="beregning">Slik har Nav beregnet refusjonen</h2>
+    <p class="hjelpetekst">Arbeidsgiverperioden og helger er ikke med i summen.</p>
+
+    <div class="refusjon-header">
+        <div class="table width-100 refusjon-tabell">
+            <div class="row">
+                <p class="cell kol-periode">Periode</p>
+                <p class="cell kol-type">Type</p>
+                <p class="cell kol-krevd">Krevd refusjon</p>
+                <p class="cell kol-utbetalt">Utbetalt av Nav</p>
             </div>
+        </div>
+    </div>
 
-            <div class="cell party-card employer-card">
-                <p class="card-label">Arbeidsgiver</p>
-                <p class="party-name">{{> partials/valueOrDash v=arbeidsgiverNavn}}</p>
-                <p class="card-label">Organisasjonsnummer</p>
-                <p>{{> partials/valueOrDash v=organisasjonsnummer}}</p>
+    {{#each refusjonsperioder}}
+        {{> partials/refusjon/refusjonsperiode }}
+    {{/each}}
+
+    <div class="refusjon-sum">
+        <div class="table width-100 refusjon-tabell">
+            <div class="row">
+                <p class="cell kol-periode">Sum:</p>
+                <p class="cell kol-type"></p>
+                <p class="cell kol-krevd">{{currency_no krevdRefusjon true}} kr</p>
+                <p class="cell kol-utbetalt">{{currency_no utbetaltTilArbeidsgiver true}} kr</p>
             </div>
         </div>
     </div>
 
-    <div class="content">
-        <p class="section-label">Krav om refusjon fra inntektsmelding</p>
-        <p class="amount">— kr/måned</p>
+    <h2 id="redusert">Når kan refusjonen bli redusert?</h2>
+    <p>
+        Refusjonen følger den ansattes rett til sykepenger. Blir refusjonen redusert, kan ikke Nav oppgi
+        grunnen til arbeidsgiveren, fordi Nav har taushetsplikt. Den ansatte får begrunnelsen i vedtaket sitt.
+    </p>
+    <p style="margin-top: 8px;">Vanlige grunner er blant annet:</p>
+    <ul class="redusert-liste">
+        <li>Den ansatte er delvis sykmeldt. Refusjonen blir da redusert i samme forhold som sykmeldingsgraden.</li>
+        <li>Sykepengene beregnes av inntekt opptil 6 ganger grunnbeløpet (6G).</li>
+        <li>Den ansatte har ikke rett til sykepenger for dagen.</li>
+    </ul>
 
-        <p class="section-label">Innvilget refusjon opptil</p>
-        <p class="amount">— kr/måned</p>
-
-        <p class="section-label reason">Begrunnelser for redusert refusjon</p>
-        <p class="reason-value">—</p>
-
-        <hr class="divider" />
-
-        <div id="utbetaling">
-            <p class="payment-period">
-                Utbetalt for perioden {{iso_to_date fom}}–{{iso_to_date tom}}
-            </p>
-            <p class="payment-total">{{currency_no utbetaltTilArbeidsgiver}} kr</p>
-        </div>
-    </div>
+    <h2>Slik regner Nav ut beløpet per virkedag</h2>
+    <p>
+        Sykepenger utbetales for virkedager, ikke lørdag og søndag (folketrygdloven § 8-11).
+        Et år regnes som 260 virkedager (§ 8-10 tredje ledd).
+        Beløpet per virkedag er derfor beløpet per måned × 12 / 260.
+    </p>
 </body>
 </html>

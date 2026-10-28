@@ -1,0 +1,43 @@
+{{!-- Én rad i tabellen. Kotlin har allerede delt opp periodene og regnet ut beløpene. --}}
+<div class="refusjon-rad{{#eq type "ARBEIDSGIVERPERIODE"}} inaktiv{{/eq}}{{#eq type "HELG"}} inaktiv{{/eq}}{{#eq type "INGEN_REFUSJON"}} inaktiv{{/eq}}{{#eq type "IKKE_RETT_TIL_SYKEPENGER"}} ikke-rett{{/eq}}">
+    <div class="table width-100 refusjon-tabell">
+        <div class="row">
+            <div class="cell kol-periode">
+                {{> partials/refusjon/datoer fom=fom tom=tom }}
+            </div>
+            <div class="cell kol-type">
+                {{#eq type "ARBEIDSGIVERPERIODE"}}
+                    <p>Arbeidsgiverperiode</p>
+                    <p class="undertekst">{{> partials/refusjon/antallDager antall=antallDager entall="dag" flertall="dager" }}</p>
+                {{/eq}}
+                {{#eq type "HELG"}}
+                    <p>Helg</p>
+                    <p class="undertekst">{{> partials/refusjon/antallDager antall=antallDager entall="dag" flertall="dager" }}</p>
+                {{/eq}}
+                {{#eq type "SYKEPENGER"}}
+                    <p>Sykepenger</p>
+                    <p class="undertekst">{{> partials/refusjon/antallDager antall=antallDager entall="dag" flertall="dager" }}</p>
+                {{/eq}}
+                {{#eq type "IKKE_RETT_TIL_SYKEPENGER"}}
+                    <p>Ikke rett til sykepenger</p>
+                    <p class="undertekst">{{> partials/refusjon/antallDager antall=antallDager entall="dag" flertall="dager" }}</p>
+                {{/eq}}
+                {{#eq type "INGEN_REFUSJON"}}
+                    <p>Ingen refusjon</p>
+                    <p class="undertekst">Dere har ikke krevd refusjon</p>
+                {{/eq}}
+            </div>
+            <div class="cell kol-krevd">
+                {{#if refusjonPerMaaned}}
+                    <p>{{currency_no refusjonPerMaaned true}} kr/mnd</p>
+                    <p class="undertekst">{{currency_no refusjonPerDag true}} kr/dag</p>
+                {{/if}}
+            </div>
+            <div class="cell kol-utbetalt">
+                {{#if refusjonPerMaaned}}
+                    <p>{{currency_no utbetalt true}} kr</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
