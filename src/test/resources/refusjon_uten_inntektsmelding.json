@@ -1,9 +1,9 @@
 {
   "refusjonUtfallId": "a1b2c3d4-0000-4000-8000-000000000004",
-  "fnr": "02027410092",
-  "sykmeldtNavn": "Johannes Hanssen",
-  "orgnr": "815493001",
-  "arbeidsgiverNavn": "Nord-Aurdal kommune",
+  "fnr": "TestFnr",
+  "sykmeldtNavn": "Ola Nordmann",
+  "orgnr": "TestOrgnr",
+  "arbeidsgiverNavn": "Fiktiv Bedrift AS",
   "fom": "2026-06-12",
   "tom": "2026-06-26",
   "daggrupper": [

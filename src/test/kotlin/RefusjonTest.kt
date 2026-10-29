@@ -41,13 +41,13 @@ class RefusjonTest {
         Informasjon om refusjon av sykepenger
         20.07.2026 12:34 Refusjons-ID: a1b2c3d4-0000-4000-8000-000000000001
         Refusjonen gjelder
-        Johannes Hanssen
+        Ola Nordmann
         Fødselsnummer
-        02027410092
+        TestFnr
         Arbeidsgiver
-        Nord-Aurdal kommune
+        Fiktiv Bedrift AS
         Organisasjonsnummer
-        815493001
+        TestOrgnr
         Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger.
         Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
         Oversikt over utbetalt refusjon
@@ -70,13 +70,13 @@ class RefusjonTest {
         Informasjon om refusjon av sykepenger
         20.07.2026 12:34 Refusjons-ID: 6c078f5c-36ca-4c95-b377-1039f6617451
         Refusjonen gjelder
-        Johannes Hanssen
+        Ola Nordmann
         Fødselsnummer
-        02027410092
+        TestFnr
         Arbeidsgiver
-        Nord-Aurdal kommune
+        Fiktiv Bedrift AS
         Organisasjonsnummer
-        815493001
+        TestOrgnr
         Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger.
         Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
         Oversikt over utbetalt refusjon
@@ -149,13 +149,13 @@ class RefusjonTest {
         Informasjon om refusjon av sykepenger
         20.07.2026 12:34 Refusjons-ID: a1b2c3d4-0000-4000-8000-000000000003
         Refusjonen gjelder
-        Johannes Hanssen
+        Ola Nordmann
         Fødselsnummer
-        02027410092
+        TestFnr
         Arbeidsgiver
-        Nord-Aurdal kommune
+        Fiktiv Bedrift AS
         Organisasjonsnummer
-        815493001
+        TestOrgnr
         Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger.
         Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
         Oversikt over utbetalt refusjon
@@ -178,13 +178,13 @@ class RefusjonTest {
         Informasjon om refusjon av sykepenger
         20.07.2026 12:34 Refusjons-ID: a1b2c3d4-0000-4000-8000-000000000004
         Refusjonen gjelder
-        Johannes Hanssen
+        Ola Nordmann
         Fødselsnummer
-        02027410092
+        TestFnr
         Arbeidsgiver
-        Nord-Aurdal kommune
+        Fiktiv Bedrift AS
         Organisasjonsnummer
-        815493001
+        TestOrgnr
         Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger.
         Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
         Oversikt over utbetalt refusjon
