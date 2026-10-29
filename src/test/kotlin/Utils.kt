@@ -24,6 +24,7 @@ const val GRAVID_SOKNAD_PDF_ROUTE = "/api/v1/genpdf/fritakagp/gravid-soknad"
 const val GRAVID_KRAV_PDF_ROUTE = "/api/v1/genpdf/fritakagp/gravid-krav"
 const val KRONISK_SOKNAD_PDF_ROUTE = "/api/v1/genpdf/fritakagp/kronisk-soknad"
 const val KRONISK_KRAV_PDF_ROUTE = "/api/v1/genpdf/fritakagp/kronisk-krav"
+const val REFUSJON_PDF_ROUTE = "/api/v1/genpdf/refusjon/refusjon"
 
 fun lagPdfOgHentTekst(
     jsonNavn: String,

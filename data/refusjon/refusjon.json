@@ -1,75 +1,55 @@
 {
-  "eventName": "vedtak_fattet",
-  "fødselsnummer": "12345678910",
-  "yrkesaktivitetstype": "ARBEIDSTAKER",
-  "organisasjonsnummer": "987654321",
-  "vedtaksperiodeId": "6c078f5c-36ca-4c95-b377-1039f6617451",
-  "fom": "2026-08-01",
-  "tom": "2026-08-31",
-  "skjæringstidspunkt": "2026-08-01",
-  "dokumenter": [
+  "refusjonUtfallId": "6c078f5c-test-4c95-b377-1039f6617451",
+  "fnr": "TestFnr",
+  "sykmeldtNavn": "Ola Nordmann",
+  "orgnr": "TestOrgnr",
+  "arbeidsgiverNavn": "Fiktiv Bedrift AS",
+  "fom": "2026-06-01",
+  "tom": "2026-07-10",
+  "daggrupper": [
     {
-      "dokumentId": "345a2215-bb6f-4dba-8ea2-9c284af6345d",
-      "type": "Sykmelding"
+      "antallDager": 10,
+      "sykepengeStatus": "RETT_TIL_SYKEPENGER",
+      "sykdomsgrad": 48,
+      "beloepForventetRefusjon": 15130,
+      "beloepKrevdRefusjonPerDag": 3692,
+      "beloepKrevdRefusjonPerMaaned": 80000.0,
+      "beloepUtbetaltTilArbeidsgiver": 15130,
+      "begrensetTil6G": true
     },
     {
-      "dokumentId": "852f53d1-02e5-418f-bbef-584ac5a929e5",
-      "type": "Søknad"
+      "antallDager": 2,
+      "sykepengeStatus": "RETT_TIL_SYKEPENGER_DIFFERANSE",
+      "sykdomsgrad": 48,
+      "beloepForventetRefusjon": 3026,
+      "beloepKrevdRefusjonPerDag": 3692,
+      "beloepKrevdRefusjonPerMaaned": 80000.0,
+      "beloepUtbetaltTilArbeidsgiver": 2000,
+      "begrensetTil6G": true
     },
     {
-      "dokumentId": "7808ca85-f66c-4341-8302-f618791648b9",
-      "type": "Inntektsmelding"
+      "antallDager": 1,
+      "sykepengeStatus": "IKKE_RETT_TIL_SYKEPENGER",
+      "sykdomsgrad": 48,
+      "beloepForventetRefusjon": 1513,
+      "beloepKrevdRefusjonPerDag": 3692,
+      "beloepKrevdRefusjonPerMaaned": 80000.0,
+      "beloepUtbetaltTilArbeidsgiver": 0,
+      "begrensetTil6G": true
+    },
+    {
+      "antallDager": 5,
+      "sykepengeStatus": "RETT_TIL_SYKEPENGER",
+      "sykdomsgrad": 48,
+      "beloepForventetRefusjon": 0,
+      "beloepKrevdRefusjonPerDag": 0,
+      "beloepKrevdRefusjonPerMaaned": 0.0,
+      "beloepUtbetaltTilArbeidsgiver": 0,
+      "begrensetTil6G": false
     }
   ],
-  "sykepengegrunnlag": 657000.0,
-  "utbetalingsdager": [
-    {
-      "dato": "2026-08-03",
-      "type": "NavDag",
-      "beløpTilArbeidsgiver": 2150
-    },
-    {
-      "dato": "2026-08-04",
-      "type": "NavDag",
-      "beløpTilArbeidsgiver": 2150
-    },
-    {
-      "dato": "2026-08-05",
-      "type": "NavDag",
-      "beløpTilArbeidsgiver": 2150
-    },
-    {
-      "dato": "2026-08-06",
-      "type": "NavDag",
-      "beløpTilArbeidsgiver": 2150
-    },
-    {
-      "dato": "2026-08-07",
-      "type": "NavDag",
-      "beløpTilArbeidsgiver": 2150
-    },
-    {
-      "dato": "2026-08-08",
-      "type": "NavHelgDag",
-      "beløpTilArbeidsgiver": 0
-    },
-    {
-      "dato": "2026-08-09",
-      "type": "NavHelgDag",
-      "beløpTilArbeidsgiver": 0
-    },
-    {
-      "dato": "2026-08-10",
-      "type": "NavDag",
-      "beløpTilArbeidsgiver": 2150
-    }
-  ],
-  "vedtakFattetTidspunkt": "2026-08-31T12:34:00",
-  "vedtaksUtfallTilArbeidsgiver": "INNVILGELSE",
-  "saksbehandlerIdent": "Z123456",
-  "saksbehandlerNavn": "Kari Nordmann",
-  "beslutterIdent": "Z654321",
-  "beslutterNavn": "Ola Nordmann",
-  "automatiskFattet": false,
-  "harArbeidsgiverØnsketRefusjon": true
+  "beloepForventetRefusjon": 19669,
+  "beloepUtbetaltTilArbeidsgiver": 17130,
+  "dagerIgjenMedRettTilSykepenger": 231,
+  "arbeidstakervedtakFattetTidspunkt": "2026-07-20T12:34"
 }

@@ -1,0 +1,95 @@
+{
+  "refusjonUtfallId": "6c078f5c-36ca-4c95-b377-1039f6617451",
+  "fnr": "TestFnr",
+  "sykmeldtNavn": "Ola Nordmann",
+  "orgnr": "TestOrgnr",
+  "arbeidsgiverNavn": "Fiktiv Bedrift AS",
+  "fom": "2026-05-27",
+  "tom": "2026-07-02",
+  "daggrupper": [
+    {
+      "antallDager": 3,
+      "sykepengeStatus": "RETT_TIL_SYKEPENGER",
+      "sykdomsgrad": 100,
+      "beloepForventetRefusjon": 5538,
+      "beloepKrevdRefusjonPerDag": 1846,
+      "beloepKrevdRefusjonPerMaaned": 40000.0,
+      "beloepUtbetaltTilArbeidsgiver": 5538,
+      "begrensetTil6G": false
+    },
+    {
+      "antallDager": 3,
+      "sykepengeStatus": "RETT_TIL_SYKEPENGER",
+      "sykdomsgrad": 100,
+      "beloepForventetRefusjon": 9453,
+      "beloepKrevdRefusjonPerDag": 3692,
+      "beloepKrevdRefusjonPerMaaned": 80000.0,
+      "beloepUtbetaltTilArbeidsgiver": 9453,
+      "begrensetTil6G": true
+    },
+    {
+      "antallDager": 2,
+      "sykepengeStatus": "RETT_TIL_SYKEPENGER",
+      "sykdomsgrad": 50,
+      "beloepForventetRefusjon": 1846,
+      "beloepKrevdRefusjonPerDag": 1846,
+      "beloepKrevdRefusjonPerMaaned": 40000.0,
+      "beloepUtbetaltTilArbeidsgiver": 1846,
+      "begrensetTil6G": false
+    },
+    {
+      "antallDager": 2,
+      "sykepengeStatus": "RETT_TIL_SYKEPENGER",
+      "sykdomsgrad": 50,
+      "beloepForventetRefusjon": 3152,
+      "beloepKrevdRefusjonPerDag": 3692,
+      "beloepKrevdRefusjonPerMaaned": 80000.0,
+      "beloepUtbetaltTilArbeidsgiver": 3152,
+      "begrensetTil6G": true
+    },
+    {
+      "antallDager": 1,
+      "sykepengeStatus": "RETT_TIL_SYKEPENGER_DIFFERANSE",
+      "sykdomsgrad": 50,
+      "beloepForventetRefusjon": 1576,
+      "beloepKrevdRefusjonPerDag": 3692,
+      "beloepKrevdRefusjonPerMaaned": 80000.0,
+      "beloepUtbetaltTilArbeidsgiver": 1000,
+      "begrensetTil6G": true
+    },
+    {
+      "antallDager": 1,
+      "sykepengeStatus": "IKKE_RETT_TIL_SYKEPENGER",
+      "sykdomsgrad": 50,
+      "beloepForventetRefusjon": 1576,
+      "beloepKrevdRefusjonPerDag": 3692,
+      "beloepKrevdRefusjonPerMaaned": 80000.0,
+      "beloepUtbetaltTilArbeidsgiver": 0,
+      "begrensetTil6G": true
+    },
+    {
+      "antallDager": 1,
+      "sykepengeStatus": "RETT_TIL_SYKEPENGER",
+      "sykdomsgrad": 50,
+      "beloepForventetRefusjon": 0,
+      "beloepKrevdRefusjonPerDag": 0,
+      "beloepKrevdRefusjonPerMaaned": 0.0,
+      "beloepUtbetaltTilArbeidsgiver": 0,
+      "begrensetTil6G": false
+    },
+    {
+      "antallDager": 2,
+      "sykepengeStatus": "RETT_TIL_SYKEPENGER_DIFFERANSE",
+      "sykdomsgrad": 100,
+      "beloepForventetRefusjon": 3692,
+      "beloepKrevdRefusjonPerDag": 1846,
+      "beloepKrevdRefusjonPerMaaned": 40000.0,
+      "beloepUtbetaltTilArbeidsgiver": 2400,
+      "begrensetTil6G": false
+    }
+  ],
+  "beloepForventetRefusjon": 26833,
+  "beloepUtbetaltTilArbeidsgiver": 23389,
+  "dagerIgjenMedRettTilSykepenger": 101,
+  "arbeidstakervedtakFattetTidspunkt": "2026-07-20T12:34"
+}

@@ -1,0 +1,25 @@
+{
+  "refusjonUtfallId": "a1b2c3d4-0000-4000-8000-000000000001",
+  "fnr": "TestFnr",
+  "sykmeldtNavn": "Ola Nordmann",
+  "orgnr": "TestOrgnr",
+  "arbeidsgiverNavn": "Fiktiv Bedrift AS",
+  "fom": "2026-05-27",
+  "tom": "2026-06-26",
+  "daggrupper": [
+    {
+      "antallDager": 11,
+      "sykepengeStatus": "RETT_TIL_SYKEPENGER",
+      "sykdomsgrad": 100,
+      "beloepForventetRefusjon": 20306,
+      "beloepKrevdRefusjonPerDag": 1846,
+      "beloepKrevdRefusjonPerMaaned": 40000.0,
+      "beloepUtbetaltTilArbeidsgiver": 20306,
+      "begrensetTil6G": false
+    }
+  ],
+  "beloepForventetRefusjon": 20306,
+  "beloepUtbetaltTilArbeidsgiver": 20306,
+  "dagerIgjenMedRettTilSykepenger": 101,
+  "arbeidstakervedtakFattetTidspunkt": "2026-07-20T12:34"
+}

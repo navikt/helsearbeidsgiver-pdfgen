@@ -1,58 +1,128 @@
 {
-  "loepenr": 23242,
-  "sykmeldingId": "c8cdcb93-75d3-4461-b09e-454a1ccd55a2",
-  "mottattAvNav": "2025-05-30T08:52:57.996957",
+  "loepenr": 777777,
+  "sykmeldingId": "sykmelding_id",
+  "mottattAvNav": "2023-01-01T01:23:45.678Z",
   "sykmeldt": {
-    "fnr": "12345678901",
+    "fnr": "sykmeldt_fnr",
     "navn": "Ola Nordmann"
   },
-  "egenmeldingsdager": [],
-  "sykefravaerFom": "2025-05-23",
+  "egenmeldingsdager": [
+    {
+      "fom": "2025-05-21",
+      "tom": "2025-05-21"
+    },
+    {
+      "fom": "2025-05-22",
+      "tom": "2025-05-23"
+    }
+  ],
+  "sykefravaerFom": "2025-05-22",
   "sykmeldingPerioder": [
     {
-      "fom": "2025-05-23",
-      "tom": "2025-05-29",
+      "fom": "2025-05-24",
+      "tom": "2025-05-24",
       "aktivitet": {
         "avventendeSykmelding": null,
         "gradertSykmelding": null,
         "aktivitetIkkeMulig": {
           "manglendeTilretteleggingPaaArbeidsplassen": false,
-          "beskrivelse": "andre årsaker til sykefravær"
+          "beskrivelse": null
         },
         "antallBehandlingsdagerUke": null,
         "harReisetilskudd": false
       }
     },
     {
-      "fom": "2025-05-23",
-      "tom": "2025-05-29",
+      "fom": "2025-05-25",
+      "tom": "2025-05-26",
       "aktivitet": {
         "avventendeSykmelding": null,
         "gradertSykmelding": null,
         "aktivitetIkkeMulig": {
-          "manglendeTilretteleggingPaaArbeidsplassen": false,
-          "beskrivelse": "andre årsaker til sykefravær"
+          "manglendeTilretteleggingPaaArbeidsplassen": true,
+          "beskrivelse": "aktivitet_aktivitetIkkeMulig_beskrivelse"
         },
         "antallBehandlingsdagerUke": null,
         "harReisetilskudd": false
+      }
+    },
+    {
+      "fom": "2025-05-28",
+      "tom": "2025-05-30",
+      "aktivitet": {
+        "avventendeSykmelding": null,
+        "gradertSykmelding": {
+          "sykmeldingsgrad": 50,
+          "harReisetilskudd": true
+        },
+        "aktivitetIkkeMulig": null,
+        "antallBehandlingsdagerUke": null,
+        "harReisetilskudd": false
+      }
+    },
+    {
+      "fom": "2025-06-01",
+      "tom": "2025-06-04",
+      "aktivitet": {
+        "avventendeSykmelding": null,
+        "gradertSykmelding": {
+          "sykmeldingsgrad": 50,
+          "harReisetilskudd": false
+        },
+        "aktivitetIkkeMulig": null,
+        "antallBehandlingsdagerUke": null,
+        "harReisetilskudd": false
+      }
+    },
+    {
+      "fom": "2025-06-06",
+      "tom": "2025-06-10",
+      "aktivitet": {
+        "avventendeSykmelding": "aktivitet_avventendeSykmelding",
+        "gradertSykmelding": null,
+        "aktivitetIkkeMulig": null,
+        "antallBehandlingsdagerUke": null,
+        "harReisetilskudd": false
+      }
+    },
+    {
+      "fom": "2025-06-12",
+      "tom": "2025-06-17",
+      "aktivitet": {
+        "avventendeSykmelding": null,
+        "gradertSykmelding": null,
+        "aktivitetIkkeMulig": null,
+        "antallBehandlingsdagerUke": 1,
+        "harReisetilskudd": false
+      }
+    },
+    {
+      "fom": "2025-06-19",
+      "tom": "2025-06-25",
+      "aktivitet": {
+        "avventendeSykmelding": null,
+        "gradertSykmelding": null,
+        "aktivitetIkkeMulig": null,
+        "antallBehandlingsdagerUke": null,
+        "harReisetilskudd": true
       }
     }
   ],
   "oppfoelging": {
     "prognose": {
       "erArbeidsfoerEtterEndtPeriode": true,
-      "beskrivHensynArbeidsplassen": "Må ta det pent"
+      "beskrivHensynArbeidsplassen": "oppfoelging_beskrivHensynArbeidsplassen"
     },
-    "meldingTilArbeidsgiver": "1234 1234",
-    "tiltakArbeidsplassen": null
+    "meldingTilArbeidsgiver": "oppfoelging_meldingTilArbeidsgiver",
+    "tiltakArbeidsplassen": "oppfoelging_tiltakArbeidsplassen"
   },
-  "kontaktMedPasient": "2025-05-23T00:00:00",
+  "kontaktMedPasient": "2025-01-01T01:23:45.678Z",
   "behandler": {
-    "navn": "TRIVIELL MÅPENDE FLOSKEL",
-    "tlf": "90909090"
+    "navn": "behandler_navn",
+    "tlf": "behandler_tlf"
   },
   "arbeidsgiver": {
-    "navn": "Eksempel Arbeidsgiversen AS",
-    "orgnr": "311910663"
+    "navn": "arbeidsgiver_navn som_også_er_veldig_langt_AS",
+    "orgnr": "arbeidsgiver_orgnr"
   }
 }

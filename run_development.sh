@@ -20,7 +20,10 @@ if [[ "$(uname -m)" == "arm64" ]] &&  colima status &> /dev/null; then
 fi
 
 echo -e "\033[1;33m[INFO] Hentet pdfgen versjon $VERSION automatisk fra Dockerfile\033[0m"
-docker pull ghcr.io/navikt/pdfgen:$VERSION
+# Imaget er offentlig. Hent det uten lagret innlogging, så en ødelagt credsStore (f.eks. osxkeychain) ikke stopper pull
+DOCKER_HOST="${DOCKER_HOST:-$(docker context inspect --format '{{.Endpoints.docker.Host}}')}" \
+    DOCKER_CONFIG="$(mktemp -d)" \
+    docker pull ghcr.io/navikt/pdfgen:$VERSION
 
 
 ( # Vent for serveren å starte før melding printes

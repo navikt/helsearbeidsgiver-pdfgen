@@ -1,165 +1,199 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="NO">
+<html lang="no">
 <head>
-    <title>Vedtak om sykepenger</title>
+    <title>Informasjon om refusjon av sykepenger</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="description" content="Vedtak om sykepenger" />
-    <meta name="subject" content="Vedtak om sykepenger" />
+    <meta name="description" content="Informasjon om refusjon av sykepenger" />
+    <meta name="subject" content="Informasjon om refusjon av sykepenger" />
     <meta name="author" content="Nav" />
-    <meta name="keywords" content="sykepenger vedtak refusjon" />
+    <meta name="keywords" content="sykepenger refusjon" />
 
     <bookmarks>
-        <bookmark title="Vedtak" href="#vedtak"></bookmark>
-        <bookmark title="Utbetalingsdager" href="#utbetalingsdager"></bookmark>
-        <bookmark title="Detaljer" href="#detaljer"></bookmark>
+        <bookmark title="Oversikt over utbetalt refusjon" href="#utbetaling"></bookmark>
     </bookmarks>
 
     {{#block 'style'}}
     {{/block}}
 
-    /*TODO: Slett etter vedtak er i prod*/
     <style type="text/css">
-        @page {
-            margin-top: 5mm;
-            @top-center {
-                content: element(document-warning);
-            }
+        /* Unngår en tom ekstra side når innholdet akkurat fyller siden */
+        body {
+            margin-bottom: 0;
         }
-        .document-warning {
-            position: running(document-warning);
-            color: red;
-            font-weight: bold;
-            text-align: center;
+
+        .metadata {
+            color: #4a515e;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .metadata-id {
+            text-align: right;
+        }
+
+        .intro {
+            margin-bottom: 16px;
+        }
+
+        .periode {
+            color: #4a515e;
+        }
+
+        /* Tabellen er bygd av div-er med display: table, som anbefalt av openHTMLtoPDF for tilgjengelighet */
+        .refusjon-tabell {
+            table-layout: fixed;
+        }
+
+        .kol-dagtype { width: 38%; vertical-align: top; }
+        .kol-forespurt { width: 20%; vertical-align: top; text-align: right; }
+        .kol-forventet { width: 16%; vertical-align: top; text-align: right; }
+        .kol-utbetalt { width: 22%; vertical-align: top; text-align: right; }
+        .kol-varsel { width: 4%; vertical-align: top; text-align: right; }
+
+        .refusjon-header {
+            font-size: 13px;
+            font-weight: 600;
+            padding: 0 14px 4px;
+            margin-top: 6px;
+        }
+
+        .daggruppe {
+            background-color: #e6f0f7;
+            border-radius: 8px;
+            padding: 5px 14px;
+            margin-bottom: 4px;
+            page-break-inside: avoid;
+        }
+
+        .daggruppe.ikke-rett {
+            background-color: #ffeccc;
+        }
+
+        .undertekst {
+            color: #4a515e;
+            font-size: 12px;
+        }
+
+        .utbetalt {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .varsel-ikon {
+            width: 16px;
+            height: 16px;
+            vertical-align: -3px;
+        }
+
+        .refusjon-sum {
+            border-top: 1px solid #7f8287;
+            margin-top: 6px;
+            padding: 8px 14px 0;
             font-size: 18px;
+        }
+
+        .refusjon-sum .sum-forventet {
+            font-weight: 600;
+            color: #4a515e;
+        }
+
+        .refusjon-sum .sum-utbetalt {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .dager-igjen {
+            margin-top: 12px;
+        }
+
+        /* filter-helperen skriver seksjonen én gang per rad med differanse. Vi viser bare den første. */
+        .differanse + .differanse {
+            display: none;
+        }
+
+        .differanse .varsel-ikon {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+        }
+
+        .grunner-liste {
+            padding-left: 18px;
+            margin: 4px 0 0;
         }
     </style>
 </head>
-
-
 <body>
+    <h1>Informasjon om refusjon av sykepenger</h1>
 
-<!--TODO: Slett når vedtak er i prod-->
-<p class="document-warning">Intern testversjon - Dokumentet er ikke gyldig</p>
-
-
-<h1 id="vedtak">Vedtak om refusjon av sykepenger</h1>
-
-<div class="table mt-2 width-100">
-    <div class="row">
-        <p class="cell grey-text text-sm" style="text-align: left;">
-            Vedtak fattet {{iso_to_nor_datetime vedtakFattetTidspunkt}}
-        </p>
-        <p class="cell grey-text text-sm" style="text-align: right;">
-            Vedtaksperiode-ID:
-            {{> partials/valueOrDash v=vedtaksperiodeId}}
-        </p>
-    </div>
-</div>
-
-{{> partials/sykmeldtOgArbeidsgiverInfo
-        labelForNavn="Ansatt"
-        sykmeldtFnr=fødselsnummer
-        arbeidsgiverOrgnr=organisasjonsnummer
-}}
-
-<div class="box-bright mt-2">
-    <div class="table width-100">
+    <div class="table width-100 metadata">
         <div class="row">
-            <p class="cell font-semibold">
-                Perioden vedtaket gjelder
-            </p>
-            <p class="cell" style="text-align: right;">
-                {{> partials/periodeMedAntallDager fom=fom tom=tom}}
-            </p>
+            <p class="cell">{{iso_to_nor_datetime arbeidstakervedtakFattetTidspunkt}}</p>
+            <p class="cell metadata-id">Refusjons-ID: {{refusjonUtfallId}}</p>
         </div>
     </div>
-</div>
 
-<div class="mt-3">
-    <h2>Vedtak</h2>
+    {{> partials/sykmeldtOgArbeidsgiverInfo
+            labelForNavn="Refusjonen gjelder"
+            sykmeldtNavn=sykmeldtNavn
+            sykmeldtFnr=fnr
+            arbeidsgiverNavn=arbeidsgiverNavn
+            arbeidsgiverOrgnr=orgnr
+    }}
 
-    <h3>Utfall</h3>
-    <p class="navn-datafelt">
-        {{> partials/valueOrDash v=vedtaksUtfallTilArbeidsgiver}}
+    <p class="intro">
+        Dette er en informasjonsmelding som inneholder opplysninger om utbetaling av sykepenger.<br/>
+        Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
     </p>
 
-    <h3>Sykepengegrunnlag</h3>
-    <p class="navn-datafelt">
-        {{> partials/valueOrDash v=sykepengegrunnlag}} kr
-    </p>
+    <h2 id="utbetaling">Oversikt over utbetalt refusjon</h2>
+    <p class="periode">Periode: {{iso_to_date fom}} – {{iso_to_date tom}}</p>
 
-    <h3>Har arbeidsgiver ønsket refusjon</h3>
-    {{#if harArbeidsgiverØnsketRefusjon}}
-        <p>Ja</p>
-    {{else}}
-        <p>Nei</p>
-    {{/if}}
-</div>
-
-<hr />
-
-<div id="utbetalingsdager">
-    <h2>Utbetalingsdager</h2>
-
-    {{#if utbetalingsdager}}
-        {{#each utbetalingsdager}}
-            <div class="table width-100 period-row text-sm">
-                <div class="row">
-                    <p class="cell">
-                        {{iso_to_date dato}}
-                    </p>
-                    <p class="cell">
-                        {{> partials/valueOrDash v=type}}
-                    </p>
-                    <p class="cell" style="text-align: right;">
-                        {{> partials/valueOrDash v=beløpTilArbeidsgiver}} kr
-                    </p>
-                </div>
+    <div class="refusjon-header">
+        <div class="table width-100 refusjon-tabell">
+            <div class="row">
+                <p class="cell kol-dagtype">Dagtype</p>
+                <p class="cell kol-forespurt">Oppgitt refusjon</p>
+                <p class="cell kol-forventet">Forventet</p>
+                <p class="cell kol-utbetalt">Utbetalt</p>
+                <p class="cell kol-varsel"></p>
             </div>
-        {{/each}}
-    {{else}}
-        <p class="text-thin">Ingen utbetalingsdager oppgitt.</p>
-    {{/if}}
-</div>
+        </div>
+    </div>
 
-<hr />
+    {{#each daggrupper}}
+        {{> partials/refusjon/daggruppe }}
+    {{/each}}
 
-<div id="detaljer">
-    <h2>Detaljer fra saken</h2>
+    <div class="refusjon-sum">
+        <div class="table width-100 refusjon-tabell">
+            <div class="row">
+                <p class="cell kol-dagtype">Sum</p>
+                <p class="cell kol-forespurt"></p>
+                <p class="cell kol-forventet sum-forventet">{{currency_no beloepForventetRefusjon true}} kr</p>
+                <p class="cell kol-utbetalt sum-utbetalt">{{currency_no beloepUtbetaltTilArbeidsgiver true}} kr</p>
+                <p class="cell kol-varsel"></p>
+            </div>
+        </div>
+    </div>
 
-    <h3>Skjæringstidspunkt</h3>
-    <p>
-        {{> partials/valueOrDash v=(iso_to_date skjæringstidspunkt)}}
-    </p>
+    <p class="dager-igjen">Dager igjen med rett til sykepenger: {{dagerIgjenMedRettTilSykepenger}}</p>
 
-    <h3>Yrkesaktivitetstype</h3>
-    <p>
-        {{> partials/valueOrDash v=yrkesaktivitetstype}}
-    </p>
-
-    <h3>Automatisk fattet</h3>
-    {{#if automatiskFattet}}
-        <p>Ja</p>
-    {{else}}
-        <p>Nei</p>
-    {{/if}}
-
-    <h3>Saksbehandler</h3>
-    <p>
-        {{> partials/valueOrDash v=saksbehandlerNavn}}
-    </p>
-    <p class="text-thin">
-        {{> partials/valueOrDash v=saksbehandlerIdent}}
-    </p>
-
-    <h3>Beslutter</h3>
-    <p>
-        {{> partials/valueOrDash v=beslutterNavn}}
-    </p>
-    <p class="text-thin">
-        {{> partials/valueOrDash v=beslutterIdent}}
-    </p>
-</div>
+    {{#filter daggrupper "sykepengeStatus" "RETT_TIL_SYKEPENGER_DIFFERANSE"}}
+        <div class="differanse">
+            <h2><img src="{{ image "varsel.svg" }}" class="varsel-ikon" alt=""/>Det er differanse i oppgitt refusjon og utbetalt refusjon</h2>
+            <p>
+                Refusjonen følger den ansattes rett til sykepenger. Blir refusjonen redusert, kan ikke Nav oppgi
+                grunnen til arbeidsgiveren, fordi Nav har taushetsplikt. Den ansatte får begrunnelsen i vedtaket sitt.
+            </p>
+            <p style="margin-top: 8px;">Vanlige grunner er blant annet:</p>
+            <ul class="grunner-liste">
+                <li>Inntekten er fastsatt på en annen måte, for eksempel skjønnsfastsatt fordi den avviker mer enn 25 % fra a-ordningen.</li>
+                <li>Den ansatte får en annen ytelse fra Nav for de samme dagene.</li>
+            </ul>
+        </div>
+    {{/filter}}
 </body>
 </html>

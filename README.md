@@ -3,12 +3,9 @@
 Generering av PDF-dokumenter for helsearbeidsgiver-tjenester (f.eks.sykmelding for arbeidsgiver).
 
 ## Getting started
-Kjør følgende (krever docker på maskinen)  
+Kjør følgende (krever docker på maskinen). pdfgen-imaget er offentlig, så du trenger ikke `docker login`.
 
 ```
-docker login ghcr.io --username [github brukernavn]
-(lim in PAT med read:packages tilgang som passord)
-
 chmod +x run_development.sh
 ./run_development.sh
 ```  
