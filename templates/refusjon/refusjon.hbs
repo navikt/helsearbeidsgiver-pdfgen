@@ -60,10 +60,7 @@
 
         .gjeldende-periode .periode-datoer {
             text-align: right;
-        }
-
-        .pil {
-            margin: 0 12px;
+            word-spacing: 8px;
         }
 
         .intro {
@@ -154,7 +151,7 @@
     <div class="table width-100 gjeldende-periode">
         <div class="row">
             <p class="cell periode-label">Gjeldende periode</p>
-            <p class="cell periode-datoer">{{iso_to_date fom}}<span class="pil">→</span>{{iso_to_date tom}}</p>
+            <p class="cell periode-datoer">{{iso_to_date fom}} → {{iso_to_date tom}}</p>
         </div>
     </div>
 

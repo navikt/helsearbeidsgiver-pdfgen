@@ -84,6 +84,6 @@ class SoknadTest {
         Permisjon 01.04.2025 – 06.04.2025 (6 dager)
         Opphold i utlandet utenfor EU/EØS 01.04.2025 – 06.04.2025 (6 dager)
         """.trimIndent().trim() shouldBe
-                FULLSTENDIG_SOKNAD_PDF_TEKST.also { println(it) }
+            FULLSTENDIG_SOKNAD_PDF_TEKST.also { println(it) }
     }
 }
