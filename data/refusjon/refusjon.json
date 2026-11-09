@@ -10,46 +10,32 @@
     {
       "antallDager": 10,
       "sykepengeStatus": "RETT_TIL_SYKEPENGER",
-      "sykdomsgrad": 48,
-      "beloepForventetRefusjon": 15130,
-      "beloepKrevdRefusjonPerDag": 3692,
-      "beloepKrevdRefusjonPerMaaned": 80000.0,
-      "beloepUtbetaltTilArbeidsgiver": 15130,
-      "begrensetTil6G": true
+      "sykdomsgrad": 74,
+      "beloepUtbetaltTilArbeidsgiverPerDag": 1254,
+      "beloepUtbetaltTilArbeidsgiver": 12540
     },
     {
       "antallDager": 2,
       "sykepengeStatus": "RETT_TIL_SYKEPENGER_DIFFERANSE",
-      "sykdomsgrad": 48,
-      "beloepForventetRefusjon": 3026,
-      "beloepKrevdRefusjonPerDag": 3692,
-      "beloepKrevdRefusjonPerMaaned": 80000.0,
-      "beloepUtbetaltTilArbeidsgiver": 2000,
-      "begrensetTil6G": true
-    },
-    {
-      "antallDager": 1,
-      "sykepengeStatus": "IKKE_RETT_TIL_SYKEPENGER",
-      "sykdomsgrad": 48,
-      "beloepForventetRefusjon": 1513,
-      "beloepKrevdRefusjonPerDag": 3692,
-      "beloepKrevdRefusjonPerMaaned": 80000.0,
-      "beloepUtbetaltTilArbeidsgiver": 0,
-      "begrensetTil6G": true
+      "sykdomsgrad": 80,
+      "beloepUtbetaltTilArbeidsgiverPerDag": 1613,
+      "beloepUtbetaltTilArbeidsgiver": 3226
     },
     {
       "antallDager": 5,
-      "sykepengeStatus": "RETT_TIL_SYKEPENGER",
-      "sykdomsgrad": 48,
-      "beloepForventetRefusjon": 0,
-      "beloepKrevdRefusjonPerDag": 0,
-      "beloepKrevdRefusjonPerMaaned": 0.0,
-      "beloepUtbetaltTilArbeidsgiver": 0,
-      "begrensetTil6G": false
+      "sykepengeStatus": "IKKE_RETT_TIL_SYKEPENGER",
+      "sykdomsgrad": 80,
+      "beloepUtbetaltTilArbeidsgiverPerDag": 0,
+      "beloepUtbetaltTilArbeidsgiver": 0
     }
   ],
-  "beloepForventetRefusjon": 19669,
-  "beloepUtbetaltTilArbeidsgiver": 17130,
-  "dagerIgjenMedRettTilSykepenger": 231,
+  "refusjonskrav": {
+    "beloepPerMaaned": 90000.0,
+    "endringer": [
+      { "startdato": "2026-06-15", "beloep": 45000.0 }
+    ]
+  },
+  "beloepUtbetaltTilArbeidsgiver": 15766,
+  "utbetalingKanVaereLavereEnnForventet": true,
   "arbeidstakervedtakFattetTidspunkt": "2026-07-20T12:34"
 }
