@@ -11,15 +11,15 @@
       "antallDager": 11,
       "sykepengeStatus": "RETT_TIL_SYKEPENGER",
       "sykdomsgrad": 100,
-      "beloepForventetRefusjon": 20306,
-      "beloepKrevdRefusjonPerDag": 1846,
-      "beloepKrevdRefusjonPerMaaned": 40000.0,
-      "beloepUtbetaltTilArbeidsgiver": 20306,
-      "begrensetTil6G": false
+      "beloepUtbetaltTilArbeidsgiverPerDag": 1846,
+      "beloepUtbetaltTilArbeidsgiver": 20306
     }
   ],
-  "beloepForventetRefusjon": 20306,
+  "refusjonskrav": {
+    "beloepPerMaaned": 40000.0,
+    "endringer": []
+  },
   "beloepUtbetaltTilArbeidsgiver": 20306,
-  "dagerIgjenMedRettTilSykepenger": 101,
+  "utbetalingKanVaereLavereEnnForventet": false,
   "arbeidstakervedtakFattetTidspunkt": "2026-07-20T12:34"
 }
