@@ -10,9 +10,8 @@
     <meta name="keywords" content="sykepenger refusjon" />
 
     <bookmarks>
-        <bookmark title="Oppgitt refusjonsbeløp pr mnd i inntektsmelding" href="#oppgitt-refusjon"></bookmark>
-        <bookmark title="Detaljer for perioden" href="#detaljer"></bookmark>
-        <bookmark title="Refusjon for perioden" href="#refusjon"></bookmark>
+        <bookmark title="Søknad om sykepenger med refusjon er behandlet" href="#behandlet"></bookmark>
+        <bookmark title="Grunnlag for refusjon" href="#grunnlag"></bookmark>
     </bookmarks>
 
     {{#block 'style'}}
@@ -28,18 +27,30 @@
             font-weight: 700;
         }
 
+        /* Felles tekststørrelser: 16px for brødtekst, 13px for sekundærtekst */
+        .innhold {
+            font-size: 16px;
+        }
+
+        .sekundaertekst {
+            color: #4a515e;
+            font-size: 13px;
+        }
+
         h2 {
             border-top: none;
             font-size: 20px;
             font-weight: 600;
             padding-top: 0;
-            margin-top: 32px;
+            margin-top: 0;
             margin-bottom: 2px;
         }
 
+        h3 {
+            font-weight: 600;
+        }
+
         .metadata {
-            color: #4a515e;
-            font-size: 13px;
             margin-top: 4px;
         }
 
@@ -47,69 +58,111 @@
             text-align: right;
         }
 
-        .gjeldende-periode {
-            background-color: #e6f0f7;
-            border-radius: 8px;
-            padding: 10px 16px;
-            font-size: 16px;
+        .intro {
+            margin-bottom: 16px;
         }
 
-        .gjeldende-periode .periode-label {
+        .gjeldende-periode {
+            background-color: #e6f1f8;
+            border-radius: 8px;
+            padding: 12px 16px 14px;
+        }
+
+        .gjeldende-periode .cell {
+            vertical-align: top;
+        }
+
+        .gjeldende-periode .etikett {
             font-weight: 600;
+            margin-bottom: 6px;
         }
 
         .gjeldende-periode .periode-datoer {
-            text-align: right;
-            word-spacing: 8px;
+            word-spacing: 12px;
         }
 
-        .intro {
-            font-size: 16px;
-            margin-top: 20px;
+        .gjeldende-periode .kol-refusjon {
+            width: 22%;
         }
 
-        .stort-beloep {
-            font-size: 30px;
+        .gjeldende-periode .stort-beloep {
+            font-size: 26px;
             font-weight: 700;
-            line-height: 1.3;
+            line-height: 1.1;
+        }
+
+        .skillelinje {
+            border-top: 1px solid #cfd3d8;
+            margin: 16px 0;
+        }
+
+        .seksjon-tittel {
+            margin-bottom: 12px;
+        }
+
+        .oppgitt-refusjon {
+            margin-bottom: 20px;
+        }
+
+        .oppgitt-refusjon p {
+            padding-left: 2px;
+            line-height: 1.6;
         }
 
         .endring-dato {
-            font-size: 18px;
-            font-weight: 400;
+            padding-left: 12px;
         }
 
         .detaljer {
-            font-size: 18px;
-            width: auto;
+            margin-top: 6px;
         }
 
         .detaljer .cell {
-            padding-right: 12px;
+            padding: 2px 12px 6px 0;
             white-space: nowrap;
         }
 
+        .detaljer .overskrift .cell {
+            padding-bottom: 2px;
+        }
+
+        .detaljer .kol-antall {
+            width: 16%;
+        }
+
+        .detaljer .kol-sykdomsgrad,
         .detaljer .kol-beloep {
             text-align: right;
-            padding-right: 0;
+        }
+
+        .detaljer .kol-beloep {
+            width: 22%;
+            padding-right: 10%;
         }
 
         .daggruppe.ikke-rett {
-            color: #c30000;
+            color: #bc002a;
         }
 
-        .varsel {
-            margin-top: 20px;
-            border: 3px solid #c45100;
-            border-radius: 8px;
+        .forklaring {
+            margin-top: 10px;
+        }
+
+        .varsel-seksjon {
             page-break-inside: avoid;
         }
 
+        .varsel {
+            border: 1px solid #ca5000;
+            border-radius: 8px;
+        }
+
         .varsel-tittel {
-            background-color: #c45100;
-            color: white;
-            font-weight: 600;
-            padding: 2px 12px 4px;
+            background-color: #ffebc7;
+            color: #481700;
+            border-bottom: 1px solid #ca5000;
+            border-radius: 8px 8px 0 0;
+            padding: 3px 14px 4px;
         }
 
         .varsel-ikon {
@@ -120,20 +173,19 @@
         }
 
         .varsel-innhold {
-            padding: 8px 12px 12px;
-            font-size: 16px;
+            padding: 8px 16px 18px;
         }
 
         .varsel-liste {
-            padding-left: 30px;
-            margin: 0;
+            padding-left: 24px;
+            margin: 0 0 20px;
         }
     </style>
 </head>
 <body>
     <h1>Refusjon av sykepenger</h1>
 
-    <div class="table width-100 metadata">
+    <div class="table width-100 metadata sekundaertekst">
         <div class="row">
             <p class="cell">{{iso_to_nor_datetime arbeidstakervedtakFattetTidspunkt}}</p>
             <p class="cell metadata-id">Refusjons-ID: {{refusjonUtfallId}}</p>
@@ -141,63 +193,89 @@
     </div>
 
     {{> partials/sykmeldtOgArbeidsgiverInfo
-            labelForNavn="Ansatt"
+            labelForNavn="Refusjon gjelder"
             sykmeldtNavn=sykmeldtNavn
             sykmeldtFnr=fnr
             arbeidsgiverNavn=arbeidsgiverNavn
             arbeidsgiverOrgnr=orgnr
     }}
 
-    <div class="table width-100 gjeldende-periode">
-        <div class="row">
-            <p class="cell periode-label">Gjeldende periode</p>
-            <p class="cell periode-datoer">{{iso_to_date fom}} → {{iso_to_date tom}}</p>
-        </div>
-    </div>
+    <div class="innhold">
+        <h2 id="behandlet">Søknad om sykepenger med refusjon er behandlet</h2>
+        <p class="intro">
+            Nav har behandlet sykepengesaken til den ansatte. Beløpet avhenger av hvor mye sykepenger den ansatte har rett
+            til, og utbetales til virksomhetens kontonummer.
+        </p>
 
-    <p class="intro">
-        Saken til den sykmeldte er behandlet. Dette er en informasjonsmelding som inneholder opplysninger om utbetaling
-        av sykepenger. Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes rettigheter til sykepenger.
-    </p>
-
-    <h2 id="oppgitt-refusjon">Oppgitt refusjonsbeløp pr mnd i inntektsmelding</h2>
-    {{#if refusjonskrav}}
-        <p class="stort-beloep">{{currency_no refusjonskrav.beloepPerMaaned true}} kr</p>
-        {{#each refusjonskrav.endringer}}
-            <p class="stort-beloep">{{currency_no beloep true}} kr <span class="endring-dato">(Fom. {{iso_to_date startdato}})</span></p>
-        {{/each}}
-    {{else}}
-        <p class="stort-beloep">- kr</p>
-    {{/if}}
-
-    <h2 id="detaljer">Detaljer for perioden</h2>
-    <div class="table detaljer">
-        {{#each daggrupper}}
-            {{> partials/refusjon/daggruppe }}
-        {{/each}}
-    </div>
-
-    <h2 id="refusjon">Refusjon for perioden</h2>
-    <p class="stort-beloep">{{currency_no beloepUtbetaltTilArbeidsgiver true}} kr</p>
-
-    {{#if utbetalingKanVaereLavereEnnForventet}}
-        <div class="varsel">
-            <h3 class="varsel-tittel"><img src="{{ image "warning.svg" }}" class="varsel-ikon" alt=""/>Mulige grunner til at beløp er annet enn forventet</h3>
-            <div class="varsel-innhold">
-                <p>
-                    Dersom refusjonsbeløpet er lavere enn forventet, kan det skyldes ulike årsaker. Nav oppgir ikke den
-                    konkrete årsaken til redusert refusjon. Vanlige grunner til at en arbeidsgivers refusjon reduseres
-                    inkluderer, men er ikke begrenset til:
-                </p>
-                <ul class="varsel-liste">
-                    <li>6G flere AG</li>
-                    <li>Annen inntekt lagt til grunn pga. 25 % avvik</li>
-                    <li>Saksbehandler har overstyrt refusjonskravet</li>
-                    <li>etc...</li>
-                </ul>
-                <p>Den nærmere begrunnelsen for reduksjon av refusjon i din sak er gitt i vedtaket til den sykmeldte.</p>
+        <div class="table width-100 gjeldende-periode">
+            <div class="row">
+                <div class="cell">
+                    <p class="etikett">Gjeldende periode</p>
+                    <p class="periode-datoer">{{iso_to_date fom}} → {{iso_to_date tom}}</p>
+                </div>
+                <div class="cell kol-refusjon">
+                    <p class="etikett">Refusjon</p>
+                    <p class="stort-beloep">{{currency_no beloepUtbetaltTilArbeidsgiver true}} kr</p>
+                </div>
             </div>
         </div>
-    {{/if}}
+
+        <div class="skillelinje"></div>
+
+        <h2 id="grunnlag" class="seksjon-tittel">Grunnlag for refusjon</h2>
+
+        <div class="oppgitt-refusjon">
+            <h3>Oppgitt refusjonsbeløp i inntektsmelding</h3>
+            {{#if refusjonskrav}}
+                <p>{{currency_no refusjonskrav.beloepPerMaaned true}} kr/måned</p>
+                {{#each refusjonskrav.endringer}}
+                    <p>{{currency_no beloep true}} kr/måned <span class="endring-dato">(Fra og med: {{iso_to_date startdato}})</span></p>
+                {{/each}}
+            {{else}}
+                <p>-</p>
+            {{/if}}
+        </div>
+
+        <h3>Detaljer for perioden</h3>
+        <div class="table width-100 detaljer">
+            <div class="row overskrift sekundaertekst">
+                <p class="cell kol-antall">Dager</p>
+                <p class="cell kol-type">Type</p>
+                <p class="cell kol-sykdomsgrad">Sykdomsgrad (etter søknad)</p>
+                <p class="cell kol-beloep">Refusjon per dag</p>
+            </div>
+            {{#each daggrupper}}
+                {{> partials/refusjon/daggruppe }}
+            {{/each}}
+        </div>
+        <p class="forklaring sekundaertekst">
+            Lørdag, søndag og arbeidsgiverperiode vises ikke i listen over dager. Dager med rett til sykepenger og dager uten
+            rett til sykepenger vil vises. Sykdomsgrad er hva som faktisk ble benyttet av sykmeldingen basert på informasjon
+            gitt i søknaden om sykepenger. Beløpet under refusjon per dag er gradert og avkortet til seks ganger
+            grunnbeløpet.
+        </p>
+
+        {{#if utbetalingKanVaereLavereEnnForventet}}
+            <div class="varsel-seksjon">
+                <div class="skillelinje"></div>
+                <div class="varsel">
+                    <h3 class="varsel-tittel"><img src="{{ image "varsel-omriss.svg" }}" class="varsel-ikon" alt=""/>Mulige grunner til at beløpet er annet enn forventet</h3>
+                    <div class="varsel-innhold">
+                        <p>
+                            Dersom refusjonsbeløpet er lavere enn forventet, kan det skyldes ulike årsaker. Nav oppgir ikke den
+                            konkrete årsaken til redusert refusjon. Vanlige grunner til reduksjon inkluderer, men er ikke
+                            begrenset til:
+                        </p>
+                        <ul class="varsel-liste">
+                            <li>6G flere AG</li>
+                            <li>Annen inntekt lagt til grunn pga. 25 % avvik</li>
+                            <li>Saksbehandler har overstyrt refusjonskravet</li>
+                        </ul>
+                        <p>Den nærmere begrunnelsen for reduksjon av refusjon i din sak er gitt i vedtaket til den sykmeldte.</p>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+    </div>
 </body>
 </html>
