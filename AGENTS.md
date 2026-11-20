@@ -106,7 +106,7 @@ PDF-tekst får ofte mellomrom på slutten av linjer som brytes. `RefusjonTest` f
 
 1. Lag malen i `templates/<app>/<mal>.hbs`.
 2. Legg eksempeldata i `data/<app>/<mal>.json`, så PDF-en virker i dev-serveren.
-3. Legg testdata i `src/test/resources/`. Lag minst ett minimalt og ett fullstendig eksempel. Følg navnene som finnes (`minimal_sykmelding.json`, `fullstendig_sykmelding.json`, `refusjon_kompleks.json`).
+3. Legg testdata i `src/test/resources/`. Lag minst ett minimalt og ett fullstendig eksempel. Følg navnene som finnes (`minimal_sykmelding.json`, `fullstendig_sykmelding.json`, `refusjon_fullstendig.json`, `refusjon_minimal.json`).
 4. Legg ruten som konstant i `src/test/kotlin/Utils.kt`.
 5. Lag `<Navn>Test.kt` etter mønsteret i `SykmeldingTest.kt` og `RefusjonTest.kt`: hent tekst med `lagPdfOgHentTekst` og sammenlign med `shouldBe`.
 6. Kjør testen. Les den genererte teksten i loggen og PDF-en i `build/test-pdf/` før du limer teksten inn som forventet.

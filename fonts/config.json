@@ -4,13 +4,13 @@
     "path": "SourceSansPro-Regular.ttf",
     "weight": 400,
     "style": "NORMAL",
-    "subset": false
+    "subset": true
   },
   {
     "family": "Source Sans Pro",
     "path": "SourceSansPro-Bold.ttf",
     "weight": 700,
     "style": "NORMAL",
-    "subset": false
+    "subset": true
   }
 ]

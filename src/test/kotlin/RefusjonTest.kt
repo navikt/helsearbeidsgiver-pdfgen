@@ -5,20 +5,12 @@ import org.junit.jupiter.api.TestMethodOrder
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-private val FULL_PDF_TEKST: String =
-    lagPdfOgHentTekst(jsonNavn = "refusjon_full", pdfgenRoute = REFUSJON_PDF_ROUTE)
+private val FULLSTENDIG_PDF_TEKST: String =
+    lagPdfOgHentTekst(jsonNavn = "refusjon_fullstendig", pdfgenRoute = REFUSJON_PDF_ROUTE)
         .utenMellomromPaaLinjeslutt()
 
-private val KOMPLEKS_PDF_TEKST: String =
-    lagPdfOgHentTekst(jsonNavn = "refusjon_kompleks", pdfgenRoute = REFUSJON_PDF_ROUTE)
-        .utenMellomromPaaLinjeslutt()
-
-private val IKKE_RETT_PDF_TEKST: String =
-    lagPdfOgHentTekst(jsonNavn = "refusjon_ikke_rett", pdfgenRoute = REFUSJON_PDF_ROUTE)
-        .utenMellomromPaaLinjeslutt()
-
-private val UTEN_INNTEKTSMELDING_PDF_TEKST: String =
-    lagPdfOgHentTekst(jsonNavn = "refusjon_uten_inntektsmelding", pdfgenRoute = REFUSJON_PDF_ROUTE)
+private val MINIMAL_PDF_TEKST: String =
+    lagPdfOgHentTekst(jsonNavn = "refusjon_minimal", pdfgenRoute = REFUSJON_PDF_ROUTE)
         .utenMellomromPaaLinjeslutt()
 
 // PDF-tekst får mellomrom på slutten av linjer som brytes. Fjernes så forventet tekst kan skrives uten dem.
@@ -29,45 +21,17 @@ class RefusjonTest {
     @Test
     @Order(1)
     fun `kompiler PDF uten feil og lagre lokalt`() {
-        assertTrue(FULL_PDF_TEKST.isNotEmpty())
-        assertTrue(KOMPLEKS_PDF_TEKST.isNotEmpty())
-        assertTrue(IKKE_RETT_PDF_TEKST.isNotEmpty())
-        assertTrue(UTEN_INNTEKTSMELDING_PDF_TEKST.isNotEmpty())
+        assertTrue(FULLSTENDIG_PDF_TEKST.isNotEmpty())
+        assertTrue(MINIMAL_PDF_TEKST.isNotEmpty())
     }
 
+    // Endringer i refusjonskrav, dager med og uten rett til sykepenger, entall og flertall, og varsel om lavere beløp
     @Test
-    fun `full refusjon PDF har forventet innhold`() {
-        """
-        Refusjon av sykepenger
-        20.07.2026 12:34 Refusjons-ID: a1b2c3d4-0000-4000-8000-000000000001
-        Ansatt
-        Ola Nordmann
-        Fødselsnummer
-        TestFnr
-        Arbeidsgiver
-        Fiktiv Bedrift AS
-        Organisasjonsnummer
-        TestOrgnr
-        Gjeldende periode 27.05.2026 → 26.06.2026
-        Saken til den sykmeldte er behandlet. Dette er en informasjonsmelding som inneholder opplysninger
-        om utbetaling av sykepenger. Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes
-        rettigheter til sykepenger.
-        Oppgitt refusjonsbeløp pr mnd i inntektsmelding
-        40 000 kr
-        Detaljer for perioden
-        11 dager sykepenger (sykdomsgrad: 100%) - 1 846 kr/dag
-        Refusjon for perioden
-        20 306 kr
-        """.trimIndent().trim() shouldBe
-            FULL_PDF_TEKST.also { println(it) }
-    }
-
-    @Test
-    fun `kompleks refusjon med redusert utbetaling PDF har forventet innhold`() {
+    fun `fullstendig refusjon PDF har forventet innhold`() {
         """
         Refusjon av sykepenger
         20.07.2026 12:34 Refusjons-ID: 6c078f5c-36ca-4c95-b377-1039f6617451
-        Ansatt
+        Refusjon gjelder
         Ola Nordmann
         Fødselsnummer
         TestFnr
@@ -75,74 +39,56 @@ class RefusjonTest {
         Fiktiv Bedrift AS
         Organisasjonsnummer
         TestOrgnr
-        Gjeldende periode 27.05.2026 → 02.07.2026
-        Saken til den sykmeldte er behandlet. Dette er en informasjonsmelding som inneholder opplysninger
-        om utbetaling av sykepenger. Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes
-        rettigheter til sykepenger.
-        Oppgitt refusjonsbeløp pr mnd i inntektsmelding
-        40 000 kr
-        80 000 kr (Fom. 01.06.2026)
-        40 000 kr (Fom. 08.06.2026)
-        80 000 kr (Fom. 10.06.2026)
-        0 kr (Fom. 24.06.2026)
-        40 000 kr (Fom. 29.06.2026)
-        Detaljer for perioden
-        3 dager sykepenger (sykdomsgrad: 100%) - 1 846 kr/dag
-        3 dager sykepenger (sykdomsgrad: 100%) - 3 151 kr/dag
-        2 dager sykepenger (sykdomsgrad: 50%) - 923 kr/dag
-        2 dager sykepenger (sykdomsgrad: 50%) - 1 576 kr/dag
-        1 dag sykepenger (sykdomsgrad: 50%) - 1 000 kr/dag
-        1 dag Ikke rett til sykepenger - 0 kr/dag
-        1 dag sykepenger (sykdomsgrad: 50%) - 0 kr/dag
-        2 dager sykepenger (sykdomsgrad: 100%) - 1 200 kr/dag
-        Refusjon for perioden
+        Søknad om sykepenger med refusjon er behandlet
+        Nav har behandlet sykepengesaken til den ansatte. Beløpet avhenger av hvor mye sykepenger den
+        ansatte har rett til, og utbetales til virksomhetens kontonummer.
+        Gjeldende periode
+        27.05.2026 → 02.07.2026
+        Refusjon
         23 389 kr
-        Mulige grunner til at beløp er annet enn forventet
-        Dersom refusjonsbeløpet er lavere enn forventet, kan det skyldes ulike årsaker. Nav oppgir ikke
-        den konkrete årsaken til redusert refusjon. Vanlige grunner til at en arbeidsgivers refusjon
-        reduseres inkluderer, men er ikke begrenset til:
-        6G flere AG
-        Annen inntekt lagt til grunn pga. 25 % avvik
-        Saksbehandler har overstyrt refusjonskravet
-        etc...
-        Den nærmere begrunnelsen for reduksjon av refusjon i din sak er gitt i vedtaket til den sykmeldte.
-        """.trimIndent().trim() shouldBe
-            KOMPLEKS_PDF_TEKST.also { println(it) }
-    }
-
-    @Test
-    fun `ikke rett til sykepenger PDF har forventet innhold`() {
-        """
-        Refusjon av sykepenger
-        20.07.2026 12:34 Refusjons-ID: a1b2c3d4-0000-4000-8000-000000000003
-        Ansatt
-        Ola Nordmann
-        Fødselsnummer
-        TestFnr
-        Arbeidsgiver
-        Fiktiv Bedrift AS
-        Organisasjonsnummer
-        TestOrgnr
-        Gjeldende periode 27.05.2026 → 19.06.2026
-        Saken til den sykmeldte er behandlet. Dette er en informasjonsmelding som inneholder opplysninger
-        om utbetaling av sykepenger. Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes
-        rettigheter til sykepenger.
-        Oppgitt refusjonsbeløp pr mnd i inntektsmelding
-        40 000 kr
+        Grunnlag for refusjon
+        Oppgitt refusjonsbeløp i inntektsmelding
+        40 000 kr/måned
+        80 000 kr/måned (Fra og med: 01.06.2026)
+        40 000 kr/måned (Fra og med: 08.06.2026)
+        80 000 kr/måned (Fra og med: 10.06.2026)
+        0 kr/måned (Fra og med: 24.06.2026)
+        40 000 kr/måned (Fra og med: 29.06.2026)
         Detaljer for perioden
-        6 dager Ikke rett til sykepenger - 0 kr/dag
-        Refusjon for perioden
-        0 kr
+        Dager Type Sykdomsgrad (etter søknad) Refusjon per dag
+        3 dager Rett til sykepenger 100% 1 846 kr
+        3 dager Rett til sykepenger 100% 3 151 kr
+        2 dager Rett til sykepenger 50% 923 kr
+        2 dager Rett til sykepenger 50% 1 576 kr
+        1 dag Rett til sykepenger 50% 1 000 kr
+        1 dag Ikke rett til sykepenger – 0 kr
+        1 dag Rett til sykepenger 50% 0 kr
+        2 dager Rett til sykepenger 100% 1 200 kr
+        Lørdag, søndag og arbeidsgiverperiode vises ikke i listen over dager. Dager med rett til sykepenger og dager uten rett til
+        sykepenger vil vises. Sykdomsgrad er hva som faktisk ble benyttet av sykmeldingen basert på informasjon gitt i søknaden om
+        sykepenger. Beløpet under refusjon per dag er gradert og avkortet til seks ganger grunnbeløpet.
+        Mulige grunner til at beløpet er annet enn forventet
+        Dersom refusjonsbeløpet er lavere enn forventet, kan det skyldes ulike årsaker. Nav oppgir ikke
+        den konkrete årsaken til redusert refusjon. Vanlige grunner til reduksjon inkluderer, men er ikke
+        begrenset til:
+        Annen inntekt lagt til grunn pga. mer enn 25 % avvik fra rapportert inntekt til a-ordningen.
+        Saksbehandler har overstyrt refusjonskravet.
+        Ferie eller permisjon.
+        Den ansattes totale inntekt overstiger maksimalt sykepengegrunnlag (6G). Dette kan være
+        inntekt på tvers av flere arbeidsforhold.
+        Den nærmere begrunnelsen for reduksjon av refusjon i din sak er gitt i vedtaket til den
+        sykmeldte.
         """.trimIndent().trim() shouldBe
-            IKKE_RETT_PDF_TEKST.also { println(it) }
+            FULLSTENDIG_PDF_TEKST.also { println(it) }
     }
 
+    // Uten refusjonskrav fra inntektsmelding og uten varsel
     @Test
-    fun `refusjon uten inntektsmelding PDF har forventet innhold`() {
+    fun `minimal refusjon PDF har forventet innhold`() {
         """
         Refusjon av sykepenger
         20.07.2026 12:34 Refusjons-ID: a1b2c3d4-0000-4000-8000-000000000004
-        Ansatt
+        Refusjon gjelder
         Ola Nordmann
         Fødselsnummer
         TestFnr
@@ -150,18 +96,24 @@ class RefusjonTest {
         Fiktiv Bedrift AS
         Organisasjonsnummer
         TestOrgnr
-        Gjeldende periode 12.06.2026 → 26.06.2026
-        Saken til den sykmeldte er behandlet. Dette er en informasjonsmelding som inneholder opplysninger
-        om utbetaling av sykepenger. Dine rettigheter som arbeidsgiver er avledet fra den sykmeldtes
-        rettigheter til sykepenger.
-        Oppgitt refusjonsbeløp pr mnd i inntektsmelding
-        - kr
-        Detaljer for perioden
-        6 dager sykepenger (sykdomsgrad: 100%) - 1 500 kr/dag
-        5 dager sykepenger (sykdomsgrad: 60%) - 900 kr/dag
-        Refusjon for perioden
+        Søknad om sykepenger med refusjon er behandlet
+        Nav har behandlet sykepengesaken til den ansatte. Beløpet avhenger av hvor mye sykepenger den
+        ansatte har rett til, og utbetales til virksomhetens kontonummer.
+        Gjeldende periode
+        12.06.2026 → 26.06.2026
+        Refusjon
         13 500 kr
+        Grunnlag for refusjon
+        Oppgitt refusjonsbeløp i inntektsmelding
+        -
+        Detaljer for perioden
+        Dager Type Sykdomsgrad (etter søknad) Refusjon per dag
+        6 dager Rett til sykepenger 100% 1 500 kr
+        5 dager Rett til sykepenger 60% 900 kr
+        Lørdag, søndag og arbeidsgiverperiode vises ikke i listen over dager. Dager med rett til sykepenger og dager uten rett til
+        sykepenger vil vises. Sykdomsgrad er hva som faktisk ble benyttet av sykmeldingen basert på informasjon gitt i søknaden om
+        sykepenger. Beløpet under refusjon per dag er gradert og avkortet til seks ganger grunnbeløpet.
         """.trimIndent().trim() shouldBe
-            UTEN_INNTEKTSMELDING_PDF_TEKST.also { println(it) }
+            MINIMAL_PDF_TEKST.also { println(it) }
     }
 }
