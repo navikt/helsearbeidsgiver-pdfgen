@@ -71,9 +71,9 @@ class RefusjonTest {
         Dersom refusjonsbeløpet er lavere enn forventet, kan det skyldes ulike årsaker. Nav oppgir ikke
         den konkrete årsaken til redusert refusjon. Vanlige grunner til reduksjon inkluderer, men er ikke
         begrenset til:
-        Annen inntekt lagt til grunn pga. 25 % avvik
-        Saksbehandler har overstyrt refusjonskravet
-        Ferie og / eller permisjon
+        Annen inntekt lagt til grunn pga. mer enn 25 % avvik fra rapportert inntekt til a-ordningen.
+        Saksbehandler har overstyrt refusjonskravet.
+        Ferie eller permisjon.
         Den ansattes totale inntekt overstiger maksimalt sykepengegrunnlag (6G). Dette kan være
         inntekt på tvers av flere arbeidsforhold.
         Den nærmere begrunnelsen for reduksjon av refusjon i din sak er gitt i vedtaket til den
