@@ -7,14 +7,9 @@ import kotlin.test.assertTrue
 
 private val FULLSTENDIG_PDF_TEKST: String =
     lagPdfOgHentTekst(jsonNavn = "refusjon_fullstendig", pdfgenRoute = REFUSJON_PDF_ROUTE)
-        .utenMellomromPaaLinjeslutt()
 
 private val MINIMAL_PDF_TEKST: String =
     lagPdfOgHentTekst(jsonNavn = "refusjon_minimal", pdfgenRoute = REFUSJON_PDF_ROUTE)
-        .utenMellomromPaaLinjeslutt()
-
-// PDF-tekst får mellomrom på slutten av linjer som brytes. Fjernes så forventet tekst kan skrives uten dem.
-private fun String.utenMellomromPaaLinjeslutt(): String = lines().joinToString("\n") { it.trimEnd() }
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class RefusjonTest {
