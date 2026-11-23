@@ -53,7 +53,8 @@ fun ByteArray.toText(): String {
     val textStripper = PDFTextStripper()
     val extractedText = textStripper.getText(pdfDocument)
     pdfDocument.close()
-    return extractedText.trim()
+    // PDF-tekst får mellomrom på slutten av linjer som brytes. Fjernes så forventet tekst kan skrives uten dem.
+    return extractedText.lines().joinToString("\n") { it.trimEnd() }.trim()
 }
 
 fun hentPdf(

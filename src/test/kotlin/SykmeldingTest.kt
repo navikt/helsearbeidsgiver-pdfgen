@@ -52,13 +52,13 @@ class SykmeldingTest {
         Sykmelding
         Mottatt av Nav 01.01.2023 01:23 Sykmeldings-ID: sykmelding_id
         Sykmeldingen gjelder
-        sykmeldt_navn 
-        som_er_veldig_langt 
+        sykmeldt_navn
+        som_er_veldig_langt
         for_å_teste_formattering
         Fødselsnummer
         sykmeldt_fnr
         Arbeidsgiver
-        arbeidsgiver_navn 
+        arbeidsgiver_navn
         som_også_er_veldig_langt_AS
         Organisasjonsnummer
         arbeidsgiver_orgnr
