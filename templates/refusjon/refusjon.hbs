@@ -146,6 +146,12 @@
 
         .forklaring {
             margin-top: 10px;
+            page-break-inside: avoid;
+        }
+
+        .forklaring-liste {
+            padding-left: 16px;
+            margin: 2px 0 0;
         }
 
         .varsel-seksjon {
@@ -205,7 +211,8 @@
         <h2 id="behandlet">Søknad om sykepenger med refusjon er behandlet</h2>
         <p class="intro">
             Nav har behandlet sykepengesaken til den ansatte. Beløpet avhenger av hvor mye sykepenger den ansatte har rett
-            til, og utbetales til virksomhetens kontonummer.
+            til, og utbetales til virksomhetens kontonummer. Utbetalingen skjer som hovedregel innen første virkedag i ny
+            måned.
         </p>
 
         <div class="table width-100 gjeldende-periode">
@@ -242,19 +249,22 @@
             <div class="row overskrift sekundaertekst">
                 <p class="cell kol-antall">Dager</p>
                 <p class="cell kol-type">Type</p>
-                <p class="cell kol-sykdomsgrad">Sykdomsgrad (etter søknad)</p>
+                <p class="cell kol-sykdomsgrad">Sykdomsgrad fra søknaden</p>
                 <p class="cell kol-beloep">Refusjon per dag</p>
             </div>
             {{#each daggrupper}}
                 {{> partials/refusjon/daggruppe }}
             {{/each}}
         </div>
-        <p class="forklaring sekundaertekst">
-            Lørdag, søndag og arbeidsgiverperiode vises ikke i listen over dager. Dager med rett til sykepenger og dager uten
-            rett til sykepenger vil vises. Sykdomsgrad er hva som faktisk ble benyttet av sykmeldingen basert på informasjon
-            gitt i søknaden om sykepenger. Beløpet under refusjon per dag er gradert og avkortet til seks ganger
-            grunnbeløpet.
-        </p>
+        <div class="forklaring sekundaertekst">
+            <p>Oversikten viser dager med rett til sykepenger og dager uten rett til sykepenger.</p>
+            <ul class="forklaring-liste">
+                <li>Lørdager, søndager og arbeidsgiverperioden vises ikke i oversikten.</li>
+                <li>Ferie, permisjon og annet fravær oppgitt i søknaden vises ikke i oversikten, men er tilgjengelig i søknaden om sykepenger.</li>
+                <li>Sykdomsgrad er graden som faktisk ble benyttet i perioden basert på informasjon gitt i søknaden.</li>
+                <li>Beløpet under refusjon per dag er gradert etter sykdomsgrad og avkortet hvis årsinntekt overstiger seks ganger grunnbeløpet.</li>
+            </ul>
+        </div>
 
         {{#if utbetalingKanVaereLavereEnnForventet}}
             <div class="varsel-seksjon">
@@ -268,8 +278,7 @@
                             begrenset til:
                         </p>
                         <ul class="varsel-liste">
-                            <li>Annen inntekt lagt til grunn pga. mer enn 25 % avvik fra rapportert inntekt til a-ordningen.</li>
-                            <li>Saksbehandler har overstyrt refusjonskravet.</li>
+                            <li>Annen inntekt lagt til grunn ved mer enn 25 % avvik fra rapportert inntekt til a-ordningen.</li>
                             <li>Ferie eller permisjon.</li>
                             <li>Den ansattes totale inntekt overstiger maksimalt sykepengegrunnlag (6G). Dette kan være inntekt på tvers av flere arbeidsforhold.</li>
                         </ul>
