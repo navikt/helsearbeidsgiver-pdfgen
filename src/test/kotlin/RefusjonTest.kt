@@ -36,7 +36,8 @@ class RefusjonTest {
         TestOrgnr
         Søknad om sykepenger med refusjon er behandlet
         Nav har behandlet sykepengesaken til den ansatte. Beløpet avhenger av hvor mye sykepenger den
-        ansatte har rett til, og utbetales til virksomhetens kontonummer.
+        ansatte har rett til, og utbetales til virksomhetens kontonummer. Utbetalingen skjer som hovedregel
+        innen første virkedag i ny måned.
         Gjeldende periode
         27.05.2026 → 02.07.2026
         Refusjon
@@ -50,24 +51,26 @@ class RefusjonTest {
         0 kr/måned (Fra og med: 24.06.2026)
         40 000 kr/måned (Fra og med: 29.06.2026)
         Detaljer for perioden
-        Dager Type Sykdomsgrad (etter søknad) Refusjon per dag
-        3 dager Rett til sykepenger 100% 1 846 kr
-        3 dager Rett til sykepenger 100% 3 151 kr
-        2 dager Rett til sykepenger 50% 923 kr
-        2 dager Rett til sykepenger 50% 1 576 kr
-        1 dag Rett til sykepenger 50% 1 000 kr
+        Dager Type Sykdomsgrad fra søknaden Refusjon per dag
+        3 dager Rett til sykepenger 100${'\u00A0'}% 1 846 kr
+        3 dager Rett til sykepenger 100${'\u00A0'}% 3 151 kr
+        2 dager Rett til sykepenger 50${'\u00A0'}% 923 kr
+        2 dager Rett til sykepenger 50${'\u00A0'}% 1 576 kr
+        1 dag Rett til sykepenger 50${'\u00A0'}% 1 000 kr
         1 dag Ikke rett til sykepenger – 0 kr
-        1 dag Rett til sykepenger 50% 0 kr
-        2 dager Rett til sykepenger 100% 1 200 kr
-        Lørdag, søndag og arbeidsgiverperiode vises ikke i listen over dager. Dager med rett til sykepenger og dager uten rett til
-        sykepenger vil vises. Sykdomsgrad er hva som faktisk ble benyttet av sykmeldingen basert på informasjon gitt i søknaden om
-        sykepenger. Beløpet under refusjon per dag er gradert og avkortet til seks ganger grunnbeløpet.
+        1 dag Rett til sykepenger 50${'\u00A0'}% 0 kr
+        2 dager Rett til sykepenger 100${'\u00A0'}% 1 200 kr
+        Oversikten viser dager med rett til sykepenger og dager uten rett til sykepenger.
+        Lørdager, søndager og arbeidsgiverperioden vises ikke i oversikten.
+        Ferie, permisjon og annet fravær oppgitt i søknaden vises ikke i oversikten, men er tilgjengelig i søknaden om sykepenger.
+        Sykdomsgrad er graden som faktisk ble benyttet i perioden basert på informasjon gitt i søknaden.
+        Beløpet under refusjon per dag er gradert etter sykdomsgrad og avkortet hvis årsinntekt overstiger seks ganger
+        grunnbeløpet.
         Mulige grunner til at beløpet er annet enn forventet
         Dersom refusjonsbeløpet er lavere enn forventet, kan det skyldes ulike årsaker. Nav oppgir ikke
         den konkrete årsaken til redusert refusjon. Vanlige grunner til reduksjon inkluderer, men er ikke
         begrenset til:
-        Annen inntekt lagt til grunn pga. mer enn 25 % avvik fra rapportert inntekt til a-ordningen.
-        Saksbehandler har overstyrt refusjonskravet.
+        Annen inntekt lagt til grunn ved mer enn 25 % avvik fra rapportert inntekt til a-ordningen.
         Ferie eller permisjon.
         Den ansattes totale inntekt overstiger maksimalt sykepengegrunnlag (6G). Dette kan være
         inntekt på tvers av flere arbeidsforhold.
@@ -93,7 +96,8 @@ class RefusjonTest {
         TestOrgnr
         Søknad om sykepenger med refusjon er behandlet
         Nav har behandlet sykepengesaken til den ansatte. Beløpet avhenger av hvor mye sykepenger den
-        ansatte har rett til, og utbetales til virksomhetens kontonummer.
+        ansatte har rett til, og utbetales til virksomhetens kontonummer. Utbetalingen skjer som hovedregel
+        innen første virkedag i ny måned.
         Gjeldende periode
         12.06.2026 → 26.06.2026
         Refusjon
@@ -102,12 +106,15 @@ class RefusjonTest {
         Oppgitt refusjonsbeløp i inntektsmelding
         -
         Detaljer for perioden
-        Dager Type Sykdomsgrad (etter søknad) Refusjon per dag
-        6 dager Rett til sykepenger 100% 1 500 kr
-        5 dager Rett til sykepenger 60% 900 kr
-        Lørdag, søndag og arbeidsgiverperiode vises ikke i listen over dager. Dager med rett til sykepenger og dager uten rett til
-        sykepenger vil vises. Sykdomsgrad er hva som faktisk ble benyttet av sykmeldingen basert på informasjon gitt i søknaden om
-        sykepenger. Beløpet under refusjon per dag er gradert og avkortet til seks ganger grunnbeløpet.
+        Dager Type Sykdomsgrad fra søknaden Refusjon per dag
+        6 dager Rett til sykepenger 100${'\u00A0'}% 1 500 kr
+        5 dager Rett til sykepenger 60${'\u00A0'}% 900 kr
+        Oversikten viser dager med rett til sykepenger og dager uten rett til sykepenger.
+        Lørdager, søndager og arbeidsgiverperioden vises ikke i oversikten.
+        Ferie, permisjon og annet fravær oppgitt i søknaden vises ikke i oversikten, men er tilgjengelig i søknaden om sykepenger.
+        Sykdomsgrad er graden som faktisk ble benyttet i perioden basert på informasjon gitt i søknaden.
+        Beløpet under refusjon per dag er gradert etter sykdomsgrad og avkortet hvis årsinntekt overstiger seks ganger
+        grunnbeløpet.
         """.trimIndent().trim() shouldBe
             MINIMAL_PDF_TEKST.also { println(it) }
     }
