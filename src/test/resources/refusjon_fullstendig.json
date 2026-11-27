@@ -76,5 +76,6 @@
   },
   "beloepUtbetaltTilArbeidsgiver": 23389,
   "utbetalingKanVaereLavereEnnForventet": true,
+  "erRevurdering": true,
   "arbeidstakervedtakFattetTidspunkt": "2026-07-20T12:34"
 }

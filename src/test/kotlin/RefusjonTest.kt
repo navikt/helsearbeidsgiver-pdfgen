@@ -20,11 +20,11 @@ class RefusjonTest {
         assertTrue(MINIMAL_PDF_TEKST.isNotEmpty())
     }
 
-    // Endringer i refusjonskrav, dager med og uten rett til sykepenger, entall og flertall, og varsel om lavere beløp
+    // Revurdering, endringer i refusjonskrav, dager med og uten rett til sykepenger, entall og flertall, og varsel om lavere beløp
     @Test
     fun `fullstendig refusjon PDF har forventet innhold`() {
         """
-        Refusjon av sykepenger
+        Refusjon av sykepenger Revurdering
         20.07.2026 12:34 Refusjons-ID: 6c078f5c-36ca-4c95-b377-1039f6617451
         Refusjon gjelder
         Ola Nordmann
@@ -80,7 +80,7 @@ class RefusjonTest {
             FULLSTENDIG_PDF_TEKST.also { println(it) }
     }
 
-    // Uten refusjonskrav fra inntektsmelding og uten varsel
+    // Uten revurdering, uten refusjonskrav fra inntektsmelding og uten varsel
     @Test
     fun `minimal refusjon PDF har forventet innhold`() {
         """

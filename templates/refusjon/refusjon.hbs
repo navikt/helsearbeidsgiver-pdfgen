@@ -27,6 +27,20 @@
             font-weight: 700;
         }
 
+        .revurdering-celle {
+            text-align: right;
+            vertical-align: middle;
+        }
+
+        .revurdering-merke {
+            display: inline-block;
+            background-color: #ffebc7;
+            color: #481700;
+            border: 1px solid #ca5000;
+            border-radius: 4px;
+            padding: 0 6px;
+        }
+
         /* Felles tekststørrelser: 16px for brødtekst, 13px for sekundærtekst */
         .innhold {
             font-size: 16px;
@@ -190,7 +204,14 @@
     </style>
 </head>
 <body>
-    <h1>Refusjon av sykepenger</h1>
+    <div class="table width-100">
+        <div class="row">
+            <h1 class="cell">Refusjon av sykepenger</h1>
+            <div class="cell revurdering-celle">
+                {{#if erRevurdering}}<p class="revurdering-merke">Revurdering</p>{{/if}}
+            </div>
+        </div>
+    </div>
 
     <div class="table width-100 metadata sekundaertekst">
         <div class="row">

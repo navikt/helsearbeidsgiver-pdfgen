@@ -25,5 +25,6 @@
   "refusjonskrav": null,
   "beloepUtbetaltTilArbeidsgiver": 13500,
   "utbetalingKanVaereLavereEnnForventet": false,
+  "erRevurdering": false,
   "arbeidstakervedtakFattetTidspunkt": "2026-07-20T12:34"
 }
