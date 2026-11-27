@@ -204,16 +204,14 @@
     </style>
 </head>
 <body>
-    {{#if erRevurdering}}
-        <div class="table width-100">
-            <div class="row">
-                <h1 class="cell">Refusjon av sykepenger</h1>
-                <div class="cell revurdering-celle"><p class="revurdering-merke">Revurdering</p></div>
+    <div class="table width-100">
+        <div class="row">
+            <h1 class="cell">Refusjon av sykepenger</h1>
+            <div class="cell revurdering-celle">
+                {{#if erRevurdering}}<p class="revurdering-merke">Revurdering</p>{{/if}}
             </div>
         </div>
-    {{else}}
-        <h1>Refusjon av sykepenger</h1>
-    {{/if}}
+    </div>
 
     <div class="table width-100 metadata sekundaertekst">
         <div class="row">

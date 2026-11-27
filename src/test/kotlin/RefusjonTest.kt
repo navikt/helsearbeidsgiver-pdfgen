@@ -11,9 +11,6 @@ private val FULLSTENDIG_PDF_TEKST: String =
 private val MINIMAL_PDF_TEKST: String =
     lagPdfOgHentTekst(jsonNavn = "refusjon_minimal", pdfgenRoute = REFUSJON_PDF_ROUTE)
 
-private val REVURDERING_PDF_TEKST: String =
-    lagPdfOgHentTekst(jsonNavn = "refusjon_revurdering", pdfgenRoute = REFUSJON_PDF_ROUTE)
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class RefusjonTest {
     @Test
@@ -21,14 +18,13 @@ class RefusjonTest {
     fun `kompiler PDF uten feil og lagre lokalt`() {
         assertTrue(FULLSTENDIG_PDF_TEKST.isNotEmpty())
         assertTrue(MINIMAL_PDF_TEKST.isNotEmpty())
-        assertTrue(REVURDERING_PDF_TEKST.isNotEmpty())
     }
 
-    // Endringer i refusjonskrav, dager med og uten rett til sykepenger, entall og flertall, og varsel om lavere beløp
+    // Revurdering, endringer i refusjonskrav, dager med og uten rett til sykepenger, entall og flertall, og varsel om lavere beløp
     @Test
     fun `fullstendig refusjon PDF har forventet innhold`() {
         """
-        Refusjon av sykepenger
+        Refusjon av sykepenger Revurdering
         20.07.2026 12:34 Refusjons-ID: 6c078f5c-36ca-4c95-b377-1039f6617451
         Refusjon gjelder
         Ola Nordmann
@@ -84,7 +80,7 @@ class RefusjonTest {
             FULLSTENDIG_PDF_TEKST.also { println(it) }
     }
 
-    // Uten refusjonskrav fra inntektsmelding og uten varsel
+    // Uten revurdering, refusjonskrav fra inntektsmelding og varsel
     @Test
     fun `minimal refusjon PDF har forventet innhold`() {
         """
@@ -121,44 +117,5 @@ class RefusjonTest {
         grunnbeløpet.
         """.trimIndent().trim() shouldBe
             MINIMAL_PDF_TEKST.also { println(it) }
-    }
-
-    // Revurdering av en tidligere refusjon, ellers lik minimal
-    @Test
-    fun `revurdering refusjon PDF har forventet innhold`() {
-        """
-        Refusjon av sykepenger Revurdering
-        20.07.2026 12:34 Refusjons-ID: a1b2c3d4-0000-4000-8000-000000000006
-        Refusjon gjelder
-        Ola Nordmann
-        Fødselsnummer
-        TestFnr
-        Arbeidsgiver
-        Fiktiv Bedrift AS
-        Organisasjonsnummer
-        TestOrgnr
-        Søknad om sykepenger med refusjon er behandlet
-        Nav har behandlet sykepengesaken til den ansatte. Beløpet avhenger av hvor mye sykepenger den
-        ansatte har rett til, og utbetales til virksomhetens kontonummer. Utbetalingen skjer som hovedregel
-        innen første virkedag i ny måned.
-        Gjeldende periode
-        12.06.2026 → 26.06.2026
-        Refusjon
-        13 500 kr
-        Grunnlag for refusjon
-        Oppgitt refusjonsbeløp i inntektsmelding
-        -
-        Detaljer for perioden
-        Dager Type Sykdomsgrad fra søknaden Refusjon per dag
-        6 dager Rett til sykepenger 100${'\u00A0'}% 1 500 kr
-        5 dager Rett til sykepenger 60${'\u00A0'}% 900 kr
-        Oversikten viser dager med rett til sykepenger og dager uten rett til sykepenger.
-        Lørdager, søndager og arbeidsgiverperioden vises ikke i oversikten.
-        Ferie, permisjon og annet fravær oppgitt i søknaden vises ikke i oversikten, men er tilgjengelig i søknaden om sykepenger.
-        Sykdomsgrad er graden som faktisk ble benyttet i perioden basert på informasjon gitt i søknaden.
-        Beløpet under refusjon per dag er gradert etter sykdomsgrad og avkortet hvis årsinntekt overstiger seks ganger
-        grunnbeløpet.
-        """.trimIndent().trim() shouldBe
-            REVURDERING_PDF_TEKST.also { println(it) }
     }
 }
