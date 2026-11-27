@@ -80,7 +80,7 @@ class RefusjonTest {
             FULLSTENDIG_PDF_TEKST.also { println(it) }
     }
 
-    // Uten revurdering, refusjonskrav fra inntektsmelding og varsel
+    // Uten revurdering, uten refusjonskrav fra inntektsmelding og uten varsel
     @Test
     fun `minimal refusjon PDF har forventet innhold`() {
         """
